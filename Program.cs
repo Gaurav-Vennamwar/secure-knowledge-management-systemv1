@@ -1,9 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using SecureKnowledgeMAnagementSystemv1.API.Models.Domain;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddDbContext<ApplicationDbContext>(Options =>
+{
+   Options.UseSqlServer(builder.Configuration.GetConnectionString("SKMS_KnowledgeDB"));
+}) ;
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
