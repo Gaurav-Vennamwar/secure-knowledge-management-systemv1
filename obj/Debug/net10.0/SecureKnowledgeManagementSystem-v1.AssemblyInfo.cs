@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SecureKnowledgeManagementSystem-v1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1395d14b3120c7544d9aa2aa7bbaa4d2d1e5302d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3b84f40ef100a33ed8d30ca337df88019bc3355")]
 [assembly: System.Reflection.AssemblyProductAttribute("SecureKnowledgeManagementSystem-v1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SecureKnowledgeManagementSystem-v1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
