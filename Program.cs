@@ -1,31 +1,36 @@
 using Microsoft.EntityFrameworkCore;
-using SecureKnowledgeMAnagementSystemv1.API.Models.Domain;
+using SecureKnowledgeManagementSystem_v1.Repositories.Implementation;
+using SecureKnowledgeManagementSystem_v1.Repositories.Interface;
+using SecureKnowledgeMAnagementSystemv1.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to container
 builder.Services.AddControllers();
 
-// Swagger support (.NET 8)
+// Enable Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Database connection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SKMSConnection"));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("SKMSConnection"));
 });
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 
-// Configure middleware
+// Configure HTTP pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
