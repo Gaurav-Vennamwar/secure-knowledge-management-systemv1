@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace SecureKnowledgeMAnagementSystemv1.API.Models.Domain
+namespace SecureKnowledgeManagementSystemv1.API.Data
 {
     public class ApplicationDbContext : DbContext
     {

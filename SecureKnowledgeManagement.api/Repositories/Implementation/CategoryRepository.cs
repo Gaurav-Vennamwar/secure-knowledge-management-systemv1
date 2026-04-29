@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SecureKnowledgeManagementSystemv1.API.Data;
 using SecureKnowledgeManagementSystem_v1.Repositories.Interface;
-using SecureKnowledgeMAnagementSystemv1.API.Models.Domain;
+using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 
 namespace SecureKnowledgeManagementSystem_v1.Repositories.Implementation
 {

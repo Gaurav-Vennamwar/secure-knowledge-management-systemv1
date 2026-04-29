@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SecureKnowledgeManagementSystem_v1.Repositories.Implementation;
 using SecureKnowledgeManagementSystem_v1.Repositories.Interface;
-using SecureKnowledgeMAnagementSystemv1.API.Data;
+using SecureKnowledgeManagementSystemv1.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
