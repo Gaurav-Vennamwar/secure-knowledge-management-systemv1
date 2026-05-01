@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/SecureKnowledgeManagement.api/">
+    <Project Path="SecureKnowledgeManagement.api/SecureKnowledgeManagementSystem-v1.csproj" />
+  </Folder>
+</Solution>

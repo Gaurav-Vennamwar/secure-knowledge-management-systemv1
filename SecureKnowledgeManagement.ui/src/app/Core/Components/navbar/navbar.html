@@ -1,8 +1,18 @@
-<nav class="container navbar navbar-expand-lg bg-body-tertiary">
+<nav class="container navbar navbar-expand-lg custom-navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Secure Knowledge Manangement</a>
+
+    <a class="navbar-brand brand-container" href="#">
+  <img src="assets/logo.png" class="logo-img" alt="SKMS Logo" />
+
+  <div class="brand-text-wrapper">
+    <span class="brand-title">SKMS</span>
+    <small class="brand-subtitle">
+      Secure Knowledge Management System
+    </small>
+  </div>
+</a>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler border-0 shadow-none"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNavDropdown"
@@ -12,16 +22,20 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav me-auto">
+
+      <ul class="navbar-nav me-auto align-items-lg-center gap-lg-3">
+
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link nav-hover active" aria-current="page" href="#">
+            Home
+          </a>
         </li>
 
-        <!-- @if (authService.user() && authService.user()?.roles?.includes("writer")) {
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link dropdown-toggle nav-hover"
             href="#"
             role="button"
             data-bs-toggle="dropdown"
@@ -29,23 +43,34 @@
           >
             Admin
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['admin', 'categories']">Categories</a></li>
-            <li><a class="dropdown-item" [routerLink]="['admin', 'blogposts']">Blog Posts</a></li>
+
+          <ul class="dropdown-menu dropdown-modern">
+            <li>
+              <a class="dropdown-item"
+                 [routerLink]="['admin', 'categories']">
+                 Categories
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item"
+                 [routerLink]="['admin', 'blogposts']">
+                 Blog Posts
+              </a>
+            </li>
           </ul>
         </li>
-        }
+
       </ul>
 
-      <div class="d-flex gap-4 align-items-center">
-        @if (authService.user()) {
-        <span>{{ authService.user()?.email }}</span>
+      <div class="d-flex gap-3 align-items-center">
 
-        <button type="button" class="btn btn-primary" (click)="onLogout()">Logout</button>
-        } @else {
-        <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
-        } -->
+        <a class="btn btn-modern">
+          Login
+        </a>
+
       </div>
+
     </div>
-</div>
+  </div>
 </nav>
