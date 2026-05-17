@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AddCategoryRequest } from '../Models/category.models';
 import { CategoryService } from '../Services/category-service';
-import { DefaultUrlSerializer } from '@angular/router';
+import { DefaultUrlSerializer, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-category',
@@ -13,10 +13,13 @@ import { DefaultUrlSerializer } from '@angular/router';
 })
 export class AddCategory {
 
+  private router = inject(Router);
+
   constructor(){
     effect(() => {
       if (this.categoryService.addCategoryStatus() === 'success') {
-        console.log("sucess");
+          this.categoryService.addCategoryStatus.set('idle')
+          this.router.navigate(['/admin/categories']);      
       }
       if (this.categoryService.addCategoryStatus() === 'error') {
         console.error("Adding category request failed");
