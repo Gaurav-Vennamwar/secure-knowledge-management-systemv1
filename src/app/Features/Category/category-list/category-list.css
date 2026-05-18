@@ -227,7 +227,7 @@
 .table-wrapper {
   margin-top: 28px;
   border-radius: 22px;
-  overflow: hidden;
+  overflow: visible;
   animation: fadeInTable 0.5s ease;
 }
 

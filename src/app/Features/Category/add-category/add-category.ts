@@ -19,7 +19,7 @@ export class AddCategory {
     effect(() => {
       if (this.categoryService.addCategoryStatus() === 'success') {
           this.categoryService.addCategoryStatus.set('idle')
-          this.router.navigate(['/admin/categories']);      
+          this.router.navigate(['/admin/categories']);//when su then renavigate    
       }
       if (this.categoryService.addCategoryStatus() === 'error') {
         console.error("Adding category request failed");
