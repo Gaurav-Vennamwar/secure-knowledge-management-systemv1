@@ -30,5 +30,32 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Implementation
         {
             return await dbContext.Categories.FirstOrDefaultAsync(x => x.id == id);
         }
-    }
-}
+
+        // This method updates an existing category in the database
+        public async Task<Category?> UpdateAsync(Category category)
+        {
+            // Search the database for the category
+            // whose id matches the incoming category id
+            var existingCategory = await dbContext.Categories
+                .FirstOrDefaultAsync(x => x.id == category.id);
+
+            // Check if category actually exists in database
+            if (existingCategory != null)
+            {
+                // Copy all updated values from the incoming category
+                // object into the existing tracked database entity
+                dbContext.Entry(existingCategory)
+                         .CurrentValues
+                         .SetValues(category);
+
+                // Save changes permanently into database
+                await dbContext.SaveChangesAsync();
+
+                // Return the updated category object
+                return existingCategory;
+            }
+
+            // If category was not found, return null
+            return null;
+        }
+    } }

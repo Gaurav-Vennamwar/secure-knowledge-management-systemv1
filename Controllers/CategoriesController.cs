@@ -87,9 +87,61 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
             };
             return Ok(response);
-
-
         }
+
+        // PUT : https://localhost:5251/api/categories/{id}
+
+        // This endpoint updates an existing category
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> EditCategory(
+
+            // /api/categories/123
+            [FromRoute] Guid id, UpdateCategoryRequestDto request)
+
+        // Get updated data from request 
+        {
+            // Convert DTO into Domain Model
+            // DTO = data coming from frontend
+            // Domain Model = actual database model/entity
+
+            var category = new Category
+            {
+                // Use id from URL
+                id = id,
+
+                // Updated name from frontend
+                Name = request.Name,
+
+                // Updated url handle from frontend
+                UrlHandle = request.UrlHandle
+            };
+
+            // Send updated category to repository
+            // Repository handles actual database update logic
+            category = await categoryRepository.UpdateAsync(category);
+
+            // If repository returns null
+            // means category was not found in database
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            // Convert updated Domain Model back to DTO
+            // because we should not directly expose database entities
+
+            var response = new CategoryDTO
+            {
+                id = category.id,
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
+            };
+
+            // Return updated category to frontend
+            return Ok(response);
+        }
+
+
 
 
     }
