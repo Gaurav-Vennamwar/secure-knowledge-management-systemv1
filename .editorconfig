@@ -1,3 +1,22 @@
+<<<<<<< HEAD
+# Editor configuration, see https://editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.ts]
+quote_type = single
+ij_typescript_use_double_quotes = false
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+=======
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
 
@@ -246,3 +265,4 @@ dotnet_naming_style.begins_with_i.required_prefix = I
 dotnet_naming_style.begins_with_i.required_suffix = 
 dotnet_naming_style.begins_with_i.word_separator = 
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
+>>>>>>> 979e2eed9fe76104c7f9b7d39ca88f596ea6da95

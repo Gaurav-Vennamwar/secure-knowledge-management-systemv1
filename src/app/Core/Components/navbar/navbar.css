@@ -1,0 +1,104 @@
+.custom-navbar {
+  margin-top: 18px;
+  border-radius: 16px;
+  padding: 12px 18px;
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease-in-out;
+}
+
+/* Brand gradient text */
+.brand-text {
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  background: linear-gradient(45deg, #0d6efd, #6610f2);
+
+  background-clip: text;              /* standard property */
+  -webkit-background-clip: text;      /* chrome/safari support */
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Nav hover animation */
+.nav-hover {
+  position: relative;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.nav-hover:hover {
+  color: #0d6efd !important;
+}
+
+/* Dropdown modern look */
+.dropdown-modern {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Gradient button */
+.btn-modern {
+  background: linear-gradient(45deg, #0d6efd, #6610f2);
+  border: none;
+  padding: 6px 18px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.btn-modern:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 6px 18px rgba(13,110,253,0.35);
+}
+
+/* Brand container layout */
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+/* Logo styling */
+.logo-img {
+  height: 42px;
+  width: auto;
+  border-radius: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover animation */
+.logo-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 18px rgba(102, 16, 242, 0.35);
+}
+
+/* Text wrapper */
+.brand-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+/* SKMS main title */
+.brand-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+
+  background: linear-gradient(45deg, #0d6efd, #6610f2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Subtitle styling */
+.brand-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6c757d;
+}

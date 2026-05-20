@@ -1,0 +1,75 @@
+<div class="container add-category-wrapper">
+  <div class="add-category-card app-card">
+    <!-- Header -->
+    <div class="form-header">
+      <div class="edit-badge">✨ Editing Mode</div>
+
+      <h2 class="form-title">Edit Category</h2>
+
+      <p class="form-subtitle">Update and manage your knowledge category structure</p>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="editCategoryFormGroup" (ngSubmit)="onSubmit()">
+      <div class="readonly-id-container">
+        <div class="readonly-id-header">
+          <span>System Identifier</span>
+          <span class="readonly-badge">Read Only</span>
+        </div>
+
+        <div class="readonly-id-box">
+          {{ id() }}
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="form-floating-group">
+        <label class="form-label"> Category Name </label>
+
+        <input
+          type="text"
+          class="form-control modern-input"
+          formControlName="name"
+          placeholder="Enter category name"
+        />
+
+        @if (editCategoryFormGroup.touched && nameFormContrtol.hasError('required')) {
+          <small class="validation-error"> This field is required </small>
+        }
+      </div>
+
+      <!-- Slug -->
+      <div class="form-floating-group">
+        <label class="form-label"> URL Handle (Slug) </label>
+
+        <input
+          type="text"
+          class="form-control modern-input"
+          formControlName="urlHandle"
+          placeholder="example-category-slug"
+        />
+
+        @if (
+          editCategoryFormGroup.get('urlHandle')?.touched &&
+          editCategoryFormGroup.get('urlHandle')?.invalid
+        ) {
+          <small class="validation-error">
+            Only lowercase letters, numbers, and hyphens allowed
+          </small>
+        }
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-action-area">
+        <button
+          type="submit"
+          class="btn btn-gradient-primary"
+          [disabled]="editCategoryFormGroup.valid === false"
+        >
+          <span class="btn-icon">💾</span>
+          <span>Save Changes</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

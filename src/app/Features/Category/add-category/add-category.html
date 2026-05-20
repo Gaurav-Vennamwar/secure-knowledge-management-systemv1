@@ -1,0 +1,57 @@
+<div class="container add-category-wrapper">
+
+  <div class="add-category-card app-card">
+
+    <div class="form-header">
+      <h2 class="form-title">Add Category</h2>
+      <p class="form-subtitle">
+        Create structured knowledge sections for your platform
+      </p>
+    </div>
+
+    <form [formGroup]="addcategoryFormGroup" (ngSubmit)="onSubmit()">
+
+      <div class="form-floating-group">
+        <label class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control modern-input"
+          formControlName="name"
+          placeholder="Enter category name"
+        />
+         @if (addcategoryFormGroup.touched &&
+       nameFormContrtol.hasError('required')) {
+    <small class="validation-error">
+      This is a required field
+    </small>
+}
+      </div>
+
+      <div class="form-floating-group">
+        <label class="form-label">URL Handle (Slug)</label>
+        <input
+          type="text"
+          class="form-control modern-input"
+          formControlName="urlHandle"
+          placeholder="example-category-slug"
+        />
+        @if (addcategoryFormGroup.get('urlHandle')?.touched &&
+       addcategoryFormGroup.get('urlHandle')?.invalid) {
+    <small class="validation-error">
+      Only lowercase letters, numbers, and hyphens allowed
+    </small>
+  }
+
+      </div>
+
+      <div class="form-action-area">
+        <button type="submit" class="btn btn-gradient-primary" [disabled]="addcategoryFormGroup.valid === false">
+          Save Category
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

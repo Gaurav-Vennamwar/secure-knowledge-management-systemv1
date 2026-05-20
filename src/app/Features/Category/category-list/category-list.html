@@ -1,0 +1,95 @@
+<div class="container category-wrapper">
+  <div class="category-header app-card d-flex justify-content-between align-items-center">
+    <div>
+      <h1 class="category-title">Category List</h1>
+      <p class="category-subtitle">Manage and organize your knowledge categories efficiently</p>
+    </div>
+
+    <a [routerLink]="['/admin', 'categories', 'add']" class="btn btn-modern-primary">
+      + Add Category
+    </a>
+  </div>
+  <div class="loader-wrapper">
+    @if (isLoading()) {
+      <div class="modern-loader">
+        <div class="spinner-ring"></div>
+
+        <div class="loading-content">
+          <h5 class="loading-title">Loading Categories</h5>
+          <p class="loading-subtitle">Preparing your secure workspace...</p>
+        </div>
+      </div>
+    } @else {
+      @if (isError()) {
+        <div class="error-wrapper">
+          <div class="modern-error-card">
+            <div class="error-icon">⚠️</div>
+
+            <h4 class="error-title">Something went wrong</h4>
+
+            <p class="error-subtitle">
+              We couldn’t load the requested data. Please try again in a few moments.
+            </p>
+
+            <button class="btn retry-btn">Retry</button>
+          </div>
+        </div>
+      } @else {
+        <div class="table-wrapper app-card">
+          <div class="table-header">
+            <div>
+              <h3 class="table-title">Knowledge Categories</h3>
+              <p class="table-subtitle">Manage and organize your secure knowledge structure</p>
+            </div>
+
+            <div class="table-badge">{{ value()?.length || 0 }} Categories</div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Category Name</th>
+                  <th>URL Handle</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (category of value(); track category.id) {
+                  <tr class="table-row">
+                    <td>
+                      <span class="id-badge"> #{{ category.id }} </span>
+                    </td>
+
+                    <td class="category-name">
+                      {{ category.name }}
+                    </td>
+
+                    <td>
+                      <span class="slug-pill">
+                        {{ category.urlHandle }}
+                      </span>
+                    </td>
+                    <td></td>
+                    <td>
+                      <a
+                        class="modern-edit-btn"
+                        [routerLink]="['/admin/categories/edit', category.id]"
+                      >
+                        <span class="edit-icon"> ✏️ </span>
+
+                        <span>Edit</span>
+                      </a>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
