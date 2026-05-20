@@ -1,0 +1,263 @@
+/* Wrapper */
+.add-category-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+/* Main card */
+.add-category-card {
+
+  width: 100%;
+  max-width: 560px;
+
+  border-radius: 28px;
+
+  padding: 40px;
+
+  background: rgba(255,255,255,0.82);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow:
+    0px 10px 40px rgba(0,0,0,0.05),
+    0px 0px 0px 1px rgba(255,255,255,0.35);
+
+  animation: cardEntry 0.6s ease;
+}
+
+/* Header */
+.form-header {
+  margin-bottom: 30px;
+}
+
+/* Edit badge */
+.edit-badge {
+
+  display: inline-block;
+
+  margin-bottom: 14px;
+
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(102,16,242,0.10);
+
+  color: #6610f2;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+}
+
+/* Title */
+.form-title {
+
+  font-size: 34px;
+  font-weight: 800;
+
+  margin-bottom: 8px;
+
+  background: linear-gradient(45deg, #0d6efd, #6610f2);
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+}
+
+/* Subtitle */
+.form-subtitle {
+  color: #6c757d;
+  font-size: 15px;
+}
+
+/* Input spacing */
+.form-floating-group {
+  margin-bottom: 22px;
+}
+
+/* Labels */
+.form-label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #343a40;
+}
+
+/* Inputs */
+.modern-input {
+
+  height: 54px;
+
+  border-radius: 14px;
+
+  border: 1px solid #e9ecef;
+
+  padding: 0px 16px;
+
+  font-size: 15px;
+
+  transition: all 0.25s ease;
+
+  background: rgba(255,255,255,0.88);
+}
+
+/* Focus */
+.modern-input:focus {
+
+  border-color: #6610f2;
+
+  box-shadow:
+    0px 0px 0px 4px rgba(102,16,242,0.12);
+
+  transform: translateY(-1px);
+}
+
+/* Validation */
+.validation-error {
+
+  color: #dc3545;
+
+  font-size: 12px;
+
+  margin-top: 6px;
+
+  display: block;
+}
+
+/* Buttons */
+.form-action-area {
+  margin-top: 30px;
+}
+
+/* Gradient button */
+.btn-gradient-primary {
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 24px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: linear-gradient(45deg, #0d6efd, #6610f2);
+
+  color: white;
+
+  font-weight: 700;
+
+  box-shadow: 0px 10px 24px rgba(102,16,242,0.25);
+
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.btn-gradient-primary:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow: 0px 14px 30px rgba(102,16,242,0.35);
+}
+
+/* Click */
+.btn-gradient-primary:active {
+  transform: scale(0.97);
+}
+
+/* Disabled */
+.btn-gradient-primary:disabled {
+
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none !important;
+}
+
+/* Button icon */
+.btn-icon {
+  font-size: 14px;
+}
+
+/* Animation */
+@keyframes cardEntry {
+
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Readonly section */
+.readonly-id-container {
+  margin-bottom: 24px;
+}
+
+/* Top row */
+.readonly-id-header {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+/* Label */
+.readonly-id-header span:first-child {
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #495057;
+}
+
+/* Readonly badge */
+.readonly-badge {
+
+  background: rgba(13,110,253,0.10);
+
+  color: #0d6efd;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.3px;
+}
+
+/* ID display */
+.readonly-id-box {
+
+  padding: 14px 18px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(13,110,253,0.05),
+      rgba(102,16,242,0.08)
+    );
+
+  border: 1px solid rgba(102,16,242,0.10);
+
+  color: #495057;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  word-break: break-all;
+}

@@ -52,6 +52,7 @@
                   <th>ID</th>
                   <th>Category Name</th>
                   <th>URL Handle</th>
+                  <th></th>
                 </tr>
               </thead>
 
@@ -70,6 +71,17 @@
                       <span class="slug-pill">
                         {{ category.urlHandle }}
                       </span>
+                    </td>
+                    <td></td>
+                    <td>
+                      <a
+                        class="modern-edit-btn"
+                        [routerLink]="['/admin/categories/edit', category.id]"
+                      >
+                        <span class="edit-icon"> ✏️ </span>
+
+                        <span>Edit</span>
+                      </a>
                     </td>
                   </tr>
                 }
