@@ -1,5 +1,6 @@
 # secure-knowledge-management-systemv1
 A full-stack role-based Knowledge Management System built with Angular and ASP.NET Core Web API featuring JWT authentication, refresh tokens, repository pattern architecture, image upload, pagination, global exception middleware, and microservices-ready modular backend with Docker containerization support.
+<<<<<<< HEAD
 # SecureKnowledgeManagementV1
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
@@ -59,3 +60,5 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+>>>>>>> 979e2eed9fe76104c7f9b7d39ca88f596ea6da95
