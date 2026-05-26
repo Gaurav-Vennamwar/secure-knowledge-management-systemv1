@@ -23,6 +23,7 @@
     <form
       [formGroup]="addBlogPostForm"
       class="editor-form"
+      (ngSubmit)="onSubmit()"
     >
 
       <!-- Title -->
