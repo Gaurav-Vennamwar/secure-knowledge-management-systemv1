@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SecureKnowledgeManagementSystemv1.API.Data;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
@@ -12,6 +12,7 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Implementation
         {
             this.dbContext = dbContext;
         }
+        //creates new category
         public async Task<Category> CreateAsync(Category category)
         {
             await dbContext.Categories.AddAsync(category);
@@ -21,6 +22,19 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Implementation
 
         }
 
+        public async Task<Category?> DeleteAsync(Guid id)
+        {
+            var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.id == id);
+            if (existingCategory is null)
+            {
+                return null;
+            }
+            dbContext.Categories.Remove(existingCategory);
+            await dbContext.SaveChangesAsync();
+            return existingCategory;
+        }
+
+        //gets all categegory
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
             return await dbContext.Categories.ToListAsync();

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.API.Data;
@@ -142,7 +142,24 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         }
 
 
+        // DELETE : https://localhost:5251/api/categories/{id}
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        {
+            var category = await categoryRepository.DeleteAsync(id);
+            if (category == null) {
+                return NotFound();
+            }
+            //then succes
+            //convert domain model back to dto
+            var reponse = new CategoryDTO
+            {
+                id = category.id,
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
+            };
+            return Ok(reponse);
 
-
+        }
     }
 }

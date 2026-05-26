@@ -1,4 +1,4 @@
-﻿using SecureKnowledgeManagementSystemv1.API.Models.Domain;
+using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 
 namespace SecureKnowledgeManagementSystemv1.Repositories.Interface
 {
@@ -10,6 +10,8 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Interface
 
         Task<Category?> GetById(Guid id);
         Task<Category?> UpdateAsync(Category category);
+        Task<Category?> DeleteAsync(Guid id);
+
 
     }
 }
