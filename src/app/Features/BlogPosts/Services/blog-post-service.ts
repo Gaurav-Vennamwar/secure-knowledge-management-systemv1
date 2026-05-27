@@ -1,18 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { AddBlogPostRequest, BlogPost } from '../Models/blogpost.model';
-import { Observable } from 'rxjs';
+  import { HttpClient } from '@angular/common/http';
+  import { inject, Injectable } from '@angular/core';
+  import { environment } from '../../../../environments/environment';
+  import { AddBlogPostRequest, BlogPost } from '../Models/blogpost.model';
+  import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class BlogPostService {
-  http = inject(HttpClient);
-  apiBaseUrl = environment.apiBaseUrl;
+  @Injectable({
+    providedIn: 'root',
+  })
+  export class BlogPostService {
+    http = inject(HttpClient);
+    apiBaseUrl = environment.apiBaseUrl;
 
-  //service method to craete a blog post
-  createBlogPost(data : AddBlogPostRequest) : Observable<BlogPost>{
-    return this.http.post<BlogPost>(`${this.apiBaseUrl}/api/blogposts`, data);
+    //service method to craete a blog post
+    createBlogPost(data : AddBlogPostRequest) : Observable<BlogPost>{
+      return this.http.post<BlogPost>(`${this.apiBaseUrl}/api/blogpost`, data);
+    }
   }
-}

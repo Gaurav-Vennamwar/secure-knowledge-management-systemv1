@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BlogPostService } from '../Services/blog-post-service';
+import { AddBlogPostRequest } from '../Models/blogpost.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-blogpost',
@@ -8,6 +11,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './add-blogpost.css',
 })
 export class AddBlogpost {
+  blogPostService = inject(BlogPostService);
+  router = inject(Router);
+
   addBlogPostForm = new FormGroup({
     tittle: new FormControl<string>('', {
       nonNullable: true,
@@ -42,7 +48,41 @@ export class AddBlogpost {
     }),
   });
   onSubmit(){
+    console.log("SUBMIT CLICKED");
+
+    if (!this.addBlogPostForm.valid) {
+    console.log(this.addBlogPostForm);
+    return;
+  }
     const formRawValue = this.addBlogPostForm.getRawValue();
-    console.log(formRawValue);
+
+    const requestDto : AddBlogPostRequest = {
+      tittle : formRawValue.tittle,
+      shortDescription : formRawValue.shortDescription,
+      content : formRawValue.content,
+      author : formRawValue.author,
+      featuredImageUrl : String(formRawValue.featuredImageUrl),
+      isVisible : formRawValue.isVisible,
+      urlHandle : formRawValue.urlHandle,
+     publishedDate : formRawValue.publishedDate
+
+    }
+console.log(JSON.stringify(requestDto));
+    this.blogPostService.createBlogPost(requestDto).
+    subscribe({
+      next : (response) => {
+        console.log("SUCCESS");
+        console.log(response);
+          console.log(response);
+
+          //navigate back to blog post list page
+          this.router.navigate(['/admin/blogposts']);
+      },
+      error : (err) => {
+        console.log(err);
+  console.log(err.error);
+      }
+    });
+    
   }
 }

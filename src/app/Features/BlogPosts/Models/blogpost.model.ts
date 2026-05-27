@@ -5,7 +5,7 @@ export interface AddBlogPostRequest{
     featuredImageUrl: string;
     urlHandle: string;
     author: string;
-    publishedDate: Date;
+    publishedDate: string;
     isVisible: boolean;
 }
 export interface BlogPost{
@@ -16,6 +16,6 @@ export interface BlogPost{
     featuredImageUrl: string;
     urlHandle: string;
     author: string;
-    publishedDate: Date;
+    publishedDate: string;
     isVisible: boolean;
 }
