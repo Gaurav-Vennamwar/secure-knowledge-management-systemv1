@@ -55,21 +55,15 @@
           <div>
             <h3 class="editor-title">Markdown Editor</h3>
 
-
             <p class="editor-subtitle">Write and preview your blog content in real time</p>
           </div>
 
-        <div class ="d-flex flex-row">
-          <div class="col-6 p-2">
-
+          <div class="d-flex flex-row">
+            <div class="col-6 p-2"></div>
+            <div class="col-6 p-2"></div>
           </div>
-          <div class="col-6 p-2"></div>
-        </div>
 
-        <label class="editor-label">
-          Blog Content
-        </label>
-
+          <label class="editor-label"> Blog Content </label>
 
           <div class="live-badge">● Live Preview</div>
         </div>
@@ -125,18 +119,47 @@
         </div>
       </div>
 
-      <!-- Image -->
+      <!-- Featured Image -->
       <div class="editor-group">
-        <label class="editor-label"> Featured Image URL </label>
+        <div class="image-section-header">
+          <div>
+            <h3 class="image-title">Featured Cover Image</h3>
 
-        <input
-          type="text"
-          class="form-control editor-input"
-          formControlName="featuredImageUrl"
-          placeholder="Paste image URL..."
-        />
+            <p class="image-subtitle">Add a stunning visual banner for your blog post</p>
+          </div>
+
+          <div class="image-badge">✨ Live Preview</div>
+        </div>
+
+        <!-- Preview -->
+        @if (addBlogPostForm.controls.featuredImageUrl.getRawValue()) {
+          <div class="image-preview-card">
+            <img
+              class="featured-preview-image"
+              [src]="addBlogPostForm.controls.featuredImageUrl.getRawValue()"
+              alt="Preview Image"
+            />
+
+            <div class="image-overlay">
+              <div class="overlay-content">
+                <span class="overlay-badge"> COVER IMAGE </span>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Input -->
+        <div class="image-input-wrapper">
+          <div class="image-input-icon">🌄</div>
+
+          <input
+            type="text"
+            class="form-control image-input"
+            formControlName="featuredImageUrl"
+            placeholder="Paste your image URL here..."
+          />
+        </div>
       </div>
-
       <!-- Row -->
       <div class="editor-row">
         <!-- Date -->
