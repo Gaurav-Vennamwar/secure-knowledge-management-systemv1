@@ -53,9 +53,9 @@ export class EditCategory {
 
   //to fetch the changes effects are helpfull cuz they react to the changes which we have
   effectRef = effect(() => {
-    this.editCategoryFormGroup.controls.name.patchValue(this.categoryResponse()?.name ?? '');
+    this.editCategoryFormGroup.controls.name.patchValue(this.categoryResponse()?.Name ?? '');
     this.editCategoryFormGroup.controls.urlHandle.patchValue(
-      this.categoryResponse()?.urlHandle ?? '',
+      this.categoryResponse()?.UrlHandle ?? '',
     );
   });
 
@@ -73,8 +73,8 @@ export class EditCategory {
 
     // Create DTO
     const updateCategoryRequestDto: UpdateCategoryRequest = {
-      name: formRawValue.name,
-      urlHandle: formRawValue.urlHandle,
+      Name: formRawValue.name,
+      UrlHandle: formRawValue.urlHandle,
     };
 
     // Call service
