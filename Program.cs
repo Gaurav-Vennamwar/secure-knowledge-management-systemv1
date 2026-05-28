@@ -28,7 +28,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+<<<<<<< HEAD
 
+=======
+>>>>>>> a8d6ad7ffdb824d657540e0ae0fb7126db9e8b5f
 var app = builder.Build();
 
 // Configure HTTP pipeline

@@ -1,0 +1,119 @@
+<div class="container blog-list-wrapper">
+  <!-- Header -->
+  <div class="blog-list-header app-card">
+    <div>
+      <div class="dashboard-badge">✨ Content Management</div>
+
+      <h1 class="dashboard-title">Blog Post Management</h1>
+
+      <p class="dashboard-subtitle">Manage, publish and organize your secure knowledge articles</p>
+    </div>
+
+    <a class="btn-add-post" [routerLink]="['/admin/blogposts/add']">
+      <span>➕</span>
+      <span>Add Blog Post</span>
+    </a>
+  </div>
+
+  <!-- Content -->
+  <div class="mt-4">
+    <!-- Loading -->
+    @if (isLoading()) {
+      <div class="modern-loader-container">
+        <div class="modern-spinner"></div>
+
+        <h5 class="loader-title">Loading Blog Posts</h5>
+
+        <p class="loader-subtitle">Preparing your publishing workspace...</p>
+      </div>
+    }
+
+    <!-- Error -->
+    @else {
+      @if (error()) {
+        <div class="modern-error-card">
+          <div class="error-icon">⚠️</div>
+
+          <h4>Failed to load blog posts</h4>
+
+          <p>Something went wrong while loading the publishing dashboard.</p>
+        </div>
+      }
+
+      <!-- Table -->
+      @else {
+        <div class="blog-table-card app-card">
+          <div class="table-topbar">
+            <div>
+              <h3 class="table-heading">Published Articles</h3>
+
+              <p class="table-subheading">
+                Total Posts:
+                {{ response()?.length || 0 }}
+              </p>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="modern-blog-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Author</th>
+                  <th>Published</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (blogPost of response(); track blogPost.id) {
+                  <tr class="blog-row">
+                    <!-- Title -->
+                    <td>
+                      <div class="blog-title-cell">
+                        <div class="blog-dot"></div>
+
+                        <div>
+                          <div class="blog-main-title">
+                            {{ blogPost.Tittle }}
+                          </div>
+
+                          <small class="blog-meta"> Blog Article </small>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- Description -->
+                    <td class="description-cell">
+                      {{ blogPost.ShortDescription }}
+                    </td>
+
+                    <!-- Author -->
+                    <td>
+                      <div class="author-pill">✍ {{ blogPost.Author }}</div>
+                    </td>
+
+                    <!-- Date -->
+                    <td class="date-cell">
+                      {{ blogPost.PublishedDate }}
+                    </td>
+
+                    <!-- Visibility -->
+                    <td>
+                      @if (blogPost.IsVisible) {
+                        <span class="status-pill visible-pill"> • Visible </span>
+                      } @else {
+                        <span class="status-pill hidden-pill"> • Hidden </span>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
