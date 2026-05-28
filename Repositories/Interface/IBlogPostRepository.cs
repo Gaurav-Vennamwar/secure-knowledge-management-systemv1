@@ -5,5 +5,6 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Interface
     public interface IBlogPostRepository
     {
         Task<BlogPost> CreateAsync(BlogPost blogPost);
+        Task<IEnumerable<BlogPost>> GetAllAync();
     }
 }

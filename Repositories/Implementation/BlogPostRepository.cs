@@ -12,11 +12,20 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
         {
             this.dbContext = dbContext;
         }
+        //method to create a blog post
         public async Task<BlogPost> CreateAsync(BlogPost blogPost)
         {
             await dbContext.BlogPosts.AddAsync(blogPost);
             await dbContext.SaveChangesAsync();
             return blogPost;
         }
+
+        //method to get all blog posts
+        public async Task<IEnumerable<BlogPost>> GetAllAync()
+        {
+            return await dbContext.BlogPosts.ToListAsync();
+        }
+
+
     }
 }

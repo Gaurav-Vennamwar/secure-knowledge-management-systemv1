@@ -9,7 +9,11 @@ using SecureKnowledgeManagementSystemv1.API.Repositories.Implementation;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to container
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
 // Enable Swagger
 builder.Services.AddEndpointsApiExplorer();

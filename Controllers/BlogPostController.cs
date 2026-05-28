@@ -1,3 +1,4 @@
+using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
@@ -26,11 +27,11 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 Author = request.Author,
                 PublishedDate = request.PublishedDate,
-                content = request.content,
+                Content = request.Content,
                 ShortDescription = request.ShortDescription,
-                FeaturedInageUrl = request.FeaturedInageUrl,
+                FeaturedImageUrl = request.FeaturedImageUrl,
                 IsVisible = request.IsVisible,
-                tittle = request.tittle,
+                Tittle = request.Tittle,
                 UrlHandle = request.UrlHandle,
             };
 
@@ -40,18 +41,45 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             var response = new BlogPostDTO
             {
                 id = blogPost.id,
-                Author = request.Author,
+                Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
-                content= request.content,
-                ShortDescription= request.ShortDescription,
-                FeaturedInageUrl= request.FeaturedInageUrl,
-                IsVisible= request.IsVisible,
-                tittle= request.tittle,
-                UrlHandle= request.UrlHandle,
+                Content= blogPost.Content,
+                ShortDescription= blogPost.ShortDescription,
+                FeaturedImageUrl= blogPost.FeaturedImageUrl,
+                IsVisible= blogPost.IsVisible,
+                Tittle= blogPost.Tittle,
+                UrlHandle= blogPost.UrlHandle,
             };
             return Ok(response);
 
 
         }
+
+        //GET : {apiBaseUrl}/api/blogposts
+        [HttpGet]
+        public async Task<IActionResult> GetAllBlogPost()
+        {
+            var blogPosts = await blogPostRepository.GetAllAync();
+
+            //convert domain model to dto
+            var response = new List<BlogPostDTO>();
+            foreach (var blogPost in blogPosts)
+            {
+                response.Add(new BlogPostDTO
+                {
+                    id = blogPost.id,
+                    Author = blogPost.Author,
+                    PublishedDate = blogPost.PublishedDate,
+                    Content = blogPost.Content,
+                    ShortDescription = blogPost.ShortDescription,
+                    FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                    IsVisible = blogPost.IsVisible,
+                    Tittle = blogPost.Tittle,
+                    UrlHandle = blogPost.UrlHandle,
+                });
+            }
+            return Ok(response);
+        }
+
     }
 }

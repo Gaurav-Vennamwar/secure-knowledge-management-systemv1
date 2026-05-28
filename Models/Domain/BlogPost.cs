@@ -3,12 +3,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Models.Domain {
 public class BlogPost
     {
         public Guid id {get; set; }
-        public string? tittle {get; set; }
+        public string? Tittle {get; set; }
         public string? ShortDescription {get; set; }
 
-        public string? content {get; set; }
+        public string? Content {get; set; }
 
-        public string? FeaturedInageUrl {get; set; }
+        public string? FeaturedImageUrl {get; set; }
 
         public string? UrlHandle {get; set; }
 
