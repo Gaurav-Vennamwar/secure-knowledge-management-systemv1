@@ -15,5 +15,5 @@ namespace SecureKnowledgeManagementSystemv1.API.Models.DTO
 
         public string? Author { get; set; }
         public bool IsVisible { get; set; }
-    }
-}
+        public Guid[] Categories { get; set; } = Array.Empty<Guid>();   
+    } }
