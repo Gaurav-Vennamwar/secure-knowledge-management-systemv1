@@ -98,6 +98,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     IsVisible = blogPost.IsVisible,
                     Tittle = blogPost.Tittle,
                     UrlHandle = blogPost.UrlHandle,
+                    Categories = blogPost.Categories.Select(x => new CategoryDTO
+                    {
+                        id = x.id,
+                        Name = x.Name,
+                        UrlHandle = x.UrlHandle,
+                    }).ToList()
                 });
             }
             return Ok(response);

@@ -23,7 +23,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
         //method to get all blog posts
         public async Task<IEnumerable<BlogPost>> GetAllAync()
         {
-            return await dbContext.BlogPosts.ToListAsync();
+            return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
         }
 
 

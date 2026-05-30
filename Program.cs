@@ -1,10 +1,11 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using SecureKnowledgeManagementSystemv1.API.Data;
+using SecureKnowledgeManagementSystemv1.API.Repositories.Implementation;
+using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.Repositories.Implementation;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
-using SecureKnowledgeManagementSystemv1.API.Data;
-using Microsoft.Extensions.Options;
-using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
-using SecureKnowledgeManagementSystemv1.API.Repositories.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 
 // Enable Swagger
