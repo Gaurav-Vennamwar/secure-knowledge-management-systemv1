@@ -1,0 +1,29 @@
+[33m8a0b2c1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: commit: fixed merge conflicts
+[33m938d94a[m HEAD@{1}: pull origin main --rebase: Fast-forward
+[33m5690640[m HEAD@{2}: rebase (abort): returning to refs/heads/main
+[33m5690640[m HEAD@{3}: rebase (abort): returning to refs/heads/main
+[33m7ea43b9[m HEAD@{4}: commit: added live markdown preview to the content box and also added prism code syntax highlight for technical blogs
+[33ma8d6ad7[m HEAD@{5}: commit: created the get all blog posts ui
+[33m5690640[m HEAD@{6}: checkout: moving from 00f7b93d908b3ccd986856e6d27c67684e26c4a0 to main
+[33m00f7b93[m HEAD@{7}: pull origin main --rebase (pick): Created Blog Post Service
+[33m2209ba0[m HEAD@{8}: pull origin main --rebase (start): checkout 2209ba022fbfd09da3409257fe574486ce9cdeca
+[33m5690640[m HEAD@{9}: commit: Created form submission to create blog post
+[33mf20cee9[m HEAD@{10}: commit: Created Blog Post Service
+[33m0640449[m HEAD@{11}: commit: Added a submit button to add blog posts
+[33me6f5efa[m HEAD@{12}: commit: Created Add BlogPost ui
+[33mf9ddfab[m HEAD@{13}: commit: added delete option to delete categories
+[33m3e79072[m HEAD@{14}: commit (merge): Resolved merge conflicts
+[33m859963b[m HEAD@{15}: rebase (abort): returning to refs/heads/main
+[33m979e2ee[m HEAD@{16}: pull origin main --rebase (start): checkout 979e2eed9fe76104c7f9b7d39ca88f596ea6da95
+[33m859963b[m HEAD@{17}: commit: created the functional edit category feature
+[33m4677080[m HEAD@{18}: commit: created the environment file
+[33m92b000b[m HEAD@{19}: commit: :gave the table style and added to renavigate after add category set status to idle again
+[33mca4a40c[m HEAD@{20}: commit: added the category table which will fetch all the data from data base
+[33m4ab2519[m HEAD@{21}: commit: created method in services to post and get all categories
+[33mc028995[m HEAD@{22}: reset: moving to HEAD
+[33mc028995[m HEAD@{23}: commit: added category services
+[33m215c8fe[m HEAD@{24}: rebase (finish): returning to refs/heads/main
+[33m215c8fe[m HEAD@{25}: commit: updated ui
+[33m11ac6ee[m HEAD@{26}: pull origin main --rebase (start): checkout 11ac6ee965c168692c2ee87e8842164c23bea5e0
+[33m9006645[m HEAD@{27}: Branch: renamed refs/heads/master to refs/heads/main
+[33m9006645[m HEAD@{29}: commit (initial): customized navbar and category list component

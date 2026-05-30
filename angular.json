@@ -27,8 +27,28 @@
               "src/assets"
             ],
 
-            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css", "src/styles.css"],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.js"]
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+
+              "prism-themes/themes/prism-night-owl.css",
+
+              "src/styles.css"
+            ],
+
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+
+              "node_modules/prismjs/prism.js",
+
+              "node_modules/prismjs/components/prism-csharp.min.js",
+              "node_modules/prismjs/components/prism-javascript.min.js",
+              "node_modules/prismjs/components/prism-typescript.min.js",
+              "node_modules/prismjs/components/prism-css.min.js",
+              "node_modules/prismjs/components/prism-sql.min.js",
+              "node_modules/prismjs/components/prism-json.min.js",
+              "node_modules/prismjs/components/prism-markup.min.js",
+              "node_modules/prismjs/components/prism-bash.min.js"
+            ]
           },
           "configurations": {
             "production": {

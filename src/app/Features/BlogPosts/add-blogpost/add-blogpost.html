@@ -1,37 +1,21 @@
 <div class="container blog-editor-wrapper">
-
   <div class="blog-editor-card app-card">
-
     <!-- Header -->
     <div class="editor-header">
+      <div class="editor-badge">🚀 Publishing Studio</div>
 
-      <div class="editor-badge">
-        🚀 Publishing Studio
-      </div>
-
-      <h1 class="editor-title">
-        Create Blog Post
-      </h1>
+      <h1 class="editor-title">Create Blog Post</h1>
 
       <p class="editor-subtitle">
         Share secure knowledge with your audience through powerful content publishing
       </p>
-
     </div>
 
     <!-- Form -->
-    <form
-      [formGroup]="addBlogPostForm"
-      class="editor-form"
-      (ngSubmit)="onSubmit()"
-    >
-
+    <form [formGroup]="addBlogPostForm" class="editor-form" (ngSubmit)="onSubmit()">
       <!-- Title -->
       <div class="editor-group">
-
-        <label class="editor-label">
-          Blog Title
-        </label>
+        <label class="editor-label"> Blog Title </label>
 
         <input
           type="text"
@@ -39,15 +23,11 @@
           formControlName="tittle"
           placeholder="Enter blog title..."
         />
-
       </div>
 
       <!-- Short Description -->
       <div class="editor-group">
-
-        <label class="editor-label">
-          Short Description
-        </label>
+        <label class="editor-label"> Short Description </label>
 
         <input
           type="text"
@@ -55,15 +35,11 @@
           formControlName="shortDescription"
           placeholder="Briefly describe your article..."
         />
-
       </div>
 
       <!-- URL -->
       <div class="editor-group">
-
-        <label class="editor-label">
-          URL Handle
-        </label>
+        <label class="editor-label"> URL Handle </label>
 
         <input
           type="text"
@@ -71,65 +47,131 @@
           formControlName="urlHandle"
           placeholder="your-blog-url"
         />
-
       </div>
 
-      <!-- Content -->
+      <!-- Content Editor -->
       <div class="editor-group">
+        <div class="editor-header">
+          <div>
+            <h3 class="editor-title">Markdown Editor</h3>
 
-        <label class="editor-label">
-          Blog Content
-        </label>
+            <p class="editor-subtitle">Write and preview your blog content in real time</p>
+          </div>
 
-        <textarea
-          class="form-control editor-textarea"
-          formControlName="content"
-          rows="10"
-          placeholder="Write your amazing content here..."
-        ></textarea>
+          <div class="d-flex flex-row">
+            <div class="col-6 p-2"></div>
+            <div class="col-6 p-2"></div>
+          </div>
 
+          <label class="editor-label"> Blog Content </label>
+
+          <div class="live-badge">● Live Preview</div>
+        </div>
+
+        <div class="row editor-layout">
+          <!-- LEFT : Editor -->
+          <div class="col-lg-6 p-2">
+            <div class="editor-card">
+              <label class="editor-label"> Blog Content </label>
+
+              <textarea
+                class="form-control editor-textarea"
+                formControlName="content"
+                rows="16"
+                placeholder="# Write your amazing blog here...
+
+## Example Heading
+
+- Modern UI
+- Angular 20
+- .NET Backend
+"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- RIGHT : Preview -->
+          <div class="col-lg-6 p-2">
+            <div class="preview-card">
+              <!-- TOP BAR -->
+              <div class="preview-topbar">
+                <div class="topbar-left">
+                  <span class="preview-dot red"></span>
+                  <span class="preview-dot yellow"></span>
+                  <span class="preview-dot green"></span>
+                </div>
+
+                <div class="preview-heading">README.md</div>
+
+                <div class="preview-live">● LIVE</div>
+              </div>
+
+              <!-- PREVIEW BODY -->
+              <div class="markdown-preview">
+                <markdown
+                  class="markdown-body"
+                  [data]="addBlogPostForm.controls.content.getRawValue()"
+                >
+                </markdown>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Image -->
+      <!-- Featured Image -->
       <div class="editor-group">
+        <div class="image-section-header">
+          <div>
+            <h3 class="image-title">Featured Cover Image</h3>
 
-        <label class="editor-label">
-          Featured Image URL
-        </label>
+            <p class="image-subtitle">Add a stunning visual banner for your blog post</p>
+          </div>
 
-        <input
-          type="text"
-          class="form-control editor-input"
-          formControlName="featuredImageUrl"
-          placeholder="Paste image URL..."
-        />
+          <div class="image-badge">✨ Live Preview</div>
+        </div>
 
-      </div>
+        <!-- Preview -->
+        @if (addBlogPostForm.controls.featuredImageUrl.getRawValue()) {
+          <div class="image-preview-card">
+            <img
+              class="featured-preview-image"
+              [src]="addBlogPostForm.controls.featuredImageUrl.getRawValue()"
+              alt="Preview Image"
+            />
 
-      <!-- Row -->
-      <div class="editor-row">
+            <div class="image-overlay">
+              <div class="overlay-content">
+                <span class="overlay-badge"> COVER IMAGE </span>
+              </div>
+            </div>
+          </div>
+        }
 
-        <!-- Date -->
-        <div class="editor-group flex-fill">
-
-          <label class="editor-label">
-            Published Date
-          </label>
+        <!-- Input -->
+        <div class="image-input-wrapper">
+          <div class="image-input-icon">🌄</div>
 
           <input
-            type="date"
-            class="form-control editor-input"
-            formControlName="publishedDate"
+            type="text"
+            class="form-control image-input"
+            formControlName="featuredImageUrl"
+            placeholder="Paste your image URL here..."
           />
+        </div>
+      </div>
+      <!-- Row -->
+      <div class="editor-row">
+        <!-- Date -->
+        <div class="editor-group flex-fill">
+          <label class="editor-label"> Published Date </label>
 
+          <input type="date" class="form-control editor-input" formControlName="publishedDate" />
         </div>
 
         <!-- Author -->
         <div class="editor-group flex-fill">
-
-          <label class="editor-label">
-            Author
-          </label>
+          <label class="editor-label"> Author </label>
 
           <input
             type="text"
@@ -137,56 +179,31 @@
             formControlName="author"
             placeholder="Author name"
           />
-
         </div>
-
       </div>
 
       <!-- Visibility -->
       <div class="visibility-toggle">
-
         <div>
+          <h6 class="visibility-title">Visibility</h6>
 
-          <h6 class="visibility-title">
-            Visibility
-          </h6>
-
-          <p class="visibility-subtitle">
-            Control whether this blog post is publicly visible
-          </p>
-
+          <p class="visibility-subtitle">Control whether this blog post is publicly visible</p>
         </div>
 
         <label class="modern-switch">
-
-          <input
-            type="checkbox"
-            formControlName="isVisible"
-          />
+          <input type="checkbox" formControlName="isVisible" />
 
           <span class="slider"></span>
-
         </label>
-
       </div>
 
       <!-- Actions -->
       <div class="editor-actions">
-
-        <button
-          class="btn-publish"
-          type="submit"
-        >
-
+        <button class="btn-publish" type="submit">
           <span>🚀</span>
           <span>Publish Post</span>
-
         </button>
-
       </div>
-
     </form>
-
   </div>
-
 </div>

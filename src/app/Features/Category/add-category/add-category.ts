@@ -48,8 +48,9 @@ export class AddCategory {
     const addCategoryFormValue = this.addcategoryFormGroup.getRawValue();
 
     const addCategoryRequestDto : AddCategoryRequest = {
-      name: addCategoryFormValue.name,
-      urlHandle : addCategoryFormValue.urlHandle
+      
+      Name: addCategoryFormValue.name,
+      UrlHandle : addCategoryFormValue.urlHandle
     };
 
     this.categoryService.addCategory(addCategoryRequestDto);
