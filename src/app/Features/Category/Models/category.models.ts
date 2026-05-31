@@ -8,7 +8,7 @@ export interface UpdateCategoryRequest {
   UrlHandle: string;
 }
 export interface Category {
-  id: string;
+  Id: string;
   Name: string;
   UrlHandle: string;
 }

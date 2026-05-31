@@ -63,11 +63,12 @@
                   <th>Author</th>
                   <th>Status</th>
                   <th>Categories</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
-                @for (blogPost of response(); track blogPost.id) {
+                @for (blogPost of response(); track blogPost.Id) {
                   <tr class="blog-row">
                     <!-- Title -->
                     <td>
@@ -105,7 +106,7 @@
                    
                     <td>
                       <div class="category-cloud">
-                        @for (category of blogPost.Categories; track category.id) {
+                        @for (category of blogPost.Categories; track category.Id) {
                           <div class="category-pill">
                             <div class="pill-glow"></div>
 
@@ -118,11 +119,14 @@
                         }
                       </div>
                     </td>
+                    <td>
+                      <a class="btn btn-light" [routerLink]="['/admin/blogposts/edit' , blogPost.Id]">Edit</a>
+                    </td>
                   </tr>
                 }
               </tbody>
             </table>
-          </div>
+          </div>  
         </div>
       }
     }

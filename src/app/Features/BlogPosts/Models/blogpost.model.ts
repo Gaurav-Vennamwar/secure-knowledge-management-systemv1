@@ -12,7 +12,7 @@ export interface AddBlogPostRequest{
     categories : string[];
 }
 export interface BlogPost{
-    id : string;
+    Id : string;
     Tittle: string;
     ShortDescription : string;
     Content : string;

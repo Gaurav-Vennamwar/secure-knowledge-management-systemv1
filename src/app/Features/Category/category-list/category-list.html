@@ -57,10 +57,10 @@
               </thead>
 
               <tbody>
-                @for (category of value(); track category.id) {
+                @for (category of value(); track category.Id) {
                   <tr class="table-row">
                     <td>
-                      <span class="id-badge"> #{{ category.id }} </span>
+                      <span class="id-badge"> #{{ category.Id }} </span>
                     </td>
 
                     <td class="category-name">
@@ -76,7 +76,7 @@
                     <td>
                       <a
                         class="modern-edit-btn"
-                        [routerLink]="['/admin/categories/edit', category.id]"
+                        [routerLink]="['/admin/categories/edit', category.Id]"
                       >
                         <span class="edit-icon"> ✏️ </span>
 
