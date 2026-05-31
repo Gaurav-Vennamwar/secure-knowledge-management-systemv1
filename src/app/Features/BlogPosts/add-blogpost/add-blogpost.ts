@@ -1,14 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { BlogPostService } from '../Services/blog-post-service';
 import { AddBlogPostRequest } from '../Models/blogpost.model';
 import { Router } from '@angular/router';
-
 import { MarkdownComponent } from 'ngx-markdown';
-
 import { CategoryService } from '../../Category/Services/category-service';
-
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
@@ -117,7 +113,8 @@ export class AddBlogpost {
       publishedDate: formRawValue.publishedDate,
 
       // we will send this when backend DTO supports it
-      // categories: formRawValue.categories
+      categories: formRawValue.categories ??[]
+      
     };
 
     console.log(JSON.stringify(requestDto));
