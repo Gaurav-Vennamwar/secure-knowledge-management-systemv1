@@ -61,8 +61,8 @@
                   <th>Title</th>
                   <th>Description</th>
                   <th>Author</th>
-                  <th>Published</th>
                   <th>Status</th>
+                  <th>Categories</th>
                 </tr>
               </thead>
 
@@ -94,11 +94,6 @@
                       <div class="author-pill">✍ {{ blogPost.Author }}</div>
                     </td>
 
-                    <!-- Date -->
-                    <td class="date-cell">
-                      {{ blogPost.PublishedDate }}
-                    </td>
-
                     <!-- Visibility -->
                     <td>
                       @if (blogPost.IsVisible) {
@@ -106,6 +101,22 @@
                       } @else {
                         <span class="status-pill hidden-pill"> • Hidden </span>
                       }
+                    </td>
+                   
+                    <td>
+                      <div class="category-cloud">
+                        @for (category of blogPost.Categories; track category.id) {
+                          <div class="category-pill">
+                            <div class="pill-glow"></div>
+
+                            <span class="pill-icon"> ✦ </span>
+
+                            <span class="pill-name">
+                              {{ category.Name }}
+                            </span>
+                          </div>
+                        }
+                      </div>
                     </td>
                   </tr>
                 }

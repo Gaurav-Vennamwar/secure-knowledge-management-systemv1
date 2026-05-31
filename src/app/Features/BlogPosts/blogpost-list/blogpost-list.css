@@ -534,3 +534,170 @@
 
   color: #dc3545;
 }
+/* =========================
+   CATEGORY CLOUD
+========================= */
+
+.category-cloud {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  align-items: center;
+}
+
+/* =========================
+   CATEGORY PILL
+========================= */
+
+.category-pill {
+
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  cursor: default;
+
+  background:
+    rgba(255,255,255,0.75);
+
+  backdrop-filter: blur(12px);
+
+  border:
+    1px solid rgba(255,255,255,0.3);
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.05);
+
+  transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.category-pill:hover {
+
+  transform:
+    translateY(-4px)
+    scale(1.05);
+
+  box-shadow:
+    0 16px 36px rgba(124,58,237,0.22);
+}
+
+/* Animated Glow */
+.pill-glow {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37,99,235,0.08),
+      rgba(124,58,237,0.12)
+    );
+
+  opacity: 0;
+
+  transition: all 0.3s ease;
+}
+
+.category-pill:hover .pill-glow {
+
+  opacity: 1;
+}
+
+/* Icon */
+.pill-icon {
+
+  position: relative;
+
+  z-index: 2;
+
+  font-size: 12px;
+
+  color: #7c3aed;
+}
+
+/* Text */
+.pill-name {
+
+  position: relative;
+
+  z-index: 2;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.4px;
+
+  text-transform: uppercase;
+
+  background: linear-gradient(
+  45deg,
+  #2563eb,
+  #7c3aed
+);
+
+-webkit-background-clip: text;
+background-clip: text;
+
+color: transparent;
+
+/* Floating Animation */
+.category-pill {
+
+  animation:
+    floatTag 4s ease-in-out infinite;
+}
+
+.category-pill:nth-child(2n) {
+
+  animation-delay: 0.5s;
+}
+
+.category-pill:nth-child(3n) {
+
+  animation-delay: 1s;
+}
+
+.category-pill:nth-child(4n) {
+
+  animation-delay: 1.5s;
+}
+
+@keyframes floatTag {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+.blog-row:hover .category-pill {
+
+  transform:
+    translateY(-2px)
+    scale(1.04);
+}
+}

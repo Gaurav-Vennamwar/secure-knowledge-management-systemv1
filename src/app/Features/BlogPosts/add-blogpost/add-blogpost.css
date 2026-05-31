@@ -1284,3 +1284,372 @@ color: transparent;
 
   transform: translateY(-1px);
 }
+/* =========================
+   CATEGORY SECTION
+========================= */
+
+.category-selector-section {
+
+  margin-top: 30px;
+}
+
+/* Header */
+.section-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+/* Title */
+.section-title {
+
+  font-size: 24px;
+
+  font-weight: 800;
+
+  margin-bottom: 4px;
+
+  background:
+    linear-gradient(
+      45deg,
+      #2563eb,
+      #7c3aed
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* Subtitle */
+.section-subtitle {
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+/* Badge */
+.section-badge {
+
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(124,58,237,0.12);
+
+  color: #7c3aed;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+/* =========================
+   SELECT CONTAINER
+========================= */
+
+.category-select-wrapper {
+
+  background:
+    rgba(255,255,255,0.75);
+
+  backdrop-filter: blur(20px);
+
+  border-radius: 24px;
+
+  padding: 18px;
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,0.06);
+
+  transition: all 0.3s ease;
+}
+
+.category-select-wrapper:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 20px 45px rgba(124,58,237,0.12);
+}
+
+/* =========================
+   SELECT
+========================= */
+
+.premium-category-select {
+
+  min-height: 220px;
+
+  border: none !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  color: #374151;
+
+  padding: 10px;
+}
+
+/* =========================
+   OPTIONS
+========================= */
+
+.premium-category-select option {
+
+  padding: 14px;
+
+  margin-bottom: 6px;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+}
+
+/* Selected */
+.premium-category-select option:checked {
+
+  background:
+    linear-gradient(
+      45deg,
+      #2563eb,
+      #7c3aed
+    );
+
+  color: white;
+}
+
+/* Hover */
+.premium-category-select option:hover {
+
+  background:
+    rgba(124,58,237,0.08);
+}
+/* =========================
+   PREMIUM SELECTED CHIPS
+========================= */
+
+/* =========================
+   RECRUITER LEVEL CATEGORY SELECT
+========================= */
+
+.category-selector-section {
+  position: relative;
+  margin-top: 35px;
+}
+
+
+/* background glow */
+
+.category-selector-section::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: -35px;
+  right: -35px;
+
+  width: 160px;
+  height: 160px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      rgba(124,58,237,0.18),
+      transparent 70%
+    );
+
+  pointer-events: none;
+
+}
+
+
+/* =============================
+   FINAL NG SELECT FIX
+============================= */
+
+
+::ng-deep .premium-ng-select .ng-select-container {
+
+  min-height: 70px !important;
+
+  border-radius: 24px !important;
+
+  border: 1px solid rgba(124,58,237,0.18) !important;
+
+  padding: 12px 18px !important;
+
+  background: white !important;
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,0.06);
+
+}
+
+
+
+
+
+/* stop input sitting on chips */
+::ng-deep .premium-ng-select .ng-input {
+
+  position: static !important;
+
+}
+
+
+/* chip container */
+::ng-deep .premium-ng-select .ng-value-container {
+
+  display: flex !important;
+
+  flex-wrap: wrap !important;
+
+  align-items: center !important;
+
+  gap: 10px;
+
+}
+
+
+/* chips */
+::ng-deep .premium-ng-select .ng-value {
+
+
+  display: flex !important;
+
+  align-items: center;
+
+
+  padding: 10px 18px !important;
+
+
+  border-radius: 18px;
+
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef2ff,
+      #faf5ff
+    ) !important;
+
+
+  font-weight: 800;
+
+
+  color:#111827;
+
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.08);
+
+}
+
+
+/* purple indicator */
+::ng-deep .premium-ng-select .ng-value::before {
+
+content:"";
+
+width:4px;
+
+height:20px;
+
+border-radius:20px;
+
+margin-right:10px;
+
+background:
+linear-gradient(
+#2563eb,
+#7c3aed
+);
+
+}
+
+
+
+/* X button */
+::ng-deep .premium-ng-select .ng-value-icon {
+
+border:none !important;
+
+color:#7c3aed;
+
+margin-right:8px;
+
+}
+
+
+/* dropdown */
+::ng-deep .ng-dropdown-panel {
+
+border-radius:20px !important;
+
+overflow:hidden;
+
+box-shadow:
+0 25px 60px rgba(0,0,0,.15);
+
+}
+
+
+::ng-deep .ng-option {
+
+padding:15px 20px !important;
+
+font-weight:700;
+
+}
+/* =====================================
+   NG SELECT PLACEHOLDER FINAL FIX
+===================================== */
+
+
+/* when value exists remove placeholder completely */
+::ng-deep .premium-ng-select.ng-select-multiple.ng-has-value 
+.ng-value-container 
+.ng-placeholder {
+
+  display: none !important;
+
+}
+
+
+/* remove ghost input text position */
+::ng-deep .premium-ng-select.ng-select-multiple.ng-has-value 
+.ng-value-container 
+.ng-input {
+
+  position: relative !important;
+
+  width: 5px !important;
+
+  min-width: 5px !important;
+
+}
+
+
+/* make chips occupy normal flow */
+::ng-deep .premium-ng-select.ng-select-multiple 
+.ng-value-container {
+
+  position: relative !important;
+
+}

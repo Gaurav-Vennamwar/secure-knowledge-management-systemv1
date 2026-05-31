@@ -197,6 +197,36 @@
         </label>
       </div>
 
+      <div class="category-selector-section">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title">Categories</h3>
+
+            <p class="section-subtitle">Organize your article with relevant knowledge domains</p>
+          </div>
+
+          <div class="section-badge">
+            📚 {{ (categoriesResponse() ?? []).length }}
+            Categories
+          </div>
+        </div>
+
+        <ng-select
+          class="premium-ng-select"
+          [items]="categoriesResponse() ?? []"
+          bindLabel="Name"
+          bindValue="id"
+          formControlName="categories"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [placeholder]="
+            addBlogPostForm.controls.categories.value.length
+              ? ''
+              : 'Search and select categories...'
+          "
+        >
+        </ng-select>
+      </div>
       <!-- Actions -->
       <div class="editor-actions">
         <button class="btn-publish" type="submit">
