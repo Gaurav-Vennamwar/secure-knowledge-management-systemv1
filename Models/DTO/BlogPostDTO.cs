@@ -16,5 +16,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Models.DTO
 
         public string? Author { get; set; }
         public bool IsVisible { get; set; }
+
+        public List<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
     }
 }

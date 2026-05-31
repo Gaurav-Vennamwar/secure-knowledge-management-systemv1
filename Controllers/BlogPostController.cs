@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
 using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
+using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 
 namespace SecureKnowledgeManagementSystemv1.API.Controllers
 {
@@ -12,10 +13,13 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
     public class BlogPostController : ControllerBase
     {
         private readonly IBlogPostRepository blogPostRepository;
+        private readonly ICategoryRepository categoryRepository;
 
-        public BlogPostController (IBlogPostRepository blogPostRepository)
+        public BlogPostController (IBlogPostRepository blogPostRepository ,
+            ICategoryRepository categoryRepository)
         {
             this.blogPostRepository = blogPostRepository;
+            this.categoryRepository = categoryRepository;
         }
 
         //Post : {apiBaseUrl}/api/blogposts
@@ -33,9 +37,21 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 IsVisible = request.IsVisible,
                 Tittle = request.Tittle,
                 UrlHandle = request.UrlHandle,
+                Categories = new List<Category>()
             };
 
+            foreach (var categoryGuid in request.Categories)
+            {
+                var existingCategory = await categoryRepository.GetById(categoryGuid);
+                if (existingCategory != null)
+                {
+                    blogPost.Categories.Add(existingCategory);
+                }
+            }
+
             blogPost = await blogPostRepository.CreateAsync(blogPost);
+
+
 
             //covert domain model back to dto
             var response = new BlogPostDTO
@@ -43,12 +59,18 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 id = blogPost.id,
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
-                Content= blogPost.Content,
-                ShortDescription= blogPost.ShortDescription,
-                FeaturedImageUrl= blogPost.FeaturedImageUrl,
-                IsVisible= blogPost.IsVisible,
-                Tittle= blogPost.Tittle,
-                UrlHandle= blogPost.UrlHandle,
+                Content = blogPost.Content,
+                ShortDescription = blogPost.ShortDescription,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                Tittle = blogPost.Tittle,
+                UrlHandle = blogPost.UrlHandle,
+                Categories = blogPost.Categories.Select(x => new CategoryDTO
+                {
+                    id = x.id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle,
+                }).ToList(),
             };
             return Ok(response);
 
@@ -76,6 +98,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     IsVisible = blogPost.IsVisible,
                     Tittle = blogPost.Tittle,
                     UrlHandle = blogPost.UrlHandle,
+                    Categories = blogPost.Categories.Select(x => new CategoryDTO
+                    {
+                        id = x.id,
+                        Name = x.Name,
+                        UrlHandle = x.UrlHandle,
+                    }).ToList()
                 });
             }
             return Ok(response);
