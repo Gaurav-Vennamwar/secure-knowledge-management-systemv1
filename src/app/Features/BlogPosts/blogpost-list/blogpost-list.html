@@ -103,7 +103,7 @@
                         <span class="status-pill hidden-pill"> • Hidden </span>
                       }
                     </td>
-                   
+
                     <td>
                       <div class="category-cloud">
                         @for (category of blogPost.Categories; track category.Id) {
@@ -120,13 +120,20 @@
                       </div>
                     </td>
                     <td>
-                      <a class="btn btn-light" [routerLink]="['/admin/blogposts/edit' , blogPost.Id]">Edit</a>
+                      <a
+                        class="premium-edit-btn"
+                        [routerLink]="['/admin/blogposts/edit', blogPost.Id]"
+                      >
+                        <span class="edit-icon"> ✎ </span>
+
+                        <span> Edit </span>
+                      </a>
                     </td>
                   </tr>
                 }
               </tbody>
             </table>
-          </div>  
+          </div>
         </div>
       }
     }
