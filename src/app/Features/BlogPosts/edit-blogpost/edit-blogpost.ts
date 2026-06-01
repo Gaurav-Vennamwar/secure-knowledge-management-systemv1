@@ -4,6 +4,7 @@ import { BlogPostService } from '../Services/blog-post-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CategoryService } from '../../Category/Services/category-service';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -14,9 +15,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 export class EditBlogpost {
   id = input<string>();
   blogPostService = inject(BlogPostService);
+  categoryService = inject(CategoryService);
+
   private blogPostRef = this.blogPostService.getBlogPostById(this.id);
   blogPostResponse = this.blogPostRef.value;
 
+  private categoriesRef = this.categoryService.getAllCategories();
+  categoriesResponse = this.categoriesRef.value;
 
   editBlogPostForm = new FormGroup({
     tittle: new FormControl<string>('', {
@@ -72,6 +77,8 @@ export class EditBlogpost {
   });
 
   effectRef = effect(() =>{
+    const post = this.blogPostResponse();
+    if(post){
     this.editBlogPostForm.patchValue({
       tittle : this.blogPostResponse()?.Tittle,
       shortDescription : this.blogPostResponse()?.ShortDescription,
@@ -81,11 +88,11 @@ export class EditBlogpost {
       isVisible : this.blogPostResponse()?.IsVisible,
       urlHandle : this.blogPostResponse()?.UrlHandle,
       featuredImageUrl : this.blogPostResponse()?.FeaturedImageUrl,
-      // categories : this.blogPostResponse()?.Categories,
+      categories : this.blogPostResponse()?.Categories.map(x => x.Id),
       
-    })
-    
-  })
+    });
+  }
+  });
 
   onSubmit(){
    console.log(this.editBlogPostForm.getRawValue()) 
