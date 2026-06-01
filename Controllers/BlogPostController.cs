@@ -15,7 +15,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         private readonly IBlogPostRepository blogPostRepository;
         private readonly ICategoryRepository categoryRepository;
 
-        public BlogPostController (IBlogPostRepository blogPostRepository ,
+        public BlogPostController(IBlogPostRepository blogPostRepository,
             ICategoryRepository categoryRepository)
         {
             this.blogPostRepository = blogPostRepository;
@@ -56,7 +56,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             //covert domain model back to dto
             var response = new BlogPostDTO
             {
-                id = blogPost.id,
+                Id = blogPost.Id,
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
                 Content = blogPost.Content,
@@ -67,7 +67,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 UrlHandle = blogPost.UrlHandle,
                 Categories = blogPost.Categories.Select(x => new CategoryDTO
                 {
-                    id = x.id,
+                    Id = x.Id,
                     Name = x.Name,
                     UrlHandle = x.UrlHandle,
                 }).ToList(),
@@ -89,7 +89,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 response.Add(new BlogPostDTO
                 {
-                    id = blogPost.id,
+                    Id = blogPost.Id,
                     Author = blogPost.Author,
                     PublishedDate = blogPost.PublishedDate,
                     Content = blogPost.Content,
@@ -100,7 +100,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     UrlHandle = blogPost.UrlHandle,
                     Categories = blogPost.Categories.Select(x => new CategoryDTO
                     {
-                        id = x.id,
+                        Id = x.Id,
                         Name = x.Name,
                         UrlHandle = x.UrlHandle,
                     }).ToList()
@@ -109,5 +109,102 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             return Ok(response);
         }
 
+        //GET : {apiBaseUrl}/api/blogposts{id}
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetBlogPostById([FromRoute] Guid id)
+        {
+            //get the blog post from repo
+            var blogPost = await blogPostRepository.GetByIdAsync(id);
+
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+
+            //else return ok reposne and conver domain model back to dto
+            var reponse = new BlogPostDTO
+            {
+                Id = blogPost.Id,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                Content = blogPost.Content,
+                ShortDescription = blogPost.ShortDescription,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                Tittle = blogPost.Tittle,
+                UrlHandle = blogPost.UrlHandle,
+                Categories = blogPost.Categories.Select(x => new CategoryDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle,
+                }).ToList()
+            };
+            return Ok(reponse);
+        }
+
+
+        //PUT : {apiBaseUrl}/api/blogposts{id}
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, UpdateBlogPostRequestDto request)
+        {
+            //convert dto to domain model
+            var blogPost = new BlogPost
+            {
+                Id=id,
+                Author = request.Author,
+                PublishedDate = request.PublishedDate,
+                Content = request.Content,
+                ShortDescription = request.ShortDescription,
+                FeaturedImageUrl = request.FeaturedImageUrl,
+                IsVisible = request.IsVisible,
+                Tittle = request.Tittle,
+                UrlHandle = request.UrlHandle,
+                Categories = new List<Category>()
+            };
+            //for each
+            foreach (var categoryGuid in request.Categories)
+            {
+                var existingCategory = await categoryRepository.GetById(categoryGuid);
+
+                //check if existing category is not null
+                if (existingCategory != null)
+                {
+                    blogPost.Categories.Add(existingCategory);
+                }
+            }
+
+            //calling repository to update the blogpost domain model
+            //which will update the blog post in db for us
+           var updatedBlogPost = await blogPostRepository.UpdateAsync(blogPost);
+
+            if (updatedBlogPost == null)
+            {
+                return NotFound();
+            }
+
+            //domain model back to dto converting
+            var response = new BlogPostDTO
+            {
+                Id = blogPost.Id,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                Content = blogPost.Content,
+                ShortDescription = blogPost.ShortDescription,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                Tittle = blogPost.Tittle,
+                UrlHandle = blogPost.UrlHandle,
+                Categories = blogPost.Categories.Select(x => new CategoryDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle,
+                }).ToList()
+            };
+            return Ok(response);
+        }
+
+        }
     }
-}
+
