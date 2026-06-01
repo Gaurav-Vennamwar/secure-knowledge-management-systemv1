@@ -4,15 +4,22 @@
     <div class="editor-header">
       <div class="editor-badge">🚀 Publishing Studio</div>
 
-      <h1 class="editor-title">Create Blog Post</h1>
+      <h1 class="editor-title">Edit Blog Post</h1>
 
       <p class="editor-subtitle">
         Share secure knowledge with your audience through powerful content publishing
       </p>
     </div>
+    <div class="preview-live">
+
+  <span class="live-pulse"></span>
+
+  LIVE PREVIEW
+
+</div>
 
     <!-- Form -->
-    <form [formGroup]="addBlogPostForm" class="editor-form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editBlogPostForm" class="editor-form" (ngSubmit)="onSubmit()">
       <!-- Title -->
       <div class="editor-group">
         <label class="editor-label"> Blog Title </label>
@@ -110,7 +117,7 @@
               <div class="markdown-preview">
                 <markdown
                   class="markdown-body"
-                  [data]="addBlogPostForm.controls.content.getRawValue()"
+                  [data]="editBlogPostForm.controls.content.getRawValue()"
                 >
                 </markdown>
               </div>
@@ -132,11 +139,11 @@
         </div>
 
         <!-- Preview -->
-        @if (addBlogPostForm.controls.featuredImageUrl.getRawValue()) {
+        @if (editBlogPostForm.controls.featuredImageUrl.getRawValue()) {
           <div class="image-preview-card">
             <img
               class="featured-preview-image"
-              [src]="addBlogPostForm.controls.featuredImageUrl.getRawValue()"
+              [src]="editBlogPostForm.controls.featuredImageUrl.getRawValue()"
               alt="Preview Image"
             />
 
@@ -197,6 +204,7 @@
         </label>
       </div>
 
+      <!-- Category Section -->
       <div class="category-selector-section">
         <div class="section-header">
           <div>
@@ -215,12 +223,12 @@
           class="premium-ng-select"
           [items]="categoriesResponse() ?? []"
           bindLabel="Name"
-          bindValue="id"
+          bindValue="Id"
           formControlName="categories"
           [multiple]="true"
           [closeOnSelect]="false"
           [placeholder]="
-            addBlogPostForm.controls.categories.value.length
+            editBlogPostForm.controls.categories.value.length
               ? ''
               : 'Search and select categories...'
           "

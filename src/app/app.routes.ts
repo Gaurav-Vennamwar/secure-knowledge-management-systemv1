@@ -4,6 +4,7 @@ import { AddCategory } from './Features/Category/add-category/add-category';
 import { EditCategory } from './Features/Category/edit-category/edit-category';
 import { BlogpostList } from './Features/BlogPosts/blogpost-list/blogpost-list';
 import { AddBlogpost } from './Features/BlogPosts/add-blogpost/add-blogpost';
+import { EditBlogpost } from './Features/BlogPosts/edit-blogpost/edit-blogpost';
 
 export const routes: Routes = [
 
@@ -27,5 +28,9 @@ export const routes: Routes = [
     {
         path : 'admin/blogposts/add',
         component : AddBlogpost
+    },
+    {
+       path: 'admin/blogposts/edit/:id',
+        component : EditBlogpost
     }
 ];
