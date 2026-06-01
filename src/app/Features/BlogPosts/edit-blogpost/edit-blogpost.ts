@@ -1,12 +1,93 @@
-import { Component, input } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BlogPostService } from '../Services/blog-post-service';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MarkdownComponent } from 'ngx-markdown';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-edit-blogpost',
-  imports: [],
+  imports: [ReactiveFormsModule, MarkdownComponent, NgSelectModule],
   templateUrl: './edit-blogpost.html',
   styleUrl: './edit-blogpost.css',
 })
 export class EditBlogpost {
   id = input<string>();
+  blogPostService = inject(BlogPostService);
+  private blogPostRef = this.blogPostService.getBlogPostById(this.id);
+  blogPostResponse = this.blogPostRef.value;
+
+
+  editBlogPostForm = new FormGroup({
+    tittle: new FormControl<string>('', {
+      nonNullable: true,
+
+      validators: [Validators.required, Validators.minLength(7), Validators.maxLength(100)],
+    }),
+
+    shortDescription: new FormControl<string>('', {
+      nonNullable: true,
+
+      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(200)],
+    }),
+
+    content: new FormControl<string>('', {
+      nonNullable: true,
+
+      validators: [Validators.required, Validators.minLength(10)],
+    }),
+
+    featuredImageUrl: new FormControl<string>('', {
+      nonNullable: true,
+
+      validators: [Validators.required, Validators.maxLength(200)],
+    }),
+
+    urlHandle: new FormControl<string>('', {
+      nonNullable: true,
+
+      validators: [Validators.required, Validators.maxLength(200)],
+    }),
+
+    publishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], {
+      nonNullable: true,
+
+      validators: [Validators.required],
+    }),
+
+    author: new FormControl<string>('', {
+      nonNullable: true,
+
+      validators: [Validators.required, Validators.maxLength(100)],
+    }),
+
+    isVisible: new FormControl<boolean>(true, {
+      nonNullable: true,
+    }),
+
+    // 🔥 NG SELECT CATEGORY IDS
+    categories: new FormControl<string[]>([], {
+      nonNullable: true,
+    }),
+  });
+
+  effectRef = effect(() =>{
+    this.editBlogPostForm.patchValue({
+      tittle : this.blogPostResponse()?.Tittle,
+      shortDescription : this.blogPostResponse()?.ShortDescription,
+      content : this.blogPostResponse()?.Content,
+      author : this.blogPostResponse()?.Author,
+      publishedDate : this.blogPostResponse()?.PublishedDate,
+      isVisible : this.blogPostResponse()?.IsVisible,
+      urlHandle : this.blogPostResponse()?.UrlHandle,
+      featuredImageUrl : this.blogPostResponse()?.FeaturedImageUrl,
+      // categories : this.blogPostResponse()?.Categories,
+      
+    })
+    
+  })
+
+  onSubmit(){
+   console.log(this.editBlogPostForm.getRawValue()) 
+  }
 }

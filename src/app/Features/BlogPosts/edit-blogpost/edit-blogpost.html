@@ -1,1 +1,247 @@
-<p>{{ id() }}</p>
+<div class="container blog-editor-wrapper">
+  <div class="blog-editor-card app-card">
+    <!-- Header -->
+    <div class="editor-header">
+      <div class="editor-badge">🚀 Publishing Studio</div>
+
+      <h1 class="editor-title">Edit Blog Post</h1>
+
+      <p class="editor-subtitle">
+        Share secure knowledge with your audience through powerful content publishing
+      </p>
+    </div>
+    <div class="preview-live">
+
+  <span class="live-pulse"></span>
+
+  LIVE PREVIEW
+
+</div>
+
+    <!-- Form -->
+    <form [formGroup]="editBlogPostForm" class="editor-form" (ngSubmit)="onSubmit()">
+      <!-- Title -->
+      <div class="editor-group">
+        <label class="editor-label"> Blog Title </label>
+
+        <input
+          type="text"
+          class="form-control editor-input title-input"
+          formControlName="tittle"
+          placeholder="Enter blog title..."
+        />
+      </div>
+
+      <!-- Short Description -->
+      <div class="editor-group">
+        <label class="editor-label"> Short Description </label>
+
+        <input
+          type="text"
+          class="form-control editor-input"
+          formControlName="shortDescription"
+          placeholder="Briefly describe your article..."
+        />
+      </div>
+
+      <!-- URL -->
+      <div class="editor-group">
+        <label class="editor-label"> URL Handle </label>
+
+        <input
+          type="text"
+          class="form-control editor-input"
+          formControlName="urlHandle"
+          placeholder="your-blog-url"
+        />
+      </div>
+
+      <!-- Content Editor -->
+      <div class="editor-group">
+        <div class="editor-header">
+          <div>
+            <h3 class="editor-title">Markdown Editor</h3>
+
+            <p class="editor-subtitle">Write and preview your blog content in real time</p>
+          </div>
+
+          <div class="d-flex flex-row">
+            <div class="col-6 p-2"></div>
+            <div class="col-6 p-2"></div>
+          </div>
+
+          <label class="editor-label"> Blog Content </label>
+
+          <div class="live-badge">● Live Preview</div>
+        </div>
+
+        <div class="row editor-layout">
+          <!-- LEFT : Editor -->
+          <div class="col-lg-6 p-2">
+            <div class="editor-card">
+              <label class="editor-label"> Blog Content </label>
+
+              <textarea
+                class="form-control editor-textarea"
+                formControlName="content"
+                rows="16"
+                placeholder="# Write your amazing blog here...
+
+## Example Heading
+
+- Modern UI
+- Angular 20
+- .NET Backend
+"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- RIGHT : Preview -->
+          <div class="col-lg-6 p-2">
+            <div class="preview-card">
+              <!-- TOP BAR -->
+              <div class="preview-topbar">
+                <div class="topbar-left">
+                  <span class="preview-dot red"></span>
+                  <span class="preview-dot yellow"></span>
+                  <span class="preview-dot green"></span>
+                </div>
+
+                <div class="preview-heading">README.md</div>
+
+                <div class="preview-live">● LIVE</div>
+              </div>
+
+              <!-- PREVIEW BODY -->
+              <div class="markdown-preview">
+                <markdown
+                  class="markdown-body"
+                  [data]="editBlogPostForm.controls.content.getRawValue()"
+                >
+                </markdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Image -->
+      <div class="editor-group">
+        <div class="image-section-header">
+          <div>
+            <h3 class="image-title">Featured Cover Image</h3>
+
+            <p class="image-subtitle">Add a stunning visual banner for your blog post</p>
+          </div>
+
+          <div class="image-badge">✨ Live Preview</div>
+        </div>
+
+        <!-- Preview -->
+        @if (editBlogPostForm.controls.featuredImageUrl.getRawValue()) {
+          <div class="image-preview-card">
+            <img
+              class="featured-preview-image"
+              [src]="editBlogPostForm.controls.featuredImageUrl.getRawValue()"
+              alt="Preview Image"
+            />
+
+            <div class="image-overlay">
+              <div class="overlay-content">
+                <span class="overlay-badge"> COVER IMAGE </span>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Input -->
+        <div class="image-input-wrapper">
+          <div class="image-input-icon">🌄</div>
+
+          <input
+            type="text"
+            class="form-control image-input"
+            formControlName="featuredImageUrl"
+            placeholder="Paste your image URL here..."
+          />
+        </div>
+      </div>
+      <!-- Row -->
+      <div class="editor-row">
+        <!-- Date -->
+        <div class="editor-group flex-fill">
+          <label class="editor-label"> Published Date </label>
+
+          <input type="date" class="form-control editor-input" formControlName="publishedDate" />
+        </div>
+
+        <!-- Author -->
+        <div class="editor-group flex-fill">
+          <label class="editor-label"> Author </label>
+
+          <input
+            type="text"
+            class="form-control editor-input"
+            formControlName="author"
+            placeholder="Author name"
+          />
+        </div>
+      </div>
+
+      <!-- Visibility -->
+      <div class="visibility-toggle">
+        <div>
+          <h6 class="visibility-title">Visibility</h6>
+
+          <p class="visibility-subtitle">Control whether this blog post is publicly visible</p>
+        </div>
+
+        <label class="modern-switch">
+          <input type="checkbox" formControlName="isVisible" />
+
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- Category Section
+      <div class="category-selector-section">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title">Categories</h3>
+
+            <p class="section-subtitle">Organize your article with relevant knowledge domains</p>
+          </div>
+
+          <div class="section-badge">
+            📚 {{ (categoriesResponse() ?? []).length }}
+            Categories
+          </div>
+        </div>
+
+        <ng-select
+          class="premium-ng-select"
+          [items]="categoriesResponse() ?? []"
+          bindLabel="Name"
+          bindValue="id"
+          formControlName="categories"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [placeholder]="
+            editBlogPostForm.controls.categories.value.length
+              ? ''
+              : 'Search and select categories...'
+          "
+        >
+        </ng-select>
+      </div> -->
+      <!-- Actions -->
+      <div class="editor-actions">
+        <button class="btn-publish" type="submit">
+          <span>🚀</span>
+          <span>Publish Post</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
