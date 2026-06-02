@@ -26,6 +26,32 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
             return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
         }
 
+        public async Task<BlogPost?> GetByIdAsync(Guid id)
+        {
+            return await dbContext.BlogPosts
+                .Include(x => x.Categories)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
 
+        public async Task<BlogPost?> UpdateAsync(BlogPost blogPost)
+        {
+            //first fetch the blog post using the id
+            //finding it
+            var existingBlogPost = await dbContext.BlogPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == blogPost.Id);
+            //checking for null
+            if (existingBlogPost == null)
+            {
+                return null;
+            }
+            //if its not null then update blog post
+            dbContext.Entry(existingBlogPost).CurrentValues.SetValues(blogPost);
+
+            //Updateing Categories too
+            existingBlogPost.Categories = blogPost.Categories;
+
+            await dbContext.SaveChangesAsync();
+
+            return blogPost;
+        }
     }
 }

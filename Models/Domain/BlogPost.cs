@@ -2,7 +2,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Models.Domain {
 
 public class BlogPost
     {
-        public Guid id {get; set; }
+        public Guid Id {get; set; }
         public string? Tittle {get; set; }
         public string? ShortDescription {get; set; }
 

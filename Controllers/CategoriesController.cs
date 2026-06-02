@@ -37,7 +37,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             //Domaion Model to DTO
             var response = new CategoryDTO
             {
-                id = category.id,
+                Id = category.Id,
                 Name = category.Name,
                 UrlHandle = category.UrlHandle
             };
@@ -59,7 +59,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 response.Add(new CategoryDTO
                 {
-                    id = category.id,
+                    Id = category.Id,
                     Name = category.Name,
                     UrlHandle = category.UrlHandle
                 });
@@ -81,7 +81,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             //else if we found it covert to the dto
             var response = new CategoryDTO
             {
-                id = existingCategory.id,
+                Id = existingCategory.Id,
                 Name = existingCategory.Name,
                 UrlHandle = existingCategory.UrlHandle
 
@@ -107,7 +107,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             var category = new Category
             {
                 // Use id from URL
-                id = id,
+                Id = id,
 
                 // Updated name from frontend
                 Name = request.Name,
@@ -132,7 +132,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
             var response = new CategoryDTO
             {
-                id = category.id,
+                Id = category.Id,
                 Name = category.Name,
                 UrlHandle = category.UrlHandle
             };
@@ -154,7 +154,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             //convert domain model back to dto
             var reponse = new CategoryDTO
             {
-                id = category.id,
+                Id = category.Id,
                 Name = category.Name,
                 UrlHandle = category.UrlHandle
             };

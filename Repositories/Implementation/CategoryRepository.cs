@@ -24,7 +24,7 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Implementation
 
         public async Task<Category?> DeleteAsync(Guid id)
         {
-            var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.id == id);
+            var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
             if (existingCategory is null)
             {
                 return null;
@@ -42,7 +42,7 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Implementation
 
         public async Task<Category?> GetById(Guid id)
         {
-            return await dbContext.Categories.FirstOrDefaultAsync(x => x.id == id);
+            return await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // This method updates an existing category in the database
@@ -51,7 +51,7 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Implementation
             // Search the database for the category
             // whose id matches the incoming category id
             var existingCategory = await dbContext.Categories
-                .FirstOrDefaultAsync(x => x.id == category.id);
+                .FirstOrDefaultAsync(x => x.Id == category.Id);
 
             // Check if category actually exists in database
             if (existingCategory != null)
