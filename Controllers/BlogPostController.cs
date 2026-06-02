@@ -205,6 +205,31 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             return Ok(response);
         }
 
+        //DELETE : {apiBaseUrl}/api/blogposts{id}
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid id)
+        {
+            var deletedBlogPost = await blogPostRepository.DeleteAsync(id);
+
+            if(deletedBlogPost == null)
+            {
+                return NotFound();
+            }
+            //convert domain model back to dto
+            var reponse = new BlogPostDTO
+            {
+                Id = deletedBlogPost.Id,
+                Author = deletedBlogPost.Author,
+                PublishedDate = deletedBlogPost.PublishedDate,
+                Content = deletedBlogPost.Content,
+                ShortDescription = deletedBlogPost.ShortDescription,
+                FeaturedImageUrl = deletedBlogPost.FeaturedImageUrl,
+                IsVisible = deletedBlogPost.IsVisible,
+                Tittle = deletedBlogPost.Tittle,
+                UrlHandle = deletedBlogPost.UrlHandle,
+            };
+            return Ok(reponse);
         }
+    }
     }
 

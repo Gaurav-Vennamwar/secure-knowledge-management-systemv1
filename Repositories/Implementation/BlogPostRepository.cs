@@ -20,6 +20,20 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
             return blogPost;
         }
 
+        //method to delete blogpost by id 
+        public async Task<BlogPost?> DeleteAsync(Guid id)
+        {
+           var existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(existingBlogPost != null)
+            {
+                dbContext .BlogPosts.Remove(existingBlogPost);
+                await dbContext.SaveChangesAsync();
+                return existingBlogPost;    
+            }
+            return null;
+        }
+
         //method to get all blog posts
         public async Task<IEnumerable<BlogPost>> GetAllAync()
         {

@@ -8,6 +8,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Interface
         Task<IEnumerable<BlogPost>> GetAllAync();
         Task<BlogPost?> GetByIdAsync(Guid id);
         Task <BlogPost?> UpdateAsync(BlogPost blogPost);
+        Task<BlogPost?> DeleteAsync(Guid id);
     }
 
 }
