@@ -3,6 +3,7 @@
   import { environment } from '../../../../environments/environment';
   import { AddBlogPostRequest, BlogPost, UpdateBlogPostRequest } from '../Models/blogpost.model';
   import { Observable } from 'rxjs';
+import { StringTokenKind } from '@angular/compiler';
 
   @Injectable({
     providedIn: 'root',
@@ -29,5 +30,10 @@
     //service method to edit the blog post
     editBlogPost(id : string, body : UpdateBlogPostRequest) : Observable<BlogPost>{
       return this.http.put<BlogPost>(`${this.apiBaseUrl}/api/blogpost/${id}` , body);
+    }
+
+    //servicce method to delete blog post
+    deleteBlogpost(id : string) : Observable<BlogPost>{
+      return this.http.delete<BlogPost>(`${this.apiBaseUrl}/api/blogpost/${id}`);
     }
   }

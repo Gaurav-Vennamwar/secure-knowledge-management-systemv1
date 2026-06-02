@@ -11,12 +11,10 @@
       </p>
     </div>
     <div class="preview-live">
+      <span class="live-pulse"></span>
 
-  <span class="live-pulse"></span>
-
-  LIVE PREVIEW
-
-</div>
+      LIVE PREVIEW
+    </div>
 
     <!-- Form -->
     <form [formGroup]="editBlogPostForm" class="editor-form" (ngSubmit)="onSubmit()">
@@ -235,12 +233,23 @@
         >
         </ng-select>
       </div>
-      <!-- Actions -->
       <div class="editor-actions">
-        <button class="btn-publish" type="submit">
-          <span>🚀</span>
-          <span>Publish Post</span>
+        <button class="btn-delete-post" type="button" (click)="onDelete()">
+          <span class="delete-icon"> 🗑️ </span>
+
+          <span> Delete Post </span>
         </button>
+
+        <button class="btn-publish" type="submit">
+          <span> 🚀 </span>
+
+          <span> Publish Post </span>
+        </button>
+        <div class="save-status">
+          <span class="status-dot"></span>
+
+          Ready To Publish
+        </div>
       </div>
     </form>
   </div>

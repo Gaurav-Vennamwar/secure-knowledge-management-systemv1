@@ -124,4 +124,19 @@ if(id && this.editBlogPostForm.valid){
   })
 }
   }
+  onDelete(){
+    const id = this.id();
+    if(id){
+      this.blogPostService.deleteBlogpost(id).
+      subscribe({
+        next : (response) =>
+        {
+         console.log(response);
+         this.router.navigate(['/admin/blogposts']); 
+        },error(){
+          console.error("Something went wrong ");
+        }
+      })
+    }
+  }
 }
