@@ -6,10 +6,11 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CategoryService } from '../../Category/Services/category-service';
 import { UpdateBlogPostRequest } from '../Models/blogpost.model';
+import { ImageSelector } from '../../../Shared/Components/image-selector/image-selector';
 
 @Component({
   selector: 'app-edit-blogpost',
-  imports: [ReactiveFormsModule, MarkdownComponent, NgSelectModule],
+  imports: [ReactiveFormsModule, MarkdownComponent, NgSelectModule,ImageSelector],
   templateUrl: './edit-blogpost.html',
   styleUrl: './edit-blogpost.css',
 })
