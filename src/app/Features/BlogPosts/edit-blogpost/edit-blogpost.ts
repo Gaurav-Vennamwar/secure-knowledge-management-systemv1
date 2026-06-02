@@ -1,10 +1,11 @@
 import { Component, effect, inject, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { BlogPostService } from '../Services/blog-post-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CategoryService } from '../../Category/Services/category-service';
+import { UpdateBlogPostRequest } from '../Models/blogpost.model';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -16,6 +17,7 @@ export class EditBlogpost {
   id = input<string>();
   blogPostService = inject(BlogPostService);
   categoryService = inject(CategoryService);
+  router = inject(Router);
 
   private blogPostRef = this.blogPostService.getBlogPostById(this.id);
   blogPostResponse = this.blogPostRef.value;
@@ -95,6 +97,31 @@ export class EditBlogpost {
   });
 
   onSubmit(){
-   console.log(this.editBlogPostForm.getRawValue()) 
+    const id = this.id();
+if(id && this.editBlogPostForm.valid){
+
+   const formValue = this.editBlogPostForm.getRawValue();
+
+   const updateBlogPostRequestDto : UpdateBlogPostRequest ={
+    tittle :formValue.tittle,
+    content :formValue.content,
+    shortDescription : formValue.shortDescription,
+    author : formValue.author,
+    featuredImageUrl : formValue.featuredImageUrl,
+    isVisible : formValue.isVisible,
+    publishedDate : formValue.publishedDate,
+    urlHandle : formValue.urlHandle,
+    categories : formValue.categories ?? []
+  };
+  this.blogPostService.editBlogPost(id , updateBlogPostRequestDto).
+  subscribe({
+    next : (response) => {
+      this.router.navigate(['/admin/blogposts']);
+    },
+    error : ()=>{
+      console.error('Something Went Wromg!');
+    }
+  })
+}
   }
 }
