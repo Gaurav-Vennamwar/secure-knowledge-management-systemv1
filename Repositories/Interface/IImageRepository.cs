@@ -1,0 +1,9 @@
+using SecureKnowledgeManagementSystemv1.API.Models.Domain;
+
+namespace SecureKnowledgeManagementSystemv1.API.Repositories.Interface
+{
+    public interface IImageRepository
+    {
+        Task<BlogImage> Upload(IFormFile file, BlogImage blogImage);
+    }
+}

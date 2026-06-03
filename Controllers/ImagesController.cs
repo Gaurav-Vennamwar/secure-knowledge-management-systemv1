@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
+using SecureKnowledgeManagementSystemv1.API.Models.DTO;
+using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 
 namespace SecureKnowledgeManagementSystemv1.API.Controllers
 {
@@ -8,7 +10,17 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
     [ApiController]
     public class ImagesController : ControllerBase
     {
+        private readonly IImageRepository imageRepository ;
+        public ImagesController(IImageRepository imageRepository)
+        {
+            this.imageRepository = imageRepository;
+        }
+
+        
+
+
         //POST : {apibaseurl}/api/images
+        [HttpPost]
         public async Task<IActionResult> UpdateImage([FromForm] IFormFile file ,
             [FromForm] string fileName, [FromForm] string tittle)//getting the file imform from form data
         {
@@ -21,10 +33,25 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 {
                     FileExtension = Path.GetExtension(file.FileName).ToLower(),
                     FileName = fileName,
-                    Tittle = tittle
+                    Tittle = tittle,
                     DateCreated = DateTime.Now,
                 };
+               blogImage = await imageRepository.Upload(file, blogImage);
+                //convert domain model to dto
+                var respomse = new BlogImageDTO
+                {
+                    Id = blogImage.Id,
+                    Tittle = blogImage.Tittle,
+                    DateCreated = blogImage.DateCreated,
+                    FileExtension = blogImage.FileExtension,
+                    FileName = blogImage.FileName,
+                    Url = blogImage.Url
+                };
+
+
+                return Ok(respomse);
             }
+            return BadRequest(ModelState);
         }
         private void ValidateFileUpload(IFormFile file)
         {
