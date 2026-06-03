@@ -6,18 +6,23 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CategoryService } from '../../Category/Services/category-service';
 import { UpdateBlogPostRequest } from '../Models/blogpost.model';
+import { ImageSelector } from '../../../Shared/Components/image-selector/image-selector';
+import { ImageSelectorService } from '../../../Shared/Services/image-selector-service';
 
 @Component({
   selector: 'app-edit-blogpost',
-  imports: [ReactiveFormsModule, MarkdownComponent, NgSelectModule],
+  imports: [ReactiveFormsModule, MarkdownComponent, NgSelectModule,ImageSelector],
   templateUrl: './edit-blogpost.html',
   styleUrl: './edit-blogpost.css',
+
 })
 export class EditBlogpost {
   id = input<string>();
   blogPostService = inject(BlogPostService);
   categoryService = inject(CategoryService);
+  imageSelectorService = inject(ImageSelectorService)
   router = inject(Router);
+
 
   private blogPostRef = this.blogPostService.getBlogPostById(this.id);
   blogPostResponse = this.blogPostRef.value;
@@ -124,4 +129,23 @@ if(id && this.editBlogPostForm.valid){
   })
 }
   }
+  onDelete(){
+    const id = this.id();
+    if(id){
+      this.blogPostService.deleteBlogpost(id).
+      subscribe({
+        next : (response) =>
+        {
+         console.log(response);
+         this.router.navigate(['/admin/blogposts']); 
+        },error(){
+          console.error("Something went wrong ");
+        }
+      })
+    }
+  }
+openImageSelector(){
+    this.imageSelectorService.displayImageSelector();
+}
+
 }

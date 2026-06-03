@@ -1,1 +1,171 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================
+   PREMIUM MEDIA LIBRARY MODAL
+========================================== */
+
+.media-modal-backdrop {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(15,23,42,.65);
+
+  backdrop-filter: blur(14px);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 99999;
+
+  animation: modalFade .25s ease;
+
+}
+
+
+/* MODAL */
+
+.media-modal {
+
+  width: min(1500px, 95vw);
+
+  height: min(850px, 90vh);
+
+  background: white;
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.25);
+
+  animation: modalSlide .35s ease;
+
+}
+
+
+/* HEADER */
+
+.media-modal-header {
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 24px 30px;
+
+  border-bottom:
+    1px solid rgba(124,58,237,.1);
+
+}
+
+
+/* BODY */
+
+.media-modal-body {
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  padding: 24px;
+
+}
+
+
+/* SCROLLBAR */
+
+.media-modal-body::-webkit-scrollbar {
+
+  width: 8px;
+
+}
+
+.media-modal-body::-webkit-scrollbar-thumb {
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      #2563eb,
+      #7c3aed
+    );
+
+}
+
+
+/* CLOSE BUTTON */
+
+.close-modal-btn {
+
+  width: 48px;
+
+  height: 48px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: rgba(239,68,68,.08);
+
+  color: #dc2626;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+
+}
+
+.close-modal-btn:hover {
+
+  transform: rotate(90deg);
+
+}
+
+
+/* ANIMATION */
+
+@keyframes modalFade {
+
+  from { opacity: 0; }
+
+  to { opacity: 1; }
+
+}
+
+@keyframes modalSlide {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(40px)
+      scale(.95);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
