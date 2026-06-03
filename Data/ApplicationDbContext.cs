@@ -9,7 +9,11 @@ namespace SecureKnowledgeManagementSystemv1.API.Data
         {
         }
 
+
+
         public DbSet<SecureKnowledgeManagementSystemv1.API.Models.Domain.BlogPost> BlogPosts { get; set; }
         public DbSet<SecureKnowledgeManagementSystemv1.API.Models.Domain.Category> Categories { get; set; }
+        public DbSet<SecureKnowledgeManagementSystemv1.API.Models.Domain.BlogImage> BlogImages { get; set; }
+    
     }
 }
