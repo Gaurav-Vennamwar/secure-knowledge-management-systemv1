@@ -7,18 +7,22 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CategoryService } from '../../Category/Services/category-service';
 import { UpdateBlogPostRequest } from '../Models/blogpost.model';
 import { ImageSelector } from '../../../Shared/Components/image-selector/image-selector';
+import { ImageSelectorService } from '../../../Shared/Services/image-selector-service';
 
 @Component({
   selector: 'app-edit-blogpost',
   imports: [ReactiveFormsModule, MarkdownComponent, NgSelectModule,ImageSelector],
   templateUrl: './edit-blogpost.html',
   styleUrl: './edit-blogpost.css',
+
 })
 export class EditBlogpost {
   id = input<string>();
   blogPostService = inject(BlogPostService);
   categoryService = inject(CategoryService);
+  imageSelectorService = inject(ImageSelectorService)
   router = inject(Router);
+
 
   private blogPostRef = this.blogPostService.getBlogPostById(this.id);
   blogPostResponse = this.blogPostRef.value;
@@ -140,4 +144,8 @@ if(id && this.editBlogPostForm.valid){
       })
     }
   }
+openImageSelector(){
+    this.imageSelectorService.displayImageSelector();
+}
+
 }

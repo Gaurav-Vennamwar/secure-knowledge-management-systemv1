@@ -1,249 +1,313 @@
-.image-manager-wrapper {
+/* ==========================================
+   IMAGE MANAGER WRAPPER
+========================================== */
 
-  padding: 30px;
+.image-manager-wrapper {
+  height: 100%;
+
+  padding: 0;
 }
 
+/* ==========================================
+   MAIN CARD
+========================================== */
 
 .image-manager-card {
+  height: 100%;
 
-  background:
-    rgba(255,255,255,.82);
+  background: rgba(255, 255, 255, 0.92);
 
   backdrop-filter: blur(24px);
 
-  border-radius: 32px;
+  border-radius: 24px;
 
-  padding: 30px;
+  padding: 20px;
 
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
+/* ==========================================
+   HEADER
+========================================== */
 
-/* Header */
+.manager-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  margin-bottom: 24px;
+}
 
 .manager-badge {
+  display: inline-block;
 
-  display:inline-block;
+  padding: 8px 16px;
 
-  padding:8px 16px;
+  border-radius: 999px;
 
-  border-radius:999px;
+  background: rgba(124, 58, 237, 0.12);
 
-  background:
-    rgba(124,58,237,.12);
+  color: #7c3aed;
 
-  color:#7c3aed;
+  font-size: 13px;
 
-  font-weight:700;
+  font-weight: 700;
 
-  margin-bottom:16px;
+  margin-bottom: 12px;
 }
-
 
 .manager-title {
+  font-size: 34px;
 
-  font-size:48px;
+  font-weight: 900;
 
-  font-weight:900;
+  margin-bottom: 8px;
 
-  margin-bottom:10px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
 
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #7c3aed
-    );
+  -webkit-background-clip: text;
 
-  -webkit-background-clip:text;
+  background-clip: text;
 
-  background-clip:text;
-
-  color:transparent;
+  color: transparent;
 }
-
 
 .manager-subtitle {
+  color: #6b7280;
 
-  color:#6b7280;
+  font-size: 14px;
 
-  font-size:16px;
+  margin: 0;
 }
 
+/* ==========================================
+   GRID
+========================================== */
 
-/* Preview */
+.row.g-4 {
+  align-items: stretch;
+}
+
+/* ==========================================
+   PREVIEW PANEL
+========================================== */
 
 .preview-panel {
+  height: 420px;
 
-  min-height:520px;
+  border-radius: 24px;
 
-  border-radius:28px;
+  overflow: hidden;
 
-  overflow:hidden;
+  background: #0f172a;
 
-  background:#0f172a;
-
-  box-shadow:
-    0 25px 60px rgba(15,23,42,.2);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
 }
-
 
 .preview-topbar {
+  display: flex;
 
-  display:flex;
+  align-items: center;
 
-  align-items:center;
+  gap: 8px;
 
-  gap:8px;
+  padding: 16px;
 
-  padding:18px;
-
-  background:#111827;
+  background: #111827;
 }
-
 
 .dot {
+  width: 12px;
 
-  width:12px;
-  height:12px;
+  height: 12px;
 
-  border-radius:50%;
+  border-radius: 50%;
 }
 
-.red { background:#ef4444; }
-.yellow { background:#f59e0b; }
-.green { background:#22c55e; }
+.red {
+  background: #ef4444;
+}
+
+.yellow {
+  background: #f59e0b;
+}
+
+.green {
+  background: #22c55e;
+}
 
 .preview-label {
+  margin-left: 10px;
 
-  margin-left:12px;
+  color: white;
 
-  color:white;
+  font-size: 13px;
 
-  font-weight:700;
+  font-weight: 700;
 }
 
+/* ==========================================
+   EMPTY PREVIEW
+========================================== */
 
 .empty-preview {
+  height: calc(420px - 48px);
 
-  height:450px;
+  display: flex;
 
-  display:flex;
+  flex-direction: column;
 
-  flex-direction:column;
+  justify-content: center;
 
-  justify-content:center;
+  align-items: center;
 
-  align-items:center;
+  color: white;
 
-  color:white;
+  text-align: center;
 }
-
 
 .preview-icon {
+  font-size: 70px;
 
-  font-size:80px;
-
-  margin-bottom:20px;
+  margin-bottom: 18px;
 }
 
+.empty-preview h3 {
+  font-size: 24px;
 
-/* Upload Panel */
+  font-weight: 800;
+
+  margin-bottom: 10px;
+}
+
+.empty-preview p {
+  opacity: 0.7;
+
+  max-width: 280px;
+}
+
+/* ==========================================
+   UPLOAD PANEL
+========================================== */
 
 .upload-panel {
+  height: 420px;
 
-  background:white;
+  overflow-y: auto;
 
-  border-radius:28px;
+  background: white;
 
-  padding:28px;
+  border-radius: 24px;
 
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.06);
+  padding: 22px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
 }
 
+.upload-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.upload-panel::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background: linear-gradient(#2563eb, #7c3aed);
+}
 
 .upload-title {
+  font-size: 24px;
 
-  font-weight:800;
+  font-weight: 800;
+
+  margin-bottom: 6px;
 }
-
 
 .upload-subtitle {
+  color: #6b7280;
 
-  color:#6b7280;
+  font-size: 14px;
 
-  margin-bottom:24px;
+  margin-bottom: 20px;
 }
 
+/* ==========================================
+   LABELS
+========================================== */
 
 .upload-label {
+  display: block;
 
-  display:block;
+  margin-bottom: 8px;
 
-  margin-bottom:8px;
+  font-weight: 700;
 
-  font-weight:700;
+  color: #374151;
 }
 
+/* ==========================================
+   INPUTS
+========================================== */
 
 .premium-input {
+  width: 100%;
 
-  height:58px;
+  height: 54px;
 
-  border-radius:16px;
+  border: none;
 
-  border:none;
+  border-radius: 14px;
 
-  background:#f8fafc;
+  padding: 0 16px;
 
-  padding:0 18px;
+  background: #f8fafc;
 
-  width:100%;
+  transition: 0.25s ease;
 }
 
+.premium-input:focus {
+  outline: none;
+
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
 
 .premium-file-input {
+  width: 100%;
 
-  border-radius:16px;
+  border-radius: 14px;
 
-  padding:14px;
+  padding: 12px;
 
-  width:100%;
+  background: #f8fafc;
 }
 
+/* ==========================================
+   BUTTON
+========================================== */
 
 .upload-btn {
+  width: 100%;
 
-  width:100%;
+  border: none;
 
-  border:none;
+  border-radius: 16px;
 
-  border-radius:18px;
+  padding: 16px;
 
-  padding:16px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
 
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #7c3aed
-    );
+  color: white;
 
-  color:white;
+  font-weight: 800;
 
-  font-weight:800;
+  font-size: 14px;
 
-  transition:.3s ease;
+  transition: 0.3s ease;
 }
 
-
 .upload-btn:hover {
+  transform: translateY(-3px);
 
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    0 20px 45px rgba(124,58,237,.35);
+  box-shadow: 0 20px 45px rgba(124, 58, 237, 0.35);
 }

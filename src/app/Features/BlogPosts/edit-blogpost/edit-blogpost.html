@@ -156,13 +156,36 @@
         <!-- Input -->
         <div class="image-input-wrapper">
           <div class="image-input-icon">🌄</div>
+          <div class="image-label-row">
 
+  <label class="form-label">
+    Featured Image URL
+  </label>
+
+  <button
+    type="button"
+    class="select-image-btn"
+    (click)="openImageSelector()"
+  >
+
+    <span class="btn-icon">
+      🖼️
+    </span>
+
+    <span>
+      Media Library
+    </span>
+
+  </button>
+
+</div>
           <input
             type="text"
             class="form-control image-input"
             formControlName="featuredImageUrl"
             placeholder="Paste your image URL here..."
           />
+
         </div>
       </div>
       <!-- Row -->
@@ -254,4 +277,8 @@
     </form>
   </div>
 </div>
-<app-image-selector></app-image-selector>
+
+
+<div class="image-selector-container">
+  <app-image-selector></app-image-selector>
+</div>

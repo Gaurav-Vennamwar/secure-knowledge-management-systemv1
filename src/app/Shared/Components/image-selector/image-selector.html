@@ -1,147 +1,103 @@
-<div class="image-manager-wrapper">
+@if (showImageSelector()) {
+  <div class="media-modal-backdrop">
+    <div class="media-modal">
+      <div class="media-modal-body">
+        <div class="image-manager-wrapper">
+          <div class="image-manager-card">
+            <!-- HEADER -->
 
-  <div class="image-manager-card">
+            <div class="manager-header">
+              <div>
+                <div class="manager-badge">📸 Media Studio</div>
 
-    <!-- Header -->
+                <h2 class="manager-title">Image Manager</h2>
 
-    <div class="manager-header">
+                <p class="manager-subtitle">
+                  Upload, preview and organize visual assets for your knowledge platform
+                </p>
+              </div>
 
-      <div>
+              <button type="button" class="close-modal-btn" (click)="closeImageSelector()">
+                ✕
+              </button>
+            </div>
 
-        <div class="manager-badge">
-          📸 Media Studio
-        </div>
+            <!-- CONTENT -->
 
-        <h2 class="manager-title">
-          Image Manager
-        </h2>
+            <div class="row g-4">
+              <!-- ===================================== -->
+              <!-- LEFT SIDE : IMAGE PREVIEW -->
+              <!-- ===================================== -->
 
-        <p class="manager-subtitle">
-          Upload, preview and organize visual assets for your knowledge platform
-        </p>
+              <div class="col-lg-8">
+                <div class="preview-panel">
+                  <div class="preview-topbar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
 
-      </div>
+                    <span class="preview-label"> Live Preview </span>
+                  </div>
 
-    </div>
+                  <div class="empty-preview">
+                    <div class="preview-icon">🖼️</div>
 
-    <div class="row g-4">
+                    <h3>Image Preview</h3>
 
-      <!-- LEFT SIDE -->
+                    <p>Upload an image to see a live preview here.</p>
+                  </div>
+                </div>
+              </div>
 
-      <div class="col-lg-8">
+              <!-- ===================================== -->
+              <!-- RIGHT SIDE : UPLOAD PANEL -->
+              <!-- ===================================== -->
 
-        <div class="preview-panel">
+              <div class="col-lg-4">
+                <div class="upload-panel">
+                  <h4 class="upload-title">Upload Image</h4>
 
-          <div class="preview-topbar">
+                  <p class="upload-subtitle">Add media assets to your content library</p>
 
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
+                  <form>
+                    <!-- FILE -->
 
-            <span class="preview-label">
-              Live Preview
-            </span>
+                    <div class="mb-3">
+                      <label class="upload-label"> Select Image </label>
 
+                      <input type="file" class="premium-file-input" />
+                    </div>
+
+                    <!-- FILE NAME -->
+
+                    <div class="mb-3">
+                      <label class="upload-label"> File Name </label>
+
+                      <input type="text" class="premium-input" placeholder="example-image" />
+                    </div>
+
+                    <!-- TITLE -->
+
+                    <div class="mb-4">
+                      <label class="upload-label"> Title </label>
+
+                      <input type="text" class="premium-input" placeholder="Featured Blog Banner" />
+                    </div>
+
+                    <!-- BUTTON -->
+
+                    <button type="submit" class="upload-btn">
+                      <span> 🚀 </span>
+
+                      <span> Upload Asset </span>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="empty-preview">
-
-            <div class="preview-icon">
-              🖼️
-            </div>
-
-            <h3>
-              Image Preview
-            </h3>
-
-            <p>
-              Upload an image to see a live preview here.
-            </p>
-
-          </div>
-
         </div>
-
       </div>
-
-      <!-- RIGHT SIDE -->
-
-      <div class="col-lg-4">
-
-        <div class="upload-panel">
-
-          <h4 class="upload-title">
-            Upload Image
-          </h4>
-
-          <p class="upload-subtitle">
-            Add media assets to your content library
-          </p>
-
-          <form>
-
-            <div class="mb-3">
-
-              <label class="upload-label">
-                Select Image
-              </label>
-
-              <input
-                type="file"
-                class="premium-file-input"
-              >
-
-            </div>
-
-            <div class="mb-3">
-
-              <label class="upload-label">
-                File Name
-              </label>
-
-              <input
-                type="text"
-                class="premium-input"
-                placeholder="example-image"
-              >
-
-            </div>
-
-            <div class="mb-4">
-
-              <label class="upload-label">
-                Title
-              </label>
-
-              <input
-                type="text"
-                class="premium-input"
-                placeholder="Featured Blog Banner"
-              >
-
-            </div>
-
-            <button
-              type="submit"
-              class="upload-btn"
-            >
-
-              <span>🚀</span>
-
-              <span>
-                Upload Asset
-              </span>
-
-            </button>
-
-          </form>
-
-        </div>
-
-      </div>
-
     </div>
-
   </div>
-
-</div>
+}
