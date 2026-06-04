@@ -59,13 +59,13 @@
 
                   <p class="upload-subtitle">Add media assets to your content library</p>
 
-                  <form>
+                  <form [formGroup]= "imageSelectormUploadForm" (ngSubmit)="onSubmit()">
                     <!-- FILE -->
 
                     <div class="mb-3">
-                      <label class="upload-label"> Select Image </label>
+                      <label class="upload-label" class="form-control"> Select Image </label>
 
-                      <input type="file" class="premium-file-input" />
+                      <input type="file" class="premium-file-input" (change)="onFileSelected($event)"/>
                     </div>
 
                     <!-- FILE NAME -->
@@ -73,7 +73,7 @@
                     <div class="mb-3">
                       <label class="upload-label"> File Name </label>
 
-                      <input type="text" class="premium-input" placeholder="example-image" />
+                      <input type="text" class="premium-input" placeholder="example-image" formControlName="name"/>
                     </div>
 
                     <!-- TITLE -->
@@ -81,7 +81,7 @@
                     <div class="mb-4">
                       <label class="upload-label"> Title </label>
 
-                      <input type="text" class="premium-input" placeholder="Featured Blog Banner" />
+                      <input type="text" class="premium-input" placeholder="Featured Blog Banner" formControlName="tittle"/>
                     </div>
 
                     <!-- BUTTON -->
