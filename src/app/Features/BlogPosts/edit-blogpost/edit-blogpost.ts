@@ -91,7 +91,7 @@ export class EditBlogpost {
       shortDescription : this.blogPostResponse()?.ShortDescription,
       content : this.blogPostResponse()?.Content,
       author : this.blogPostResponse()?.Author,
-      publishedDate : this.blogPostResponse()?.PublishedDate,
+      publishedDate : this.blogPostResponse()?.PublishedDate.substring(0, 10),
       isVisible : this.blogPostResponse()?.IsVisible,
       urlHandle : this.blogPostResponse()?.UrlHandle,
       featuredImageUrl : this.blogPostResponse()?.FeaturedImageUrl,
