@@ -16,8 +16,27 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             this.imageRepository = imageRepository;
         }
 
-        
-
+        //GET : {apibaseURL}/api/images
+        [HttpGet]
+        public async Task<IActionResult> GetAllImages()
+        {
+            //call image repository to get all the images
+            var images = await imageRepository.GetAll();
+            //convert domain model to dto
+            var response = new List<BlogImageDTO>();
+            foreach (var image in images)
+            {
+                response.Add(new BlogImageDTO {
+                    Id = image.Id,
+                    Tittle = image.Tittle,
+                    DateCreated = image.DateCreated,
+                    FileExtension = image.FileExtension,
+                    FileName = image.FileName,
+                    Url = image.Url
+                });            
+            }
+            return Ok(response);
+        }
 
         //POST : {apibaseurl}/api/images
         [HttpPost]

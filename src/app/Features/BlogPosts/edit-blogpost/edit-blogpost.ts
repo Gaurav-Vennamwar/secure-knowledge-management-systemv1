@@ -100,6 +100,17 @@ export class EditBlogpost {
     });
   }
   });
+  //whenever the signal changes effecct gets called and it will repatch the new value
+//whenever the image gets selectedimages signal changes then the effect fetches the url 
+selectedImageEffectRef = effect(() => {
+  const selectedImageUrl = this.imageSelectorService.selectedImage();//selected image ismeh store kiya
+  if(selectedImageUrl){//if its valid then 
+    this.editBlogPostForm.patchValue({
+      featuredImageUrl : selectedImageUrl
+    });
+  }
+
+})
 
   onSubmit(){
     const id = this.id();

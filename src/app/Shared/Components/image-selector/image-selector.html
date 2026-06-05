@@ -44,7 +44,7 @@
                             [alt]="image.Tittle"
                             class="gallery-image"
                           />
-                          <div class="image-overlay">
+                          <div class="image-overlay" (click)="onSelectImage(image)">
                             <span class="image-title">{{image.Tittle}}</span>
                             <button type="button" class="select-asset-btn">
                               Select
