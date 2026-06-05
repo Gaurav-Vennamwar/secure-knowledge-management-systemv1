@@ -1,9 +1,9 @@
 export interface BlogImage{
-    id :string;
-    fileName : string;
-    tittle : string;
-    fileExtension : string;
-    url : string;
-    dateCreated : string;
+    Id :string;
+    FileName : string;
+    Tittle : string;
+    FileExtension : string;
+    Url : string;
+    DateCreated : string;
 
 }
