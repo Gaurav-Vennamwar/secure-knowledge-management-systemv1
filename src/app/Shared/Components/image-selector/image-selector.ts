@@ -54,7 +54,7 @@ export class ImageSelector {
   }
 
   onSelectImage(image : BlogImage){
-    this.imageSelectorService.selectedImage(image.Url):
+    this.imageSelectorService.selectImage(image.Url);
   }
   onSubmit() {
     if (this.imageSelectormUploadForm.valid) {
