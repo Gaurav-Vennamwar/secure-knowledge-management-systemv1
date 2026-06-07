@@ -1,5 +1,8 @@
+using System.Diagnostics.Metrics;
+using Azure;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
@@ -141,6 +144,38 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 }).ToList()
             };
             return Ok(reponse);
+        }
+
+        //GET : {apiBaseUrl}/api/blogposts{urlHandle}
+        [HttpGet("{urlHandle}")]
+        public async Task<IActionResult> GetBlogPostByUrlHandle([FromRoute] string urlHandle)
+        {
+            var blogPost = await blogPostRepository.GetByUrlHandleAsync(urlHandle);
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+            //else return ok reposne and conver domain model back to dto
+            var reponse = new BlogPostDTO
+            {
+                Id = blogPost.Id,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                Content = blogPost.Content,
+                ShortDescription = blogPost.ShortDescription,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                Tittle = blogPost.Tittle,
+                UrlHandle = blogPost.UrlHandle,
+                Categories = blogPost.Categories.Select(x => new CategoryDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle,
+                }).ToList()
+            };
+            return Ok(reponse);
+
         }
 
 
