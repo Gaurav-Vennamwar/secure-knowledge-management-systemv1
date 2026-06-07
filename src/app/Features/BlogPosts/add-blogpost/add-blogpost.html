@@ -20,7 +20,7 @@
         <input
           type="text"
           class="form-control editor-input title-input"
-          formControlName="tittle"
+          formControlName="Tittle"
           placeholder="Enter blog title..."
         />
       </div>
@@ -32,7 +32,7 @@
         <input
           type="text"
           class="form-control editor-input"
-          formControlName="shortDescription"
+          formControlName="ShortDescription"
           placeholder="Briefly describe your article..."
         />
       </div>
@@ -44,7 +44,7 @@
         <input
           type="text"
           class="form-control editor-input"
-          formControlName="urlHandle"
+          formControlName="UrlHandle"
           placeholder="your-blog-url"
         />
       </div>
@@ -76,7 +76,7 @@
 
               <textarea
                 class="form-control editor-textarea"
-                formControlName="content"
+                formControlName="Content"
                 rows="16"
                 placeholder="# Write your amazing blog here...
 
@@ -110,7 +110,7 @@
               <div class="markdown-preview">
                 <markdown
                   class="markdown-body"
-                  [data]="addBlogPostForm.controls.content.getRawValue()"
+                  [data]="addBlogPostForm.controls.Content.getRawValue()"
                 >
                 </markdown>
               </div>
@@ -130,13 +130,14 @@
 
           <div class="image-badge">✨ Live Preview</div>
         </div>
+        
 
         <!-- Preview -->
-        @if (addBlogPostForm.controls.featuredImageUrl.getRawValue()) {
+        @if (addBlogPostForm.controls.FeaturedImageUrl.getRawValue()) {
           <div class="image-preview-card">
             <img
               class="featured-preview-image"
-              [src]="addBlogPostForm.controls.featuredImageUrl.getRawValue()"
+              [src]="addBlogPostForm.controls.FeaturedImageUrl.getRawValue()"
               alt="Preview Image"
             />
 
@@ -148,18 +149,55 @@
           </div>
         }
 
-        <!-- Input -->
-        <div class="image-input-wrapper">
-          <div class="image-input-icon">🌄</div>
+<!-- Featured Image -->
 
-          <input
-            type="text"
-            class="form-control image-input"
-            formControlName="featuredImageUrl"
-            placeholder="Paste your image URL here..."
-          />
-        </div>
-      </div>
+<div class="featured-image-section">
+
+  <!-- Header Row -->
+
+  <div class="featured-image-header">
+
+    <label class="form-label featured-label">
+      Featured Image URL
+    </label>
+
+    <button
+      type="button"
+      class="select-image-btn"
+      (click)="imageSlectorService.displayImageSelector()"
+    >
+
+      <span class="btn-icon">
+        🖼️
+      </span>
+
+      <span>
+        Media Library
+      </span>
+
+    </button>
+
+  </div>
+
+  <!-- Input -->
+
+  <div class="image-input-wrapper">
+
+    <div class="image-input-icon">
+      🌄
+    </div>
+
+    <input
+      type="text"
+      class="form-control image-input"
+      formControlName="FeaturedImageUrl"
+      placeholder="Paste your image URL here..."
+    />
+
+  </div>
+
+</div>
+</div> <!-- featured-image-section -->
       <!-- Row -->
       <div class="editor-row">
         <!-- Date -->
@@ -176,7 +214,7 @@
           <input
             type="text"
             class="form-control editor-input"
-            formControlName="author"
+            formControlName="Author"
             placeholder="Author name"
           />
         </div>
@@ -220,7 +258,7 @@
           [multiple]="true"
           [closeOnSelect]="false"
           [placeholder]="
-            addBlogPostForm.controls.categories.value.length
+            addBlogPostForm.controls.Categories.value.length
               ? ''
               : 'Search and select categories...'
           "
