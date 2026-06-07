@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlogPostService } from '../Services/blog-post-service';
 import { AddBlogPostRequest } from '../Models/blogpost.model';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
 import { CategoryService } from '../../Category/Services/category-service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ImageSelectorService } from '../../../Shared/Services/image-selector-service';
 
 @Component({
   selector: 'app-add-blogpost',
@@ -25,59 +26,73 @@ export class AddBlogpost {
 
   router = inject(Router);
 
+  imageSlectorService = inject(ImageSelectorService);
+
+   //whenever the signal changes effecct gets called and it will repatch the new value
+//whenever the image gets selectedimages signal changes then the effect fetches the url 
+selectedImageEffectRef = effect(() => {
+  const selectedImageUrl = this.imageSlectorService.selectedImage();//selected image ismeh store kiya
+  if(selectedImageUrl){//if its valid then 
+    this.addBlogPostForm.patchValue({
+      FeaturedImageUrl : selectedImageUrl
+    });
+  }
+
+})
+
   private categoriesResourceRef = this.categoryService.getAllCategories();
 
   categoriesResponse = this.categoriesResourceRef.value;
 
   addBlogPostForm = new FormGroup({
-    tittle: new FormControl<string>('', {
+    Tittle: new FormControl<string>('', {
       nonNullable: true,
 
       validators: [Validators.required, Validators.minLength(7), Validators.maxLength(100)],
     }),
 
-    shortDescription: new FormControl<string>('', {
+    ShortDescription: new FormControl<string>('', {
       nonNullable: true,
 
       validators: [Validators.required, Validators.minLength(10), Validators.maxLength(200)],
     }),
 
-    content: new FormControl<string>('', {
+    Content: new FormControl<string>('', {
       nonNullable: true,
 
       validators: [Validators.required, Validators.minLength(10)],
     }),
 
-    featuredImageUrl: new FormControl<string>('', {
+    FeaturedImageUrl: new FormControl<string>('', {
       nonNullable: true,
 
       validators: [Validators.required, Validators.maxLength(200)],
     }),
 
-    urlHandle: new FormControl<string>('', {
+    UrlHandle: new FormControl<string>('', {
       nonNullable: true,
 
       validators: [Validators.required, Validators.maxLength(200)],
     }),
 
-    publishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], {
+    PublishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], {
       nonNullable: true,
 
       validators: [Validators.required],
     }),
 
-    author: new FormControl<string>('', {
+    Author: new FormControl<string>('', {
       nonNullable: true,
 
       validators: [Validators.required, Validators.maxLength(100)],
     }),
 
-    isVisible: new FormControl<boolean>(true, {
+    IsVisible: new FormControl<boolean>(true, {
       nonNullable: true,
     }),
 
     // 🔥 NG SELECT CATEGORY IDS
-    categories: new FormControl<string[]>([], {
+    Categories: new FormControl<string[]>([], {
       nonNullable: true,
     }),
   });
@@ -93,28 +108,27 @@ export class AddBlogpost {
 
     const formRawValue = this.addBlogPostForm.getRawValue();
 
-    console.log('Selected Categories:', formRawValue.categories);
+    console.log('Selected Categories:', formRawValue.Categories);
 
     const requestDto: AddBlogPostRequest = {
-      tittle: formRawValue.tittle,
+      Tittle: formRawValue.Tittle,
 
-      shortDescription: formRawValue.shortDescription,
+      ShortDescription: formRawValue.ShortDescription,
 
-      content: formRawValue.content,
+      Content: formRawValue.Content,
 
-      author: formRawValue.author,
+      Author: formRawValue.Author,
 
-      featuredImageUrl: formRawValue.featuredImageUrl,
+      FeaturedImageUrl: formRawValue.FeaturedImageUrl,
 
-      isVisible: formRawValue.isVisible,
+      IsVisible: formRawValue.IsVisible,
 
-      urlHandle: formRawValue.urlHandle,
+      UrlHandle: formRawValue.UrlHandle,
 
-      publishedDate: formRawValue.publishedDate,
+      PublishedDate: formRawValue.PublishedDate,
 
       // we will send this when backend DTO supports it
-      categories: formRawValue.categories ??[]
-      
+      Categories: formRawValue.Categories ?? [],
     };
 
     console.log(JSON.stringify(requestDto));

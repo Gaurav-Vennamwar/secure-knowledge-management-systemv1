@@ -25,7 +25,7 @@
         <input
           type="text"
           class="form-control editor-input title-input"
-          formControlName="tittle"
+          formControlName="Tittle"
           placeholder="Enter blog title..."
         />
       </div>
@@ -37,7 +37,7 @@
         <input
           type="text"
           class="form-control editor-input"
-          formControlName="shortDescription"
+          formControlName="ShortDescription"
           placeholder="Briefly describe your article..."
         />
       </div>
@@ -49,7 +49,7 @@
         <input
           type="text"
           class="form-control editor-input"
-          formControlName="urlHandle"
+          formControlName="UrlHandle"
           placeholder="your-blog-url"
         />
       </div>
@@ -81,7 +81,7 @@
 
               <textarea
                 class="form-control editor-textarea"
-                formControlName="content"
+                formControlName="Content"
                 rows="16"
                 placeholder="# Write your amazing blog here...
 
@@ -115,7 +115,7 @@
               <div class="markdown-preview">
                 <markdown
                   class="markdown-body"
-                  [data]="editBlogPostForm.controls.content.getRawValue()"
+                  [data]="editBlogPostForm.controls.Content.getRawValue()"
                 >
                 </markdown>
               </div>
@@ -137,11 +137,11 @@
         </div>
 
         <!-- Preview -->
-        @if (editBlogPostForm.controls.featuredImageUrl.getRawValue()) {
+        @if (editBlogPostForm.controls.FeaturedImageUrl.getRawValue()) {
           <div class="image-preview-card">
             <img
               class="featured-preview-image"
-              [src]="editBlogPostForm.controls.featuredImageUrl.getRawValue()"
+              [src]="editBlogPostForm.controls.FeaturedImageUrl.getRawValue()"
               alt="Preview Image"
             />
 
@@ -182,7 +182,7 @@
           <input
             type="text"
             class="form-control image-input"
-            formControlName="featuredImageUrl"
+            formControlName="FeaturedImageUrl"
             placeholder="Paste your image URL here..."
           />
 
@@ -194,7 +194,7 @@
         <div class="editor-group flex-fill">
           <label class="editor-label"> Published Date </label>
 
-          <input type="date" class="form-control editor-input" formControlName="publishedDate" />
+          <input type="date" class="form-control editor-input" formControlName="PublishedDate" />
         </div>
 
         <!-- Author -->
@@ -204,7 +204,7 @@
           <input
             type="text"
             class="form-control editor-input"
-            formControlName="author"
+            formControlName="Author"
             placeholder="Author name"
           />
         </div>
@@ -219,7 +219,7 @@
         </div>
 
         <label class="modern-switch">
-          <input type="checkbox" formControlName="isVisible" />
+          <input type="checkbox" formControlName="IsVisible" />
 
           <span class="slider"></span>
         </label>
@@ -245,11 +245,11 @@
           [items]="categoriesResponse() ?? []"
           bindLabel="Name"
           bindValue="Id"
-          formControlName="categories"
+          formControlName="Categories"
           [multiple]="true"
           [closeOnSelect]="false"
           [placeholder]="
-            editBlogPostForm.controls.categories.value.length
+            editBlogPostForm.controls.Categories.value.length
               ? ''
               : 'Search and select categories...'
           "
@@ -279,6 +279,4 @@
 </div>
 
 
-<div class="image-selector-container">
-  <app-image-selector></app-image-selector>
-</div>
+

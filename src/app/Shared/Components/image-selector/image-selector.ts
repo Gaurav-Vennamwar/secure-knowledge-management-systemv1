@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ImageSelectorService } from '../../Services/image-selector-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { form } from '@angular/forms/signals';
+import { BlogImage } from '../../Model/image.model';
 
 @Component({
   selector: 'app-image-selector',
@@ -12,6 +13,16 @@ import { form } from '@angular/forms/signals';
 export class ImageSelector {
   private imageSelectorService = inject(ImageSelectorService);
   showImageSelector = this.imageSelectorService.showImageSelector.asReadonly();
+  
+  
+  //refreshing the preview page
+  id = signal<string | undefined>(undefined);
+  //calling get all images
+  imageRef = this.imageSelectorService.getAllImage(this.id);
+  isLoading = this.imageRef.isLoading;
+  images = this.imageRef.value;
+
+  
 
   imageSelectormUploadForm = new FormGroup({
     file: new FormControl<File | null | undefined>(null, {
@@ -41,6 +52,10 @@ export class ImageSelector {
       file : file
     });
   }
+
+  onSelectImage(image : BlogImage){
+    this.imageSelectorService.selectImage(image.Url);
+  }
   onSubmit() {
     if (this.imageSelectormUploadForm.valid) {
       //submit this form
@@ -51,7 +66,8 @@ export class ImageSelector {
         formRawValue.tittle,
       ).subscribe({
         next : (reponse) => {
-          console.log(reponse)
+          this.id.set(reponse.Id);//unique string is coming back then the httpresource will always refresh
+          this.imageSelectormUploadForm.reset();
         },
         error :() =>{
           console.error("Something Went Wrong")
@@ -59,4 +75,5 @@ export class ImageSelector {
       });
     }
   }
+
 }

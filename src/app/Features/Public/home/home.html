@@ -1,0 +1,88 @@
+<div class="home-page">
+
+<section class="hero-section">
+
+  <div class="hero-badge">
+    🚀 Secure Knowledge Manager
+  </div>
+
+  <h1 class="hero-title">
+    Explore Modern Knowledge
+  </h1>
+
+  <p class="hero-tagline">
+    Where Knowledge Becomes Action.
+  </p>
+
+  <p class="hero-subtitle">
+    Technology • Business • AI • Security • Innovation
+  </p>
+
+</section>
+
+  <!-- CONTENT -->
+
+  @if (isLoading()) {
+
+    <div class="loading-container">
+
+      <div class="spinner-border text-primary"></div>
+
+      <p>Loading articles...</p>
+
+    </div>
+
+  } @else {
+
+    <div class="blog-grid">
+
+      @for (blogPost of blogPostResponse(); track blogPost.Id) {
+
+        <article class="blog-card">
+
+          <div class="blog-image-container">
+
+            <img
+              [src]="blogPost.FeaturedImageUrl"
+              [alt]="blogPost.Tittle"
+              class="blog-image"
+            />
+
+          </div>
+
+          <div class="blog-content">
+
+            <div class="article-chip">
+              Knowledge Article
+            </div>
+
+            <h3 class="blog-title">
+              {{ blogPost.Tittle }}
+            </h3>
+
+            <p class="blog-description">
+              {{ blogPost.ShortDescription }}
+            </p>
+
+            <div class="blog-footer">
+
+              <a
+                [routerLink]="['/blog', blogPost.UrlHandle]"
+                class="read-link"
+              >
+                Read More →
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+  }
+
+</div>
