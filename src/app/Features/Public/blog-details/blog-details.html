@@ -1,31 +1,109 @@
-<div class="container">
-    <div class="my-5">
-        @if (isLoading()) {
-            <p>Is Loading ...</p>
-        }@else {
-            <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                <img class="img-fluid" 
-                [src]="blogDetailResponse()?.FeaturedImageUrl" 
-                [title]="blogDetailResponse()?.Tittle"/>
-        <h1 class="mt-4">{{ blogDetailResponse()?.Tittle}}</h1> 
-        
-        <div class="d-flex justify-content-between mt-4">
-            <span>{{blogDetailResponse()?.Author}}</span>
-            <span>{{blogDetailResponse()?.PublishedDate | date : 'dd-MM-yyyy'}}</span>
-        </div>
-        @if (blogDetailResponse()?.Categories) {
-            <div class="mt-4">
-                @for (category of blogDetailResponse()?.Categories; track category.Id) {
-                    <span class="badge bg-secondary me-2">{{category.Name}}</span>
-                }
-            </div>
-        }
-    
-        
-        <div class="mt-4 blog content">
-            <markdown [data]="blogDetailResponse()?.Content"></markdown>
-        </div>
-        </div>
-        }
+<div class="blog-details-page">
+
+  @if (isLoading()) {
+
+    <div class="loading-container">
+
+      <div class="spinner-border text-primary"></div>
+
+      <p>Loading article...</p>
+
     </div>
+
+  } @else {
+
+    <article class="article-container">
+
+      <!-- HERO IMAGE -->
+
+      <div class="hero-image-wrapper">
+
+        <img
+          class="hero-image"
+          [src]="blogDetailResponse()?.FeaturedImageUrl"
+          [alt]="blogDetailResponse()?.Tittle"
+        />
+
+        <div class="hero-overlay">
+
+          <div class="article-badge">
+            🚀 Knowledge Article
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CONTENT -->
+
+      <div class="article-content">
+
+        <h1 class="article-title">
+          {{ blogDetailResponse()?.Tittle }}
+        </h1>
+
+        <div class="article-meta">
+
+          <div class="author-card">
+
+            <div class="author-avatar">
+              {{ blogDetailResponse()?.Author?.charAt(0) }}
+            </div>
+
+            <div>
+
+              <div class="author-name">
+                {{ blogDetailResponse()?.Author }}
+              </div>
+
+              <div class="author-role">
+                Content Author
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="publish-date">
+
+            📅 {{ blogDetailResponse()?.PublishedDate | date:'dd MMM yyyy' }}
+
+          </div>
+
+        </div>
+
+        @if (blogDetailResponse()?.Categories) {
+
+          <div class="category-wrapper">
+
+            @for (category of blogDetailResponse()?.Categories; track category.Id) {
+
+              <span class="category-chip">
+
+                {{ category.Name }}
+
+              </span>
+
+            }
+
+          </div>
+
+        }
+
+        <div class="content-divider"></div>
+
+        <div class="markdown-container">
+
+          <markdown
+            [data]="blogDetailResponse()?.Content">
+          </markdown>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  }
+
 </div>
