@@ -6,12 +6,17 @@ import { BlogpostList } from './Features/BlogPosts/blogpost-list/blogpost-list';
 import { AddBlogpost } from './Features/BlogPosts/add-blogpost/add-blogpost';
 import { EditBlogpost } from './Features/BlogPosts/edit-blogpost/edit-blogpost';
 import { Home } from './Features/Public/home/home';
+import { BlogDetails } from './Features/Public/blog-details/blog-details';
 
 export const routes: Routes = [
 
     {
         path : '',//blank to display it to home
         component : Home
+    },
+    {
+        path : 'blog/:url',
+        component : BlogDetails
     },
 
     {

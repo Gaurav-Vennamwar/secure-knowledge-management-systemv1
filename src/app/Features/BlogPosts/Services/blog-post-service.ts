@@ -27,6 +27,11 @@ import { StringTokenKind } from '@angular/compiler';
      return httpResource<BlogPost>(() => `${this.apiBaseUrl}/api/blogpost/${id()}` );
     }
 
+    //service method to get all blog posts by url handle
+    getBlogPostByUrlHandle(urlHandle : InputSignal<string | undefined>) :HttpResourceRef<BlogPost | undefined>{
+      return httpResource<BlogPost>(() => `${this.apiBaseUrl}/api/blogpost/${urlHandle()}` );
+    }
+
     //service method to edit the blog post
     editBlogPost(id : string, body : UpdateBlogPostRequest) : Observable<BlogPost>{
       return this.http.put<BlogPost>(`${this.apiBaseUrl}/api/blogpost/${id}` , body);
