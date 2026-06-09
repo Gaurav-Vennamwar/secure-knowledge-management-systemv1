@@ -4,6 +4,7 @@ using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.API.Data;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -67,9 +68,10 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             return Ok(response);
 
         }
+
         //Get : https://localhost5251/api/categories/{id}
         [HttpGet("{id:guid}")]
-        
+        [Authorize]
         public async Task<IActionResult> GetCategoryById([FromRoute] Guid id)
         {
             var existingCategory = await categoryRepository.GetById(id);

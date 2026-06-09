@@ -6,7 +6,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Data
 {
     public class AuthDbContext : IdentityDbContext
     {
-        public AuthDbContext(DbContextOptions options) :base(options)//to use options in program.cs
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) :base(options)//to use options in program.cs
         {
             
         }
@@ -16,8 +16,8 @@ namespace SecureKnowledgeManagementSystemv1.API.Data
         {
             base.OnModelCreating(builder);
 
-            var readerRoleId = "43844ffc-1789-4ed8-9517-82cd8de05057]";
-            var writterRoleId = "6361188 - 6b36 - 4d9b - 8e7a - 2e5319a4cf7c";
+            var readerRoleId = "43844ffc-1789-4ed8-9517-82cd8de05057";
+            var writterRoleId = "6361188-6b36-4d9b-8e7a-2e5319a4cf7c";
 
             //creating reader and writter role
             var roles = new List<IdentityRole>{
@@ -41,7 +41,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Data
             builder.Entity<IdentityRole>().HasData(roles);
 
             //create an admin user
-            var adminUserId = "[10a7620f-01e4-482c-a211-a52f503476a1]";
+            var adminUserId = "10a7620f-01e4-482c-a211-a52f503476a1";
             var admin = new IdentityUser()
             {
                 Id= adminUserId,
@@ -68,9 +68,9 @@ namespace SecureKnowledgeManagementSystemv1.API.Data
                     RoleId = writterRoleId,
                 }
             };
-            builder.Entity<IdentityRole<string>>().HasData(adminRoles);
-
             //seed the admin user
+            builder.Entity<IdentityUserRole<string>>().HasData(adminRoles);
+
         }
     }
 }
