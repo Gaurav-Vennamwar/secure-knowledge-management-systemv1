@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
+using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 
 namespace SecureKnowledgeManagementSystemv1.API.Controllers
 {
@@ -10,11 +11,13 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> userManager;
+        private readonly ITokenRepository tokenRepository;
 
         //we are getting few methods which we can use to create users
-        public AuthController(UserManager<IdentityUser> userManager)
+        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
         {
             this.userManager = userManager;//create and assign this field
+            this.tokenRepository = tokenRepository;
         }
 
         //POST : {apiBaseUrl}/api/auth/login
@@ -29,17 +32,19 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 //CHECK PASSWORD
                 var checkPasswordResult = await userManager.CheckPasswordAsync(identityUser, request.Password!);
-                //if check password result is sucerss
+                //if check password result is succed then
                 if (checkPasswordResult)
                 {
-
+                    //create a token for the user
                     var roles = await userManager.GetRolesAsync(identityUser);
-                    //create a token and a reponse
+                    var jwtToken = tokenRepository.CreateJwtToken(identityUser, roles.ToList());
+
+                    //create a  reponse and add the jwt token
                     var reponse = new LoginResponseDTO()
                     {
                         Email = request.Email,
                         Roles = roles.ToList(),
-                        Token = "TOKEN"
+                        Token = jwtToken
                     };
                     return Ok(reponse);
                 }

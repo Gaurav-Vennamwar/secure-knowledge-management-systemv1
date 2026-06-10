@@ -44,6 +44,7 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 //few configuration of code to tell the application what type of user we are using what type of role we are having and etc
 builder.Services.AddIdentityCore<IdentityUser>()
