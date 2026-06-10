@@ -118,14 +118,6 @@
 
 .article-title {
 
-  font-size: clamp(2.5rem,5vw,4rem);
-
-  font-weight: 900;
-
-  line-height: 1.15;
-
-  margin-bottom: 30px;
-
   background:
     linear-gradient(
       135deg,
@@ -135,9 +127,12 @@
 
   -webkit-background-clip: text;
 
+  background-clip: text;
+
   color: transparent;
 
 }
+
 
 /* META */
 
@@ -296,5 +291,37 @@
       translateY(0);
 
   }
+
+}
+.hero-title {
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #7c3aed
+    );
+
+  -webkit-background-clip: text;
+
+  background-clip: text;
+
+  color: transparent;
+
+}
+.manager-title {
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #7c3aed
+    );
+
+  -webkit-background-clip: text;
+
+  background-clip: text;
+
+  color: transparent;
 
 }

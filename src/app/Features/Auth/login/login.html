@@ -1,0 +1,77 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+
+<div class="login-header">
+
+  <div class="login-badge">
+    🔐 Secure Knowledge Manager
+  </div>
+
+  <h1 class="login-title">
+    Welcome Back
+  </h1>
+
+  <p class="login-subtitle">
+    Continue your journey of knowledge and innovation
+  </p>
+
+</div>
+
+<form class="login-form" [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
+
+  <div class="input-group-modern">
+
+    <label>Email Address</label>
+
+    <input
+      type="email"
+      placeholder="you@example.com"
+      class="modern-input"
+      formControlName = "email"
+    />
+    @if (emailFormControl.touched && emailFormControl.hasError('required')) {
+
+    <p class="error-message">
+        Email is required
+    </p>
+
+}
+  </div>
+
+  <div class="input-group-modern">
+
+    <label>Password</label>
+
+    <input
+      type="password"
+      placeholder="Enter your password"
+      class="modern-input"
+      formControlName = "password"
+    />
+    @if (passwordFormControl.touched && passwordFormControl.hasError('required')) {
+
+    <p class="error-message">
+        Password is required
+    </p>
+
+}
+  </div>
+
+  <button
+    type="submit"
+    class="login-btn"
+  >
+
+     Sign In
+
+  </button>
+
+</form>
+
+
+  </div>
+
+</div>
+

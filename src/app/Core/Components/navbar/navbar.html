@@ -63,14 +63,19 @@
 
       </ul>
 
-      <div class="d-flex gap-3 align-items-center">
+      <div class="auth-buttons">
 
-        <a class="btn btn-modern">
-          Login
-        </a>
+  <a class="btn-modern login-btn"[routerLink]="['/login']">
+    Login
+  </a>
 
-      </div>
+  <a class="btn-modern register-btn" [routerLink]="['/register']">
+    Register
+  </a>
+
+</div>
 
     </div>
+
   </div>
 </nav>
