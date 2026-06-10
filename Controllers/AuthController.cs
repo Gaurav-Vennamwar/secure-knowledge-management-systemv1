@@ -16,6 +16,41 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         {
             this.userManager = userManager;//create and assign this field
         }
+
+        //POST : {apiBaseUrl}/api/auth/login
+        [HttpPost ("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
+        {
+            //everything is handled internally by the package identity package bro
+            //check email exists or not
+            var identityUser = await userManager.FindByEmailAsync(request.Email!);
+            //check if its not null
+            if (identityUser is not null)
+            {
+                //CHECK PASSWORD
+                var checkPasswordResult = await userManager.CheckPasswordAsync(identityUser, request.Password!);
+                //if check password result is sucerss
+                if (checkPasswordResult)
+                {
+
+                    var roles = await userManager.GetRolesAsync(identityUser);
+                    //create a token and a reponse
+                    var reponse = new LoginResponseDTO()
+                    {
+                        Email = request.Email,
+                        Roles = roles.ToList(),
+                        Token = "TOKEN"
+                    };
+                    return Ok(reponse);
+                }
+
+            }
+            ModelState.AddModelError("", "Email or password is incorrect");
+
+            return ValidationProblem(ModelState);
+        }
+
+
         //POST : {apivaseurl}/api/auth/register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
