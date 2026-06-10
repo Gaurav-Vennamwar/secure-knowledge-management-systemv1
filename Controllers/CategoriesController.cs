@@ -4,6 +4,7 @@ using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.API.Data;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -23,6 +24,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
         //Post : https://localhost5251/api/categories
         [HttpPost]
+        [Authorize(Roles = "Writter")]
         public async Task<IActionResult> CreateCategory(CreateCategoryRequestDTO request)
         {
             //map dto to domain model
@@ -49,6 +51,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         //Get : https://localhost5251/api/categories
 
         [HttpGet]
+        
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await categoryRepository.GetAllAsync();
@@ -67,6 +70,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             return Ok(response);
 
         }
+
         //Get : https://localhost5251/api/categories/{id}
         [HttpGet("{id:guid}")]
         
@@ -93,6 +97,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
         // This endpoint updates an existing category
         [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Writter")]
         public async Task<IActionResult> EditCategory(
 
             // /api/categories/123
@@ -144,6 +149,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
         // DELETE : https://localhost:5251/api/categories/{id}
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Writter")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             var category = await categoryRepository.DeleteAsync(id);
