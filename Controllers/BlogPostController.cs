@@ -1,6 +1,7 @@
 using System.Diagnostics.Metrics;
 using Azure;
 using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
         //Post : {apiBaseUrl}/api/blogposts
         [HttpPost]
+        [Authorize(Roles = "Writter")]
         public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDTO request)
         {
             //convert dto to domain model
@@ -178,7 +180,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
         }
 
-
+        [Authorize(Roles = "Writter")]
         //PUT : {apiBaseUrl}/api/blogposts{id}
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, UpdateBlogPostRequestDto request)
@@ -239,7 +241,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             };
             return Ok(response);
         }
-
+        [Authorize(Roles = "Writter")]
         //DELETE : {apiBaseUrl}/api/blogposts{id}
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid id)
