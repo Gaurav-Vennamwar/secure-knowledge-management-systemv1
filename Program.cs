@@ -99,7 +99,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         app.UseCors(options =>
         {
             options.AllowAnyHeader();
-            options.WithOrigins("http://localhost:4200");
+            options.WithOrigins("https://localhost:4200");
             options.AllowAnyMethod();
             options.AllowCredentials();//in order to use cookies
         });
