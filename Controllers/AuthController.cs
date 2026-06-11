@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +23,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         }
 
         //POST : {apiBaseUrl}/api/auth/login
-        [HttpPost ("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
             //everything is handled internally by the package identity package bro
@@ -44,7 +46,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     {
                         Email = request.Email,
                         Roles = roles.ToList(),
-                        
+
                     };
                     Response.Cookies.Append("access_tokens", jwtToken, new CookieOptions
                     {
@@ -53,6 +55,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                         SameSite = SameSiteMode.Lax,
                         Expires = DateTime.UtcNow.AddMinutes(15)
                     });
+                    return Ok(reponse);
                 }
 
             }
@@ -62,7 +65,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         }
 
 
-        //POST : {apivaseurl}/api/auth/register
+        //POST : {apibaseurl}/api/auth/register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
         {
@@ -109,5 +112,27 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             }
             return ValidationProblem(ModelState);
         }
+
+
+        //we will call this endpoint whenever refreshed
+        //GET :{apiBaseUrl}/api/auth/me
+        [Authorize]
+        [HttpGet("me")]
+        //it will extract the token information from the porogram.cs context then if
+        //everything is valid it will then go in this method and extract the neccessary details
+        public IActionResult UserDetails()
+        {
+            if(User.Identity == null || !User.Identity.IsAuthenticated){
+                return Unauthorized();
+            }
+
+            var response = new LoginResponseDTO
+            {
+                Email = User.FindFirst(ClaimTypes.Email)?.Value,
+                Roles = User.FindAll(ClaimTypes.Role).Select(x => x.Value).ToList()
+            };
+            return Ok(response);
+        }
     }
 }
+    

@@ -4,8 +4,8 @@ namespace SecureKnowledgeManagementSystemv1.API.Models.DTO
     {
         public string? Email { get; set; }
         
-
         public List<string>? Roles { get; set; }
+        public string? Token { get; set; }
 
     }
 }
