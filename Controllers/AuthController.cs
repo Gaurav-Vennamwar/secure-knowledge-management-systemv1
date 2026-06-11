@@ -133,6 +133,21 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             };
             return Ok(response);
         }
+
+        //logout
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            //this will over ride your previous cookie
+            Response.Cookies.Append("access_tokens", "", new CookieOptions
+            {
+                HttpOnly = true,//only http cokkie
+                Secure = true,
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.UtcNow.AddDays(-1)
+            });
+            return Ok();
+        }
     }
 }
     
