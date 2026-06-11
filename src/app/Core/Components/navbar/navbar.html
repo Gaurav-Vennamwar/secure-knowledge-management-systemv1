@@ -1,16 +1,19 @@
 <nav class="container navbar navbar-expand-lg custom-navbar">
   <div class="container-fluid">
+    <!-- Logo -->
 
     <a class="navbar-brand brand-container" href="#">
-  <img src="assets/logo.png" class="logo-img" alt="SKMS Logo" />
+      <img src="assets/logo.png" class="logo-img" alt="SKMS Logo" />
 
-  <div class="brand-text-wrapper">
-    <span class="brand-title">SKMS</span>
-    <small class="brand-subtitle">
-      Secure Knowledge Management System
-    </small>
-  </div>
-</a>
+      <div class="brand-text-wrapper">
+        <span class="brand-title"> SKMS </span>
+
+        <small class="brand-subtitle"> Secure Knowledge Management System </small>
+      </div>
+    </a>
+
+    <!-- Mobile Toggle -->
+
     <button
       class="navbar-toggler border-0 shadow-none"
       type="button"
@@ -23,14 +26,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Navbar Content -->
+
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <!-- Left Side Menu -->
 
       <ul class="navbar-nav me-auto align-items-lg-center gap-lg-3">
-
         <li class="nav-item">
-          <a class="nav-link nav-hover active" aria-current="page" href="#">
-            Home
-          </a>
+          <a class="nav-link nav-hover active" aria-current="page" href="#"> Home </a>
         </li>
 
         <li class="nav-item dropdown">
@@ -46,36 +49,38 @@
 
           <ul class="dropdown-menu dropdown-modern">
             <li>
-              <a class="dropdown-item"
-                 [routerLink]="['admin', 'categories']">
-                 Categories
-              </a>
+              <a class="dropdown-item" [routerLink]="['/admin/categories']"> Categories </a>
             </li>
 
             <li>
-              <a class="dropdown-item"
-                 [routerLink]="['admin', 'blogposts']">
-                 Blog Posts
-              </a>
+              <a class="dropdown-item" [routerLink]="['/admin/blogposts']"> Blog Posts </a>
             </li>
           </ul>
         </li>
-
       </ul>
 
-      <div class="auth-buttons">
+      <div class="d-flex align-items-center ms-auto gap-3">
+        @if (authService.user(); as user) {
+          <div class="user-menu">
+            <div class="user-avatar">
+              {{ user.Email[0].toUpperCase() }}
+            </div>
 
-  <a class="btn-modern login-btn"[routerLink]="['/login']">
-    Login
-  </a>
+            <span class="user-email">
+              {{ userDisplayName }}
+            </span>
 
-  <a class="btn-modern register-btn" [routerLink]="['/register']">
-    Register
-  </a>
+            <button type="button" class="logout-btn" (click)="onLogout">Logout</button>
+          </div>
+        }
 
-</div>
-
+        @if (!authService.user()) {
+          <div class="d-flex gap-3">
+            <a class="btn-modern login-btn" [routerLink]="['/login']"> Login </a>
+            <a class="btn-modern register-btn" [routerLink]="['/register']"> Register </a>
+          </div>
+        }
+      </div>
     </div>
-
   </div>
 </nav>
