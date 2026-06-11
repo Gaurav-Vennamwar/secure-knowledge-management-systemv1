@@ -84,6 +84,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             System.Text.Encoding.UTF8.GetBytes(
             builder.Configuration["Jwt:Key"]!))
         };
+
+        //extracting the accces_token from the cookie
+        //accepting the cookie from the client extracting the token from access_token
+        //and then saving it in the context
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                if (context.Request.Cookies.TryGetValue("access_tokens", out var token))
+                {
+                    //if it was sucessfull we have a token
+                    context.Token = token;
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
         var app = builder.Build();
 
@@ -99,8 +115,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         app.UseCors(options =>
         {
             options.AllowAnyHeader();
+            options.WithOrigins("http://localhost:4200");
             options.AllowAnyMethod();
-            options.AllowAnyOrigin();
+            options.AllowCredentials();//in order to use cookies
         });
         app.UseAuthentication();
         app.UseAuthorization();
