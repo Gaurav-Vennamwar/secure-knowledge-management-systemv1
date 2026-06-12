@@ -1,0 +1,120 @@
+
+<div class="login-page">
+
+  <div class="login-card">
+
+
+<div class="login-header">
+
+  <div class="login-badge">
+     Secure Knowledge Manager
+  </div>
+
+  <h1 class="login-title">
+    Create Account
+  </h1>
+
+  <p class="login-subtitle">
+    Join the next generation of knowledge sharing and innovation
+  </p>
+
+</div>
+
+<form
+  class="login-form"
+  [formGroup]="registerFormGroup"
+  (ngSubmit)="onSubmit()"
+>
+
+  <div class="input-group-modern">
+
+    <label>Email Address</label>
+
+    <input
+      type="email"
+      class="modern-input"
+      placeholder="you@example.com"
+      formControlName="email"
+    />
+
+    @if (emailFormControl.touched &&
+         emailFormControl.hasError('required')) {
+
+      <p class="error-message">
+        Email is required
+      </p>
+
+    }
+
+  </div>
+
+  <div class="input-group-modern">
+
+    <label>Password</label>
+
+    <input
+      type="password"
+      class="modern-input"
+      placeholder="Create a strong password"
+      formControlName="password"
+    />
+
+    @if (passwordFormControl.touched &&
+         passwordFormControl.hasError('required')) {
+
+      <p class="error-message">
+        Password is required
+      </p>
+
+    }
+
+  </div>
+
+  <div class="input-group-modern">
+
+    <label>Confirm Password</label>
+
+    <input
+      type="password"
+      class="modern-input"
+      placeholder="Confirm your password"
+      formControlName="confirmPassword"
+    />
+
+    @if (confirmPasswordFormControl.touched &&
+         confirmPasswordFormControl.hasError('required')) {
+
+      <p class="error-message">
+        Confirm Password is required
+      </p>
+
+    }
+
+  </div>
+
+  <button
+    type="submit"
+    class="register-btn"
+  >
+    Create Account
+  </button>
+  <div class="auth-footer">
+
+  <span class="footer-text">
+    Already have an account?
+  </span>
+
+  <a
+    class="footer-link"
+    [routerLink]="['/login']"
+  >
+    Sign In
+  </a>
+
+</div>
+
+</form>
+
+  </div>
+
+</div>

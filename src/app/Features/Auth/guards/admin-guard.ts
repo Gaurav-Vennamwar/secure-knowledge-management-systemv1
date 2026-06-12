@@ -16,7 +16,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
 
   //if the upper if skips then the user is logged in 
   //then check the role of the user
-  const isWritter = user.Roles.includes("writter");
+  const isWritter = user.Roles.includes("Writter");
 
   //if its not a writter
   if(!isWritter){

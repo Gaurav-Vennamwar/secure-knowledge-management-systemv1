@@ -9,6 +9,7 @@ import { Home } from './Features/Public/home/home';
 import { BlogDetails } from './Features/Public/blog-details/blog-details';
 import { Login } from './Features/Auth/login/login';
 import { adminGuard } from './Features/Auth/guards/admin-guard';
+import { Register } from './Features/Auth/register/register/register';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: Login,
+  },
+  {
+    path : 'register',
+    component : Register
   },
 
   {

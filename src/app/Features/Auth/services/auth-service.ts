@@ -43,9 +43,17 @@ export class AuthService {
         },
       )
       .pipe(
-        tap((response) => {
-          this.user.set(response);
-          localStorage.setItem('user', JSON.stringify(response));
+        tap({
+          next: (response) => {
+            this.user.set(response);
+            localStorage.setItem(
+              'user',
+              JSON.stringify({
+                Email: response.Email,
+                Roles: response.Roles,
+              }),
+            );
+          },
         }),
       );
   }
@@ -68,5 +76,11 @@ export class AuthService {
           this.router.navigate(['']);
         },
       });
+  }
+  register(email: string, password: string): Observable<void> {
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/auth/register`, {
+      email,
+      password,
+    });
   }
 }
