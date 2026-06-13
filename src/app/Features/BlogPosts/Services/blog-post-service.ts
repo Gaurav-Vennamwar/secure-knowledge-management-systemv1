@@ -14,7 +14,9 @@ import { StringTokenKind } from '@angular/compiler';
 
     //service method to craete a blog post
     createBlogPost(data : AddBlogPostRequest) : Observable<BlogPost>{
-      return this.http.post<BlogPost>(`${this.apiBaseUrl}/api/blogpost`, data);
+      return this.http.post<BlogPost>(`${this.apiBaseUrl}/api/blogpost`, data,{
+        withCredentials : true
+      });
     }
 
     //service method to get all blog posts
@@ -34,11 +36,17 @@ import { StringTokenKind } from '@angular/compiler';
 
     //service method to edit the blog post
     editBlogPost(id : string, body : UpdateBlogPostRequest) : Observable<BlogPost>{
-      return this.http.put<BlogPost>(`${this.apiBaseUrl}/api/blogpost/${id}` , body);
+      return this.http.put<BlogPost>(`${this.apiBaseUrl}/api/blogpost/${id}` , body,{
+        withCredentials : true
+      });
     }
 
     //servicce method to delete blog post
     deleteBlogpost(id : string) : Observable<BlogPost>{
-      return this.http.delete<BlogPost>(`${this.apiBaseUrl}/api/blogpost/${id}`);
+      return this.http.delete<BlogPost>(`${this.apiBaseUrl}/api/blogpost/${id}`,
+        {
+          withCredentials : true
+        }
+      );
     }
   }

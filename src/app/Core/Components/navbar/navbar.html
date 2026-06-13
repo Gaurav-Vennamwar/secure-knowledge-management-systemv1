@@ -1,16 +1,20 @@
 <nav class="container navbar navbar-expand-lg custom-navbar">
   <div class="container-fluid">
 
+    <!-- Logo -->
     <a class="navbar-brand brand-container" href="#">
-  <img src="assets/logo.png" class="logo-img" alt="SKMS Logo" />
+      <img src="assets/logo.png" class="logo-img" alt="SKMS Logo" />
 
-  <div class="brand-text-wrapper">
-    <span class="brand-title">SKMS</span>
-    <small class="brand-subtitle">
-      Secure Knowledge Management System
-    </small>
-  </div>
-</a>
+      <div class="brand-text-wrapper">
+        <span class="brand-title">SKMS</span>
+
+        <small class="brand-subtitle">
+          Secure Knowledge Management System
+        </small>
+      </div>
+    </a>
+
+    <!-- Mobile Toggle -->
     <button
       class="navbar-toggler border-0 shadow-none"
       type="button"
@@ -23,57 +27,112 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Navbar Content -->
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
+      <!-- Left Menu -->
       <ul class="navbar-nav me-auto align-items-lg-center gap-lg-3">
 
         <li class="nav-item">
-          <a class="nav-link nav-hover active" aria-current="page" href="#">
+          <a
+            class="nav-link nav-hover active"
+            aria-current="page"
+            href="#"
+          >
             Home
           </a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle nav-hover"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Admin
-          </a>
+        @if (authService.user()?.Roles?.includes('Writter')) {
 
-          <ul class="dropdown-menu dropdown-modern">
-            <li>
-              <a class="dropdown-item"
-                 [routerLink]="['admin', 'categories']">
-                 Categories
-              </a>
-            </li>
+          <li class="nav-item dropdown">
 
-            <li>
-              <a class="dropdown-item"
-                 [routerLink]="['admin', 'blogposts']">
-                 Blog Posts
-              </a>
-            </li>
-          </ul>
-        </li>
+            <a
+              class="nav-link dropdown-toggle nav-hover"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Admin
+            </a>
+
+            <ul class="dropdown-menu dropdown-modern">
+
+              <li>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/admin/categories']"
+                >
+                  Categories
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/admin/blogposts']"
+                >
+                  Blog Posts
+                </a>
+              </li>
+
+            </ul>
+
+          </li>
+
+        }
 
       </ul>
 
-      <div class="auth-buttons">
+      <!-- Right Side -->
+      <div class="d-flex align-items-center ms-auto gap-3">
 
-  <a class="btn-modern login-btn"[routerLink]="['/login']">
-    Login
-  </a>
+        @if (authService.user(); as user) {
 
-  <a class="btn-modern register-btn" [routerLink]="['/register']">
-    Register
-  </a>
+          <div class="user-menu">
 
-</div>
+            <div class="user-avatar">
+              {{ user.Email[0].toUpperCase() }}
+            </div>
+
+            <span class="user-email">
+              {{ userDisplayName }}
+            </span>
+
+            <button
+              type="button"
+              class="logout-btn"
+              (click)="onLogout()"
+            >
+              Logout
+            </button>
+
+          </div>
+
+        } @else {
+
+          <div class="d-flex gap-3">
+
+            <a
+              class="btn-modern login-btn"
+              [routerLink]="['/login']"
+            >
+              Login
+            </a>
+
+            <a
+              class="btn-modern register-btn"
+              [routerLink]="['/register']"
+            >
+              Register
+            </a>
+
+          </div>
+
+        }
+
+      </div>
 
     </div>
 
