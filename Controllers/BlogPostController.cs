@@ -85,9 +85,10 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
         //GET : {apiBaseUrl}/api/blogposts
         [HttpGet]
-        public async Task<IActionResult> GetAllBlogPost()
+        public async Task<IActionResult> GetAllBlogPost([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var blogPosts = await blogPostRepository.GetAllAync();
+            var totalCount = await blogPostRepository.GetCountAsync();
 
             //convert domain model to dto
             var response = new List<BlogPostDTO>();
@@ -112,7 +113,16 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     }).ToList()
                 });
             }
-            return Ok(ApiResponse<List<BlogPostDTO>>.SuccessResponse(response, "BlogPosts fetched successfully"));
+            var paginatedResult = new
+            {
+                Items = response,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)//ceiling rounded up
+            };
+
+            return Ok(ApiResponse<List<BlogPostDTO>>.SuccessResponse(paginatedResult, "BlogPosts fetched successfully"));
         }
 
         //GET : {apiBaseUrl}/api/blogposts{id}
