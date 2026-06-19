@@ -1,10 +1,12 @@
+using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.API.Data;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
-using Microsoft.AspNetCore.Authorization;
+using SecureKnowledgeManagementSystemv1.API.Models.Wrappers;
+using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 
 
 
@@ -44,7 +46,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 UrlHandle = category.UrlHandle
             };
 
-            return Ok(response);
+            return Ok(ApiResponse<CategoryDTO>.SuccessResponse(response, "Category Created Successfully", 201));
 
         }
 
@@ -67,7 +69,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     UrlHandle = category.UrlHandle
                 });
             }
-            return Ok(response);
+            return Ok(ApiResponse<List<CategoryDTO>>.SuccessResponse(response, "Categories fetched successfully"));
 
         }
 
@@ -80,7 +82,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
             if (existingCategory is null)
             {
-                return NotFound();
+                return NotFound(ApiResponse<CategoryDTO>.FailureResponse("Category not found", 404));
             }
             //else if we found it covert to the dto
             var response = new CategoryDTO
@@ -90,7 +92,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 UrlHandle = existingCategory.UrlHandle
 
             };
-            return Ok(response);
+            return Ok(ApiResponse<CategoryDTO>.SuccessResponse(response, "Category fetched successfully"));
         }
 
         // PUT : https://localhost:5251/api/categories/{id}
@@ -129,8 +131,9 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             // means category was not found in database
             if (category == null)
             {
-                return NotFound();
+                return NotFound(ApiResponse<CategoryDTO>.FailureResponse("Category not found", 404));
             }
+
 
             // Convert updated Domain Model back to DTO
             // because we should not directly expose database entities
@@ -143,7 +146,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             };
 
             // Return updated category to frontend
-            return Ok(response);
+            return Ok(ApiResponse<CategoryDTO>.SuccessResponse(response, "Category updated successfully"));
         }
 
 
@@ -153,19 +156,21 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             var category = await categoryRepository.DeleteAsync(id);
-            if (category == null) {
-                return NotFound();
+            if (category == null)
+            {
+                return NotFound(ApiResponse<CategoryDTO>.FailureResponse("Category not found", 404));
             }
             //then succes
             //convert domain model back to dto
-            var reponse = new CategoryDTO
+            var response = new CategoryDTO
             {
                 Id = category.Id,
                 Name = category.Name,
                 UrlHandle = category.UrlHandle
             };
-            return Ok(reponse);
-
+            return Ok(ApiResponse<CategoryDTO>.SuccessResponse(response, "Category deleted successfully"));
         }
+
+    }
     }
 }

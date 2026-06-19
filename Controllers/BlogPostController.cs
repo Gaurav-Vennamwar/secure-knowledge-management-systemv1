@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
+using SecureKnowledgeManagementSystemv1.API.Models.Wrappers;
 using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 
@@ -77,7 +78,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     UrlHandle = x.UrlHandle,
                 }).ToList(),
             };
-            return Ok(response);
+            return Ok(ApiResponse<BlogPostDTO>.SuccessResponse(response, "BlogPost Created Successfully", 201));
 
 
         }
@@ -111,7 +112,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     }).ToList()
                 });
             }
-            return Ok(response);
+            return Ok(ApiResponse<List<BlogPostDTO>>.SuccessResponse(response, "BlogPosts fetched successfully"));
         }
 
         //GET : {apiBaseUrl}/api/blogposts{id}
@@ -121,13 +122,14 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             //get the blog post from repo
             var blogPost = await blogPostRepository.GetByIdAsync(id);
 
-            if (blogPost == null)
+
+            if (blogPost is null)
             {
-                return NotFound();
+                return NotFound(ApiResponse<BlogPostDTO>.FailureResponse("BlogPost not found", 404));
             }
 
             //else return ok reposne and conver domain model back to dto
-            var reponse = new BlogPostDTO
+            var response = new BlogPostDTO
             {
                 Id = blogPost.Id,
                 Author = blogPost.Author,
@@ -145,7 +147,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     UrlHandle = x.UrlHandle,
                 }).ToList()
             };
-            return Ok(reponse);
+            return Ok(ApiResponse<BlogPostDTO>.SuccessResponse(response, "BlogPost fetched successfully"));
         }
 
         //GET : {apiBaseUrl}/api/blogposts{urlHandle}
@@ -153,12 +155,13 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         public async Task<IActionResult> GetBlogPostByUrlHandle([FromRoute] string urlHandle)
         {
             var blogPost = await blogPostRepository.GetByUrlHandleAsync(urlHandle);
-            if (blogPost == null)
+
+            if (blogPost is null)
             {
-                return NotFound();
+                return NotFound(ApiResponse<BlogPostDTO>.FailureResponse("BlogPost not found", 404));
             }
             //else return ok reposne and conver domain model back to dto
-            var reponse = new BlogPostDTO
+            var response = new BlogPostDTO
             {
                 Id = blogPost.Id,
                 Author = blogPost.Author,
@@ -176,7 +179,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     UrlHandle = x.UrlHandle,
                 }).ToList()
             };
-            return Ok(reponse);
+            return Ok(ApiResponse<BlogPostDTO>.SuccessResponse(response, "BlogPost fetched successfully"));
 
         }
 
@@ -215,9 +218,9 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             //which will update the blog post in db for us
            var updatedBlogPost = await blogPostRepository.UpdateAsync(blogPost);
 
-            if (updatedBlogPost == null)
+            if (updatedBlogPost is null)
             {
-                return NotFound();
+                return NotFound(ApiResponse<BlogPostDTO>.FailureResponse("BlogPost not found", 404));
             }
 
             //domain model back to dto converting
@@ -239,7 +242,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     UrlHandle = x.UrlHandle,
                 }).ToList()
             };
-            return Ok(response);
+            return Ok(ApiResponse<BlogPostDTO>.SuccessResponse(response, "BlogPost updated successfully"));
         }
         [Authorize(Roles = "Writter")]
         //DELETE : {apiBaseUrl}/api/blogposts{id}
@@ -248,12 +251,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         {
             var deletedBlogPost = await blogPostRepository.DeleteAsync(id);
 
-            if(deletedBlogPost == null)
+            if (deletedBlogPost is null)
             {
-                return NotFound();
+                return NotFound(ApiResponse<BlogPostDTO>.FailureResponse("BlogPost not found", 404));
             }
             //convert domain model back to dto
-            var reponse = new BlogPostDTO
+            var response = new BlogPostDTO
             {
                 Id = deletedBlogPost.Id,
                 Author = deletedBlogPost.Author,
@@ -265,7 +268,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 Tittle = deletedBlogPost.Tittle,
                 UrlHandle = deletedBlogPost.UrlHandle,
             };
-            return Ok(reponse);
+            return Ok(ApiResponse<BlogPostDTO>.SuccessResponse(response, "BlogPost deleted successfully"));
         }
     }
     }
