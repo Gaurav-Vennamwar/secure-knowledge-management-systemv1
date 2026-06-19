@@ -122,7 +122,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)//ceiling rounded up
             };
 
-            return Ok(ApiResponse<List<BlogPostDTO>>.SuccessResponse(paginatedResult, "BlogPosts fetched successfully"));
+            return Ok(ApiResponse<object>.SuccessResponse(paginatedResult, "BlogPosts fetched successfully"));
         }
 
         //GET : {apiBaseUrl}/api/blogposts{id}
