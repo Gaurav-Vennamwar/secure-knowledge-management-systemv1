@@ -42,6 +42,8 @@
 
       <!-- Table -->
       @else {
+        @if (response(); as res) {
+          @if (res.Data; as data) {
         <div class="blog-table-card app-card">
           <div class="table-topbar">
             <div>
@@ -49,7 +51,7 @@
 
               <p class="table-subheading">
                 Total Posts:
-                {{ response()?.length || 0 }}
+                {{ data.TotalCount }}
               </p>
             </div>
           </div>
@@ -68,7 +70,7 @@
               </thead>
 
               <tbody>
-                @for (blogPost of response(); track blogPost.Id) {
+                @for (blogPost of data.Items; track blogPost.Id) {
                   <tr class="blog-row">
                     <!-- Title -->
                     <td>
@@ -134,8 +136,34 @@
               </tbody>
             </table>
           </div>
+           <!-- PAGINATION CONTROLS -->
+              <div class="pagination-container">
+
+                <button
+                  class="pagination-btn"
+                  [disabled]="PageNumber() === 1"
+                  (click)="previousPage()"
+                >
+                  ← Previous
+                </button>
+
+                <span class="pagination-info">
+                  Page {{ data.PageNumber }} of {{ data.TotalPages }}
+                </span>
+
+                <button
+                  class="pagination-btn"
+                  [disabled]="PageNumber() === data.TotalPages"
+                  (click)="nextPage()"
+                >
+                  Next →
+                </button>
+
+              </div>
+
         </div>
       }
+    }}
     }
   </div>
 </div>

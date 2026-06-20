@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { BlogPostService } from '../../BlogPosts/Services/blog-post-service';
 import { RouterLink } from "@angular/router";
 
@@ -11,7 +11,24 @@ import { RouterLink } from "@angular/router";
 export class Home {
   blogPostService = inject(BlogPostService);
 
-  blogPostRef = this.blogPostService.getAllBlogPosts();
+  pageNumber = signal(1);
+  pageSize = 10;
+
+  blogPostRef = this.blogPostService.getAllBlogPosts(this.pageNumber, this.pageSize);
   isLoading = this.blogPostRef.isLoading;
   blogPostResponse = this.blogPostRef.value;
+
+  nextPage() {
+    const totalPages = this.blogPostResponse()?.Data?.TotalPages ?? 1;
+    if (this.pageNumber() < totalPages) {
+      this.pageNumber.update(p => p + 1);
+    }
+  }
+
+  previousPage() {
+    if (this.pageNumber() > 1) {
+      this.pageNumber.update(p => p - 1);
+    }
+  }
+
 }
