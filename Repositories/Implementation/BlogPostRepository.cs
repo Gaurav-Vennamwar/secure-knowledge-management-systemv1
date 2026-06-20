@@ -24,7 +24,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
         public async Task<BlogPost?> DeleteAsync(Guid id)
         {
            var existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
-
+           
             if(existingBlogPost != null)
             {
                 dbContext .BlogPosts.Remove(existingBlogPost);
@@ -35,9 +35,16 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
         }
 
         //method to get all blog posts
-        public async Task<IEnumerable<BlogPost>> GetAllAync()
+        public async Task<IEnumerable<BlogPost>> GetAllAync(int pageNumber = 1, int pageSize = 10)
         {
-            return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
+            return await dbContext.BlogPosts.Include(x => x.Categories)
+                 .Skip((pageNumber - 1) * pageSize) //if page 1 and size is 10 then = 1-1=0 show page from 1-10 skip 0
+                 .Take(pageSize)
+                 .ToListAsync();
+        }
+        public async Task<int> GetCountAsync()
+        {
+            return await dbContext.BlogPosts.CountAsync();
         }
 
         public async Task<BlogPost?> GetByIdAsync(Guid id)
@@ -74,5 +81,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
             return blogPost;
         }
+
+        
     }
 }

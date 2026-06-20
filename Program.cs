@@ -1,15 +1,16 @@
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SecureKnowledgeManagementSystemv1.API.Data;
+using SecureKnowledgeManagementSystemv1.API.Middlewares;
 using SecureKnowledgeManagementSystemv1.API.Repositories.Implementation;
 using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.Repositories.Implementation;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -111,7 +112,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         }
 
         //app.UseHttpsRedirection();
-
         app.UseCors(options =>
         {
             options.AllowAnyHeader();
@@ -119,6 +119,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             options.AllowAnyMethod();
             options.AllowCredentials();//in order to use cookies
         });
+
+        app.UseMiddleware<GlobalExceptionMiddleware>();
         app.UseAuthentication();
         app.UseAuthorization();
 
