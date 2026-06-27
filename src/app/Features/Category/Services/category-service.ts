@@ -2,7 +2,8 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable, InputSignal, signal } from '@angular/core';
 import { AddCategoryRequest, Category, UpdateCategoryRequest } from '../Models/category.models';
 import { environment } from '../../../../environments/environment';
-import { Observable, ObservableLike } from 'rxjs';
+import { Observable } from 'rxjs';
+import { ApiResponse } from '../../../Models/api-reponse-models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,8 @@ export class CategoryService {
 
   addCategory(category: AddCategoryRequest) {
     this.addCategoryStatus.set('loading');
-    this.http.post<void>(`${this.apiBaseUrl}/api/Categories`, category, {
-      withCredentials :true
+    this.http.post<ApiResponse<Category>>(`${this.apiBaseUrl}/api/Categories`, category, {
+      withCredentials: true
     }).subscribe({
       next: () => {
         this.addCategoryStatus.set('success');
@@ -30,37 +31,32 @@ export class CategoryService {
   }
 
   getAllCategories() {
-    const x = httpResource<Category[]>(() => `${this.apiBaseUrl}/api/Categories`);
-
-    return x;
+    return httpResource<ApiResponse<Category[]>>(() => `${this.apiBaseUrl}/api/Categories`);
   }
 
   getCategoryById(id: InputSignal<string | undefined>) {
-    return httpResource<Category>(() => `${this.apiBaseUrl}/api/Categories/${id()}`);
+    return httpResource<ApiResponse<Category>>(() => `${this.apiBaseUrl}/api/Categories/${id()}`);
   }
 
   updateCategory(id: String, updateCategoryRequestDto: UpdateCategoryRequest) {
     this.updateCategoryStatus.set('loading')
-    this.http.put<void>(`${this.apiBaseUrl}/api/Categories/${id}`, updateCategoryRequestDto,{
-      withCredentials :true
+    this.http.put<ApiResponse<Category>>(`${this.apiBaseUrl}/api/Categories/${id}`, updateCategoryRequestDto, {
+      withCredentials: true
     })
     .subscribe({
       next: () => {
         this.updateCategoryStatus.set('success');
       },
       error: () => {
-        
         this.updateCategoryStatus.set('error');
       },
     });
   }
 
   //delete category service
-  deleteCategory(id : string) : Observable<void>{
-    return this.http.delete<void>(`${this.apiBaseUrl}/api/Categories/${id}`, {
-      withCredentials :true
+  deleteCategory(id: string): Observable<ApiResponse<Category>> {
+    return this.http.delete<ApiResponse<Category>>(`${this.apiBaseUrl}/api/Categories/${id}`, {
+      withCredentials: true
     });
-
   }
-
 }

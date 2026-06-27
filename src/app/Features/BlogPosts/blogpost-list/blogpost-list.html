@@ -44,126 +44,137 @@
       @else {
         @if (response(); as res) {
           @if (res.Data; as data) {
-        <div class="blog-table-card app-card">
-          <div class="table-topbar">
-            <div>
-              <h3 class="table-heading">Published Articles</h3>
+            <div class="blog-table-card app-card">
+              <div class="table-topbar">
+                <div>
+                  <h3 class="table-heading">Published Articles</h3>
 
-              <p class="table-subheading">
-                Total Posts:
-                {{ data.TotalCount }}
-              </p>
-            </div>
-          </div>
+                  <p class="table-subheading">
+                    Total Posts:
+                    {{ data.TotalCount }}
+                  </p>
+                </div>
+              </div>
 
-          <div class="table-responsive">
-            <table class="modern-blog-table">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Author</th>
-                  <th>Status</th>
-                  <th>Categories</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
+              <div class="table-responsive">
+                <table class="modern-blog-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Author</th>
+                      <th>Status</th>
+                      <th>Categories</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
 
-              <tbody>
-                @for (blogPost of data.Items; track blogPost.Id) {
-                  <tr class="blog-row">
-                    <!-- Title -->
-                    <td>
-                      <div class="blog-title-cell">
-                        <div class="blog-dot"></div>
+                  <tbody>
+                    @for (blogPost of data.Items; track blogPost.Id) {
+                      <tr class="blog-row">
+                        <!-- Title -->
+                        <td>
+                          <div class="blog-title-cell">
+                            <div class="blog-dot"></div>
 
-                        <div>
-                          <div class="blog-main-title">
-                            {{ blogPost.Tittle }}
+                            <div>
+                              <div class="blog-main-title">
+                                {{ blogPost.Tittle }}
+                              </div>
+
+                              <small class="blog-meta"> Blog Article </small>
+                            </div>
                           </div>
+                        </td>
 
-                          <small class="blog-meta"> Blog Article </small>
-                        </div>
-                      </div>
-                    </td>
+                        <!-- Description -->
+                        <td class="description-cell">
+                          {{ blogPost.ShortDescription }}
+                        </td>
 
-                    <!-- Description -->
-                    <td class="description-cell">
-                      {{ blogPost.ShortDescription }}
-                    </td>
+                        <!-- Author -->
+                        <td>
+                          <div class="author-pill">✍ {{ blogPost.Author }}</div>
+                        </td>
 
-                    <!-- Author -->
-                    <td>
-                      <div class="author-pill">✍ {{ blogPost.Author }}</div>
-                    </td>
+                        <!-- Visibility -->
+                        <td>
+                          @if (blogPost.IsVisible) {
+                            <span class="status-pill visible-pill"> • Visible </span>
+                          } @else {
+                            <span class="status-pill hidden-pill"> • Hidden </span>
+                          }
+                        </td>
 
-                    <!-- Visibility -->
-                    <td>
-                      @if (blogPost.IsVisible) {
-                        <span class="status-pill visible-pill"> • Visible </span>
-                      } @else {
-                        <span class="status-pill hidden-pill"> • Hidden </span>
-                      }
-                    </td>
+                        <td>
+                          <div class="category-cloud">
+                            @for (category of blogPost.Categories; track category.Id) {
+                              <div class="category-pill">
+                                <div class="pill-glow"></div>
 
-                    <td>
-                      <div class="category-cloud">
-                        @for (category of blogPost.Categories; track category.Id) {
-                          <div class="category-pill">
-                            <div class="pill-glow"></div>
+                                <span class="pill-icon"> ✦ </span>
 
-                            <span class="pill-icon"> ✦ </span>
-
-                            <span class="pill-name">
-                              {{ category.Name }}
-                            </span>
+                                <span class="pill-name">
+                                  {{ category.Name }}
+                                </span>
+                              </div>
+                            }
                           </div>
-                        }
-                      </div>
-                    </td>
-                    <td>
-                      <a
-                        class="premium-edit-btn"
-                        [routerLink]="['/admin/blogposts/edit', blogPost.Id]"
-                      >
-                        <span class="edit-icon"> ✎ </span>
+                        </td>
+                        <td>
+                          <a
+                            class="premium-edit-btn"
+                            [routerLink]="['/admin/blogposts/edit', blogPost.Id]"
+                          >
+                            <span class="edit-icon"> ✎ </span>
 
-                        <span> Edit </span>
-                      </a>
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-           <!-- PAGINATION CONTROLS -->
-              <div class="pagination-container">
-
+                            <span> Edit </span>
+                          </a>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <!-- PAGINATION CONTROLS -->
+              <!-- PAGINATION CONTROLS -->
+              <div class="pagination-wrapper">
                 <button
                   class="pagination-btn"
                   [disabled]="PageNumber() === 1"
                   (click)="previousPage()"
                 >
-                  ← Previous
+                  <span>←</span>
+                  Previous
                 </button>
 
-                <span class="pagination-info">
-                  Page {{ data.PageNumber }} of {{ data.TotalPages }}
-                </span>
+                <div class="pagination-status">
+                  <span class="page-label"> Page </span>
+
+                  <span class="current-page">
+                    {{ data.PageNumber }}
+                  </span>
+
+                  <span class="page-divider"> / </span>
+
+                  <span class="total-pages">
+                    {{ data.TotalPages }}
+                  </span>
+                </div>
 
                 <button
-                  class="pagination-btn"
+                  class="pagination-btn next-btn"
                   [disabled]="PageNumber() === data.TotalPages"
                   (click)="nextPage()"
                 >
-                  Next →
+                  Next
+                  <span>→</span>
                 </button>
-
               </div>
-
-        </div>
+            </div>
+          }
+        }
       }
-    }}
     }
   </div>
 </div>

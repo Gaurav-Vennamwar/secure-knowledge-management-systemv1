@@ -68,15 +68,15 @@ export class EditBlogpost {
     const post = this.blogPostResponse();
     if (post) {
       this.editBlogPostForm.patchValue({
-        Tittle: this.blogPostResponse()?.Tittle,
-        ShortDescription: this.blogPostResponse()?.ShortDescription,
-        Content: this.blogPostResponse()?.Content,
-        Author: this.blogPostResponse()?.Author,
-        PublishedDate: this.blogPostResponse()?.PublishedDate.substring(0, 10),
-        IsVisible: this.blogPostResponse()?.IsVisible,
-        UrlHandle: this.blogPostResponse()?.UrlHandle,
-        FeaturedImageUrl: this.blogPostResponse()?.FeaturedImageUrl,
-        Categories: this.blogPostResponse()?.Categories.map((x) => x.Id),
+        Tittle: post.Data?.Tittle,
+        ShortDescription: post.Data?.ShortDescription,
+        Content: post.Data?.Content,
+        Author: post.Data?.Author,
+        PublishedDate: post.Data?.PublishedDate.substring(0, 10),
+        IsVisible: post.Data?.IsVisible,
+        UrlHandle: post.Data?.UrlHandle,
+        FeaturedImageUrl: post.Data?.FeaturedImageUrl,
+        Categories: post.Data?.Categories.map((x) => x.Id),
       });
       this.cdr.detectChanges();
     }

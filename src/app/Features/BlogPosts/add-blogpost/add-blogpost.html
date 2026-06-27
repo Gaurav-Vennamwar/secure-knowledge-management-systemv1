@@ -244,14 +244,14 @@
           </div>
 
           <div class="section-badge">
-            📚 {{ (categoriesResponse() ?? []).length }}
+            📚 {{ (categoriesResponse()?.Data ?? []).length }}
             Categories
           </div>
         </div>
 
         <ng-select
           class="premium-ng-select"
-          [items]="categoriesResponse() ?? []"
+          [items]="categoriesResponse()?.Data ?? []"
           bindLabel="Name"
           bindValue="id"
           formControlName="categories"

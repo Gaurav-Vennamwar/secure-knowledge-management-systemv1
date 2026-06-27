@@ -42,10 +42,4 @@ export interface PaginatedBlogPostResponse {
   TotalPages: number;
 }
 
-// Your ApiResponse wrapper (since backend wraps everything)
-export interface ApiResponse<T> {
-  Success: boolean;
-  Message: string;
-  Data: T;
-  StatusCode: number;
-}
+

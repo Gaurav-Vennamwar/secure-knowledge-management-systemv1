@@ -28,67 +28,73 @@
             <h4 class="error-title">Something went wrong</h4>
 
             <p class="error-subtitle">
-              We couldn’t load the requested data. Please try again in a few moments.
+              We couldn't load the requested data. Please try again in a few moments.
             </p>
 
             <button class="btn retry-btn">Retry</button>
           </div>
         </div>
       } @else {
-        <div class="table-wrapper app-card">
-          <div class="table-header">
-            <div>
-              <h3 class="table-title">Knowledge Categories</h3>
-              <p class="table-subtitle">Manage and organize your secure knowledge structure</p>
+        @if (value(); as res) {
+          @if (res.Data; as categories) {
+
+            <div class="table-wrapper app-card">
+              <div class="table-header">
+                <div>
+                  <h3 class="table-title">Knowledge Categories</h3>
+                  <p class="table-subtitle">Manage and organize your secure knowledge structure</p>
+                </div>
+
+                <div class="table-badge">{{ categories.length || 0 }} Categories</div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="modern-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Category Name</th>
+                      <th>URL Handle</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    @for (category of categories; track category.Id) {
+                      <tr class="table-row">
+                        <td>
+                          <span class="id-badge"> #{{ category.Id }} </span>
+                        </td>
+
+                        <td class="category-name">
+                          {{ category.Name }}
+                        </td>
+
+                        <td>
+                          <span class="slug-pill">
+                            {{ category.UrlHandle }}
+                          </span>
+                        </td>
+                        <td></td>
+                        <td>
+                          <a
+                            class="modern-edit-btn"
+                            [routerLink]="['/admin/categories/edit', category.Id]"
+                          >
+                            <span class="edit-icon"> ✏️ </span>
+
+                            <span>Edit</span>
+                          </a>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <div class="table-badge">{{ value()?.length || 0 }} Categories</div>
-          </div>
-
-          <div class="table-responsive">
-            <table class="modern-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Category Name</th>
-                  <th>URL Handle</th>
-                  <th></th>
-                </tr>
-              </thead>
-
-              <tbody>
-                @for (category of value(); track category.Id) {
-                  <tr class="table-row">
-                    <td>
-                      <span class="id-badge"> #{{ category.Id }} </span>
-                    </td>
-
-                    <td class="category-name">
-                      {{ category.Name }}
-                    </td>
-
-                    <td>
-                      <span class="slug-pill">
-                        {{ category.UrlHandle }}
-                      </span>
-                    </td>
-                    <td></td>
-                    <td>
-                      <a
-                        class="modern-edit-btn"
-                        [routerLink]="['/admin/categories/edit', category.Id]"
-                      >
-                        <span class="edit-icon"> ✏️ </span>
-
-                        <span>Edit</span>
-                      </a>
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
+          }
+        }
       }
     }
   </div>
