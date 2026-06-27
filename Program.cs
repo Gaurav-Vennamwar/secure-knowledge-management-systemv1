@@ -11,9 +11,19 @@ using SecureKnowledgeManagementSystemv1.API.Repositories.Implementation;
 using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.Repositories.Implementation;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
-
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+    // Configure Serilog
+    Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .MinimumLevel.Information()
+    .CreateLogger();
+
+builder.Host.UseSerilog(); // ← tells ASP.NET to use Serilog instead of default logger
+
 // Add services to container
 
 builder.Services.AddControllers()
