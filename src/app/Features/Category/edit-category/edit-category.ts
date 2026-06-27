@@ -53,10 +53,11 @@ export class EditCategory {
 
   //to fetch the changes effects are helpfull cuz they react to the changes which we have
   effectRef = effect(() => {
-    this.editCategoryFormGroup.controls.name.patchValue(this.categoryResponse()?.Name ?? '');
-    this.editCategoryFormGroup.controls.urlHandle.patchValue(
-      this.categoryResponse()?.UrlHandle ?? '',
-    );
+    const category = this.categoryResponse();
+    if(category){
+      this.editCategoryFormGroup.controls.name.patchValue(category.Data?.Name ?? '');
+      this.editCategoryFormGroup.controls.urlHandle.patchValue(category.Data?.UrlHandle ?? '');
+    }
   });
 
   onSubmit() {

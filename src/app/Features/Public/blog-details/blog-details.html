@@ -12,97 +12,103 @@
 
   } @else {
 
-    <article class="article-container">
+    @if (blogDetailResponse(); as response) {
+      @if (response.Data; as blogPost) {
 
-      <!-- HERO IMAGE -->
+        <article class="article-container">
 
-      <div class="hero-image-wrapper">
+          <!-- HERO IMAGE -->
 
-        <img
-          class="hero-image"
-          [src]="blogDetailResponse()?.FeaturedImageUrl"
-          [alt]="blogDetailResponse()?.Tittle"
-        />
+          <div class="hero-image-wrapper">
 
-        <div class="hero-overlay">
+            <img
+              class="hero-image"
+              [src]="blogPost.FeaturedImageUrl"
+              [alt]="blogPost.Tittle"
+            />
 
-          <div class="article-badge">
-            🚀 Knowledge Article
-          </div>
+            <div class="hero-overlay">
 
-        </div>
-
-      </div>
-
-      <!-- CONTENT -->
-
-      <div class="article-content">
-
-        <h1 class="article-title">
-          {{ blogDetailResponse()?.Tittle }}
-        </h1>
-
-        <div class="article-meta">
-
-          <div class="author-card">
-
-            <div class="author-avatar">
-              {{ blogDetailResponse()?.Author?.charAt(0) }}
-            </div>
-
-            <div>
-
-              <div class="author-name">
-                {{ blogDetailResponse()?.Author }}
-              </div>
-
-              <div class="author-role">
-                Content Author
+              <div class="article-badge">
+                🚀 Knowledge Article
               </div>
 
             </div>
 
           </div>
 
-          <div class="publish-date">
+          <!-- CONTENT -->
 
-            📅 {{ blogDetailResponse()?.PublishedDate | date:'dd MMM yyyy' }}
+          <div class="article-content">
 
-          </div>
+            <h1 class="article-title">
+              {{ blogPost.Tittle }}
+            </h1>
 
-        </div>
+            <div class="article-meta">
 
-        @if (blogDetailResponse()?.Categories) {
+              <div class="author-card">
 
-          <div class="category-wrapper">
+                <div class="author-avatar">
+                  {{ blogPost.Author.charAt(0) }}
+                </div>
 
-            @for (category of blogDetailResponse()?.Categories; track category.Id) {
+                <div>
 
-              <span class="category-chip">
+                  <div class="author-name">
+                    {{ blogPost.Author }}
+                  </div>
 
-                {{ category.Name }}
+                  <div class="author-role">
+                    Content Author
+                  </div>
 
-              </span>
+                </div>
+
+              </div>
+
+              <div class="publish-date">
+
+                📅 {{ blogPost.PublishedDate | date:'dd MMM yyyy' }}
+
+              </div>
+
+            </div>
+
+            @if (blogPost.Categories) {
+
+              <div class="category-wrapper">
+
+                @for (category of blogPost.Categories; track category.Id) {
+
+                  <span class="category-chip">
+
+                    {{ category.Name }}
+
+                  </span>
+
+                }
+
+              </div>
 
             }
 
+            <div class="content-divider"></div>
+
+            <div class="markdown-container">
+
+              <markdown
+                [data]="blogPost.Content">
+              </markdown>
+
+            </div>
+
           </div>
 
-        }
+        </article>
 
-        <div class="content-divider"></div>
-
-        <div class="markdown-container">
-
-          <markdown
-            [data]="blogDetailResponse()?.Content">
-          </markdown>
-
-        </div>
-
-      </div>
-
-    </article>
+      }
+    }
 
   }
 
