@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SecureKnowledgeManagementSystemv1.API.Models.Domain;
 
 namespace SecureKnowledgeManagementSystemv1.API.Data
 {
@@ -10,6 +11,8 @@ namespace SecureKnowledgeManagementSystemv1.API.Data
         {
             
         }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         // this roles and and admin user gets inserted into db automatically Ef generates the sql for you runs on migration automatically
         protected override void OnModelCreating(ModelBuilder builder)
