@@ -82,5 +82,15 @@ export class AuthService {
       email,
       password,
     });
+
   }
+  refreshToken(): Observable<void> {
+  return this.http.post<void>(
+    `${environment.apiBaseUrl}/api/auth/refresh`,
+    {},
+    { withCredentials: true }
+    // ← withCredentials needed here so refresh_token 
+    //    cookie is sent to backend
+  );
+}
 }
