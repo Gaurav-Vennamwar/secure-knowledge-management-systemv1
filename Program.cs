@@ -12,6 +12,8 @@ using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.Repositories.Implementation;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 using Serilog;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -111,11 +113,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 return Task.CompletedTask;
             }
         };
-    });
-        var app = builder.Build();
+        });
+    builder.Services.AddRateLimiter(options =>
+    {
+        options.AddFixedWindowLimiter("fixed", config =>
+        {
+            config.Window = TimeSpan.FromMinutes(1); // 1 minute window
+            config.PermitLimit = 100; // max 100 requests per minute
+            config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+            config.QueueLimit = 0; // no queuing, reject immediately
+        });
 
-        // Configure HTTP pipeline
-        if (app.Environment.IsDevelopment())
+        options.RejectionStatusCode = 429; // Too Many Requests
+    });
+var app = builder.Build();
+
+app.UseRateLimiter();
+
+// Configure HTTP pipeline
+if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();

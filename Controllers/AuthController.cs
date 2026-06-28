@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using SecureKnowledgeManagementSystemv1.API.Models.DTO;
 using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 
@@ -10,6 +11,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableRateLimiting("fixed")]
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> userManager;
