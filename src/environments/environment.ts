@@ -1,3 +1,4 @@
 export const environment = {
-    apiBaseUrl : "http://SecureKnowledge.com"
+  production: false,
+  apiBaseUrl: 'http://localhost:5251'
 };
