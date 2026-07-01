@@ -12,6 +12,8 @@ using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 using SecureKnowledgeManagementSystemv1.Repositories.Implementation;
 using SecureKnowledgeManagementSystemv1.Repositories.Interface;
 using Serilog;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +46,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("SKMSConnection"));
 });
-//auth db context
+//auth db context connection string
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
     options.UseSqlServer(
@@ -111,15 +113,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 return Task.CompletedTask;
             }
         };
-    });
-        var app = builder.Build();
-
-        // Configure HTTP pipeline
-        if (app.Environment.IsDevelopment())
+        });
+    builder.Services.AddRateLimiter(options =>
+    {
+        options.AddFixedWindowLimiter("fixed", config =>
         {
+            config.Window = TimeSpan.FromMinutes(1); // 1 minute window
+            config.PermitLimit = 100; // max 100 requests per minute
+            config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+            config.QueueLimit = 0; // no queuing, reject immediately
+        });
+
+        options.RejectionStatusCode = 429; // Too Many Requests
+    });
+var app = builder.Build();
+
+app.UseRateLimiter();
+
+// Configure HTTP pipeline
+//if (app.Environment.IsDevelopment())
+        //{//
             app.UseSwagger();
             app.UseSwaggerUI();
-        }
+        //}
 
         //app.UseHttpsRedirection();
         app.UseCors(options =>
@@ -134,15 +150,27 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         app.UseAuthentication();
         app.UseAuthorization();
 
-        //for images to refresh
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
-            RequestPath = "/Images"
-        });
+//for images to refresh
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+//    RequestPath = "/Images"
+//});
+var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
 
-        app.MapControllers();
+// Create the folder if it doesn't exist
+if (!Directory.Exists(imagesPath))
+{
+    Directory.CreateDirectory(imagesPath);
+}
 
-        app.Run();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(imagesPath),
+    RequestPath = "/Images"
+});
+app.MapControllers();
+
+  app.Run();
     
     
