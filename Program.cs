@@ -46,7 +46,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("SKMSConnection"));
 });
-//auth db context
+//auth db context connection string
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
     options.UseSqlServer(
