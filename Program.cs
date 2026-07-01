@@ -150,15 +150,27 @@ if (app.Environment.IsDevelopment())
         app.UseAuthentication();
         app.UseAuthorization();
 
-        //for images to refresh
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
-            RequestPath = "/Images"
-        });
+//for images to refresh
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+//    RequestPath = "/Images"
+//});
+var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
 
-        app.MapControllers();
+// Create the folder if it doesn't exist
+if (!Directory.Exists(imagesPath))
+{
+    Directory.CreateDirectory(imagesPath);
+}
 
-        app.Run();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(imagesPath),
+    RequestPath = "/Images"
+});
+app.MapControllers();
+
+  app.Run();
     
     
