@@ -1,228 +1,164 @@
 <div class="home-page">
+  <section class="hero-section">
+    <div class="hero-badge">Secure Knowledge Manager</div>
 
-<section class="hero-section">
+    <h1 class="hero-title">Explore Modern Knowledge</h1>
 
-  <div class="hero-badge">
-     Secure Knowledge Manager
-  </div>
+    <p class="hero-tagline">Where Knowledge Becomes Action.</p>
 
-  <h1 class="hero-title">
-    Explore Modern Knowledge
-  </h1>
-
-  <p class="hero-tagline">
-    Where Knowledge Becomes Action.
-  </p>
-
-  <p class="hero-subtitle">
-    Technology • Business • AI • Security • Innovation
-  </p>
-
-</section>
+    <p class="hero-subtitle">Technology • Business • AI • Security • Innovation</p>
+  </section>
 
   <!-- CONTENT -->
 
   @if (isLoading()) {
-
     <div class="loading-container">
-
       <div class="spinner-border text-primary"></div>
 
       <p>Loading articles...</p>
-
     </div>
-
   } @else {
     @if (blogPostResponse(); as response) {
-       @if (response.Data; as data) {
-    <div class="blog-grid">
+      @if (response.Data; as data) {
+        <div class="blog-grid">
+          @for (blogPost of data.Items; track blogPost.Id) {
+            <article class="blog-card">
+              <div class="blog-image-container">
+                <img [src]="blogPost.FeaturedImageUrl" [alt]="blogPost.Tittle" class="blog-image" />
+              </div>
 
-      @for (blogPost of data.Items; track blogPost.Id) {
+              <div class="blog-content">
+                <div class="article-chip">Knowledge Article</div>
 
-        <article class="blog-card">
+                <h3 class="blog-title">
+                  {{ blogPost.Tittle }}
+                </h3>
 
-          <div class="blog-image-container">
+                <p class="blog-description">
+                  {{ blogPost.ShortDescription }}
+                </p>
 
-            <img
-              [src]="blogPost.FeaturedImageUrl"
-              [alt]="blogPost.Tittle"
-              class="blog-image"
-            />
+                <div class="blog-footer">
+                  <a [routerLink]="['/blog', blogPost.UrlHandle]" class="read-link">
+                    Read More →
+                  </a>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+        <!-- PAGINATION CONTROLS -->
+        <div class="pagination-wrapper">
+          <button class="pagination-btn" [disabled]="pageNumber() === 1" (click)="previousPage()">
+            <span>←</span>
+            Previous
+          </button>
 
+          <div class="pagination-status">
+            <span class="page-label"> Page </span>
+
+            <span class="current-page">
+              {{ blogPostResponse()?.Data?.PageNumber }}
+            </span>
+
+            <span class="page-divider"> / </span>
+
+            <span class="total-pages">
+              {{ blogPostResponse()?.Data?.TotalPages }}
+            </span>
           </div>
 
-          <div class="blog-content">
-
-            <div class="article-chip">
-              Knowledge Article
-            </div>
-
-            <h3 class="blog-title">
-              {{ blogPost.Tittle }}
-            </h3>
-
-            <p class="blog-description">
-              {{ blogPost.ShortDescription }}
-            </p>
-
-            <div class="blog-footer">
-
-              <a
-                [routerLink]="['/blog', blogPost.UrlHandle]"
-                class="read-link"
-              >
-                Read More →
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
+          <button
+            class="pagination-btn next-btn"
+            [disabled]="pageNumber() === blogPostResponse()?.Data?.TotalPages"
+            (click)="nextPage()"
+          >
+            Next
+            <span>→</span>
+          </button>
+        </div>
       }
-
-    </div>
-    <!-- PAGINATION CONTROLS -->
-    <div class="pagination-wrapper">
-
-  <button
-    class="pagination-btn"
-    [disabled]="pageNumber() === 1"
-    (click)="previousPage()"
-  >
-    <span>←</span>
-    Previous
-  </button>
-
-  <div class="pagination-status">
-
-    <span class="page-label">
-      Page
-    </span>
-
-    <span class="current-page">
-      {{ blogPostResponse()?.Data?.PageNumber }}
-    </span>
-
-    <span class="page-divider">
-      /
-    </span>
-
-    <span class="total-pages">
-      {{ blogPostResponse()?.Data?.TotalPages }}
-    </span>
-
-  </div>
-
-  <button
-    class="pagination-btn next-btn"
-    [disabled]="pageNumber() === blogPostResponse()?.Data?.TotalPages"
-    (click)="nextPage()"
-  >
-    Next
-    <span>→</span>
-  </button>
-
-</div>
-  }
-  }
+    }
   }
 
- <footer class="footer">
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="assets/logo.png" alt="SKMS" />
+        </div>
 
-  <div class="footer-top">
+        <h2>SKMS</h2>
 
-    <div class="footer-brand">
+        <p>
+          Secure Knowledge Management System designed for developers, teams and knowledge creators.
+          Built with Angular, ASP.NET Core, SQL Server and JWT Authentication.
+        </p>
 
-      <div class="footer-logo">
-        <img src="assets/logo.png" alt="SKMS">
+        <div class="tech-stack">
+          <span>Angular</span>
+          <span>.NET</span>
+          <span>SQL Server</span>
+          <span>JWT</span>
+          <span>REST API</span>
+        </div>
       </div>
 
-      <h2>SKMS</h2>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Platform</h4>
 
-      <p>
-        Secure Knowledge Management System designed for developers,
-        teams and knowledge creators. Built with Angular, ASP.NET Core,
-        SQL Server and JWT Authentication.
-      </p>
+          <a href="#">Home</a>
+          <a href="#">Articles</a>
+          <a [routerLink]="['/admin/categories']">Categories</a>
+          
+        </div>
 
-      <div class="tech-stack">
+        <div class="footer-column">
+          <h4>Resources</h4>
 
-        <span>Angular</span>
-        <span>.NET</span>
-        <span>SQL Server</span>
-        <span>JWT</span>
-        <span>REST API</span>
+          <a
+            href="https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1"
+            target="_blank"
+            >Documentation</a
+          >
+          <a href="http://localhost:5251/swagger" target="_blank">API Reference</a>
+          <a href="mailto:vennamwarg@gmail.com">Support</a>
+          <a href="#">FAQ</a>
+        </div>
 
+        <div class="footer-column">
+          <h4>Technology</h4>
+
+          <a href="https://angular.dev" target="_blank">Angular 20</a>
+          <a href="https://dotnet.microsoft.com" target="_blank">ASP.NET Core</a>
+          <a href="https://www.microsoft.com/sql-server" target="_blank">SQL Server</a>
+          <a href="https://azure.microsoft.com" target="_blank">Azure Ready</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Developer</h4>
+
+          <a
+            href="https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/blob/main/README.md"
+            target="_blank"
+            >About Project</a
+          >
+          <a href="https://github.com/Gaurav-Vennamwar" target="_blank">GitHub</a>
+          <a href="#" target="_blank">Portfolio</a>
+          <a href="https://www.linkedin.com/in/gaurav-vennamwar-0b79b0212" target="_blank"
+            >Contact</a
+          >
+        </div>
       </div>
-
     </div>
 
-    <div class="footer-links">
+    <div class="footer-divider"></div>
 
-      <div class="footer-column">
+    <div class="footer-bottom">
+      <div>© 2026 SKMS. All rights reserved.</div>
 
-        <h4>Platform</h4>
-
-        <a routerLink="/">Home</a>
-        <a routerLink="/">Articles</a>
-        <a routerLink="/">Categories</a>
-        <a routerLink="/">Knowledge Hub</a>
-
-      </div>
-
-      <div class="footer-column">
-
-        <h4>Resources</h4>
-
-        <a href="#">Documentation</a>
-        <a href="#">API Reference</a>
-        <a href="#">Support</a>
-        <a href="#">FAQ</a>
-
-      </div>
-
-      <div class="footer-column">
-
-        <h4>Technology</h4>
-
-        <a href="#">Angular 20</a>
-        <a href="#">ASP.NET Core</a>
-        <a href="#">SQL Server</a>
-        <a href="#">Azure Ready</a>
-
-      </div>
-
-      <div class="footer-column">
-
-        <h4>Developer</h4>
-
-        <a href="#">About Project</a>
-        <a href="#">GitHub</a>
-        <a href="#">Portfolio</a>
-        <a href="#">Contact</a>
-
-      </div>
-
+      <div class="footer-bottom-right">Built with using Angular & ASP.NET Core</div>
     </div>
-
-  </div>
-
-  <div class="footer-divider"></div>
-
-  <div class="footer-bottom">
-
-    <div>
-      © 2026 SKMS. All rights reserved.
-    </div>
-
-    <div class="footer-bottom-right">
-      Built with using Angular & ASP.NET Core
-    </div>
-
-  </div>
-
-</footer>
-
+  </footer>
 </div>
