@@ -143,7 +143,7 @@ app.UseRateLimiter();
         options.AllowAnyHeader();
         options.WithOrigins(
             "http://localhost:4200",
-            "https://secure-knowledge-management-systemv1-ib0y7y03r.vercel.app"
+            "https://secure-knowledge-management-systemv-ten.vercel.app"
         );
         options.AllowAnyMethod();
         options.AllowCredentials();
