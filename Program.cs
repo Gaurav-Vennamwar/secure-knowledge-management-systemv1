@@ -135,18 +135,21 @@ app.UseRateLimiter();
         //{//
             app.UseSwagger();
             app.UseSwaggerUI();
-        //}
+//}
 
-        //app.UseHttpsRedirection();
-        app.UseCors(options =>
-        {
-            options.AllowAnyHeader();
-            options.WithOrigins("http://localhost:4200");
-            options.AllowAnyMethod();
-            options.AllowCredentials();//in order to use cookies
-        });
+    //app.UseHttpsRedirection();
+    app.UseCors(options =>
+    {
+        options.AllowAnyHeader();
+        options.WithOrigins(
+            "http://localhost:4200",
+            "https://secure-knowledge-management-systemv1-ib0y7y03r.vercel.app"
+        );
+        options.AllowAnyMethod();
+        options.AllowCredentials();
+    });
 
-        app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseMiddleware<GlobalExceptionMiddleware>();
         app.UseAuthentication();
         app.UseAuthorization();
 
