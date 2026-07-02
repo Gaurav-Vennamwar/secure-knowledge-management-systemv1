@@ -54,7 +54,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     {
                         HttpOnly = true,//only http cokkie
                         Secure = true,
-                        SameSite = SameSiteMode.Lax,
+                        SameSite = SameSiteMode.None,
                         Expires = DateTime.UtcNow.AddMinutes(15)
                     });
 
@@ -63,7 +63,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     {
                         HttpOnly = true,
                         Secure = true,
-                        SameSite = SameSiteMode.Lax,
+                        SameSite = SameSiteMode.None,
                         Expires = DateTime.UtcNow.AddDays(7)
                     });
 
@@ -172,7 +172,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 HttpOnly = true,//only http cokkie
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddDays(-1)
             });
 
@@ -180,7 +180,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddDays(-1)
             });
 
@@ -236,7 +236,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddMinutes(15)
             });
 
@@ -245,7 +245,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Lax,
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddDays(7)
             });
 
