@@ -204,7 +204,7 @@
         <div class="editor-group flex-fill">
           <label class="editor-label"> Published Date </label>
 
-          <input type="date" class="form-control editor-input" formControlName="publishedDate" />
+          <input type="date" class="form-control editor-input" formControlName="PublishedDate" />
         </div>
 
         <!-- Author -->
@@ -229,7 +229,7 @@
         </div>
 
         <label class="modern-switch">
-          <input type="checkbox" formControlName="isVisible" />
+          <input type="checkbox" formControlName="IsVisible" />
 
           <span class="slider"></span>
         </label>
@@ -254,7 +254,7 @@
           [items]="categoriesResponse()?.Data ?? []"
           bindLabel="Name"
           bindValue="id"
-          formControlName="categories"
+          formControlName="Categories"
           [multiple]="true"
           [closeOnSelect]="false"
           [placeholder]="
