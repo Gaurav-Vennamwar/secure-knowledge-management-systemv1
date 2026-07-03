@@ -232,7 +232,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             var newRefreshToken = await tokenRepository.GenerateRefreshTokenAsync(user.Id);
 
             // Step 9: Set NEW JWT cookie
-            Response.Cookies.Append("access_token", newJwtToken, new CookieOptions
+            Response.Cookies.Append("access_tokens", newJwtToken, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
