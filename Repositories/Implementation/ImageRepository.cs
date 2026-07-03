@@ -1,3 +1,5 @@
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.EntityFrameworkCore;
 using SecureKnowledgeManagementSystemv1.API.Data;
 using SecureKnowledgeManagementSystemv1.API.Models.Domain;
@@ -5,18 +7,22 @@ using SecureKnowledgeManagementSystemv1.API.Repositories.Interface;
 
 namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 {
-    
     public class ImageRepository : IImageRepository
     {
-        private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ApplicationDbContext dbContext;
+        private readonly Cloudinary cloudinary;
 
-        public ImageRepository(IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
+        public ImageRepository(ApplicationDbContext dbContext, IConfiguration configuration)
         {
-            this.webHostEnvironment = webHostEnvironment;
-            this.httpContextAccessor = httpContextAccessor;
             this.dbContext = dbContext;
+
+            var account = new Account(
+                configuration["Cloudinary:CloudName"],
+                configuration["Cloudinary:ApiKey"],
+                configuration["Cloudinary:ApiSecret"]
+            );
+
+            cloudinary = new Cloudinary(account);
         }
 
         public async Task<IEnumerable<BlogImage>> GetAll()
@@ -26,20 +32,22 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public async Task<BlogImage> Upload(IFormFile file, BlogImage blogImage)
         {
-            // 1 step - Upload the images to API/Images
-            var localPath = Path.Combine(webHostEnvironment.ContentRootPath, "Images", $"{blogImage.FileName}{blogImage.FileExtension}");
-            //uploading the file into physcial location 
-            using var stream = new FileStream(localPath, FileMode.Create);
-            await file.CopyToAsync(stream);          
-            //2 step - Update the database
-            //storing the blog image to database and getting the url
-            //url could like be hhtps://skms.com/images/xyz.jpg
-            var httpRequest = httpContextAccessor.HttpContext?.Request;
-            var urlPath = $"{httpRequest?.Scheme}://{httpRequest?.Host}{httpRequest?.PathBase}/Images/{blogImage.FileName}{blogImage.FileExtension}";
+            // Step 1 — Upload to Cloudinary
+            using var stream = file.OpenReadStream();
 
-            blogImage.Url = urlPath;
+            var uploadParams = new ImageUploadParams
+            {
+                File = new FileDescription(blogImage.FileName, stream),
+                Folder = "skms-images",
+                PublicId = $"{blogImage.FileName}{blogImage.FileExtension}"
+            };
 
-           await dbContext.BlogImages.AddAsync( blogImage );
+            var uploadResult = await cloudinary.UploadAsync(uploadParams);
+
+            // Step 2 — Save to database with Cloudinary URL
+            blogImage.Url = uploadResult.SecureUrl.ToString();
+
+            await dbContext.BlogImages.AddAsync(blogImage);
             await dbContext.SaveChangesAsync();
 
             return blogImage;
