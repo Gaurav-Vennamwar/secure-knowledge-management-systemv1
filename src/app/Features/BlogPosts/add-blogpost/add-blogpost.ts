@@ -101,12 +101,22 @@ selectedImageEffectRef = effect(() => {
     console.log('SUBMIT CLICKED');
 
     if (!this.addBlogPostForm.valid) {
-      console.log(this.addBlogPostForm);
+     console.log(this.addBlogPostForm.controls);
+  console.log("Title:", this.addBlogPostForm.controls.Tittle.errors);
+  console.log("Short:", this.addBlogPostForm.controls.ShortDescription.errors);
+  console.log("Content:", this.addBlogPostForm.controls.Content.errors);
+  console.log("Image:", this.addBlogPostForm.controls.FeaturedImageUrl.errors);
+  console.log("Url:", this.addBlogPostForm.controls.UrlHandle.errors);
+  console.log("Date:", this.addBlogPostForm.controls.PublishedDate.errors);
+  console.log("Author:", this.addBlogPostForm.controls.Author.errors);
+  console.log("Visible:", this.addBlogPostForm.controls.IsVisible.errors);
+  console.log("Categories:", this.addBlogPostForm.controls.Categories.errors);
 
       return;
     }
 
     const formRawValue = this.addBlogPostForm.getRawValue();
+    console.log("FORM IS VALID");
 
     console.log('Selected Categories:', formRawValue.Categories);
 
@@ -132,7 +142,8 @@ selectedImageEffectRef = effect(() => {
     };
 
     console.log(JSON.stringify(requestDto));
-
+    console.log("CALLING API...");
+    console.log(requestDto);
     this.blogPostService.createBlogPost(requestDto).subscribe({
       next: (response) => {
         console.log('SUCCESS');
@@ -143,10 +154,10 @@ selectedImageEffectRef = effect(() => {
       },
 
       error: (err) => {
-        console.log(err);
-
-        console.log(err.error);
-      },
+  console.log("STATUS:", err.status);
+  console.log("ERROR BODY:", err.error);
+  console.log(err);
+},    
     });
   }
 }
