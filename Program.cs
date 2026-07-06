@@ -137,17 +137,21 @@ app.UseRateLimiter();
             app.UseSwaggerUI();
 //}
 
-    //app.UseHttpsRedirection();
-    app.UseCors(options =>
-    {
-        options.AllowAnyHeader();
-        options.WithOrigins(
-            "http://localhost:4200",
-            "https://secure-knowledge-management-systemv-ten.vercel.app"
-        );
-        options.AllowAnyMethod();
-        options.AllowCredentials();
-    });
+//app.UseHttpsRedirection();
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+
+    options.WithOrigins(
+        "http://localhost:4200",
+        "https://secure-knowledge-management-systemv-ten.vercel.app",
+        "https://gaurav-portfolio-1qdly4mh8-gaurav-vennamwars-projects.vercel.app",
+        "https://gaurav-portfolio-woad.vercel.app"
+    );
+
+    options.AllowAnyMethod();
+    options.AllowCredentials();
+});
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
         app.UseAuthentication();
