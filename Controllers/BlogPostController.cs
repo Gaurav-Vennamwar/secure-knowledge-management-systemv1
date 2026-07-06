@@ -124,6 +124,38 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
             return Ok(ApiResponse<object>.SuccessResponse(paginatedResult, "BlogPosts fetched successfully"));
         }
+        // GET : {apiBaseUrl}/api/blogpost/latest?count=4
+        [HttpGet("latest")]
+        public async Task<IActionResult> GetLatestBlogPosts([FromQuery] int count = 4)
+        {
+            var blogPosts = await blogPostRepository.GetLatestAsync(count);
+
+            var response = blogPosts.Select(blogPost => new BlogPostDTO
+            {
+                Id = blogPost.Id,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                Content = blogPost.Content,
+                ShortDescription = blogPost.ShortDescription,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                Tittle = blogPost.Tittle,
+                UrlHandle = blogPost.UrlHandle,
+                Categories = blogPost.Categories.Select(x => new CategoryDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle
+                }).ToList()
+            }).ToList();
+
+            return Ok(
+                ApiResponse<IEnumerable<BlogPostDTO>>.SuccessResponse(
+                    response,
+                    "Latest blog posts fetched successfully"
+                )
+            );
+        }
 
         //GET : {apiBaseUrl}/api/blogposts{id}
         [HttpGet("{id:guid}")]

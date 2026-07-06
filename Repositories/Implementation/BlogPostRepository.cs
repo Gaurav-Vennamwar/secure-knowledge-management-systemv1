@@ -82,6 +82,14 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
             return blogPost;
         }
 
-        
+        public async Task<IEnumerable<BlogPost>> GetLatestAsync(int count)
+        {
+            return await dbContext.BlogPosts
+                .Include(x => x.Categories)
+                .Where(x => x.IsVisible)
+                .OrderByDescending(x => x.PublishedDate)
+                .Take(count)
+                .ToListAsync();
+        }
     }
 }
