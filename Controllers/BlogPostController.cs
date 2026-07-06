@@ -126,7 +126,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         }
         // GET : {apiBaseUrl}/api/blogpost/latest?count=4
         [HttpGet("latest")]
-        public async Task<IActionResult> GetLatestBlogPosts([FromQuery] int count = 4)
+        public async Task<IActionResult> GetLatestBlogPosts([FromQuery] int count = 6)
         {
             var blogPosts = await blogPostRepository.GetLatestAsync(count);
 
@@ -155,7 +155,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     "Latest blog posts fetched successfully"
                 )
             );
-        }
+        }   
 
         //GET : {apiBaseUrl}/api/blogposts{id}
         [HttpGet("{id:guid}")]
