@@ -8,18 +8,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // add withCredentials to every request automatically
   const authReq = req.clone({
-    withCredentials: true
+    withCredentials: true,
   });
 
   return next(authReq).pipe(
     catchError((error) => {
       // if 401 and not already a refresh request
-      if (error instanceof HttpErrorResponse && 
-          error.status === 401 && 
-          !req.url.includes('/api/auth/refresh') &&
-          !req.url.includes('/api/auth/login') 
-       ) {
-        
+      if (
+        error instanceof HttpErrorResponse &&
+        error.status === 401 &&
+        !req.url.includes('/api/auth/refresh') &&
+        !req.url.includes('/api/auth/login') &&
+        !req.url.includes('/api/blogpost')
+      ) {
         // call refresh endpoint
         return authService.refreshToken().pipe(
           switchMap(() => {
@@ -30,10 +31,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             // refresh failed → logout user
             authService.logout();
             return throwError(() => refreshError);
-          })
+          }),
         );
       }
       return throwError(() => error);
-    })
+    }),
   );
 };
