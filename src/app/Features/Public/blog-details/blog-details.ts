@@ -1,7 +1,10 @@
-import { Component, inject, input, resource } from '@angular/core';
-import { BlogPostService } from '../../BlogPosts/Services/blog-post-service';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { MarkdownComponent } from "ngx-markdown";
+import { MarkdownComponent } from 'ngx-markdown';
+
+import { BlogPostService } from '../../BlogPosts/Services/blog-post-service';
+import { BlogPost } from '../../BlogPosts/Models/blogpost.model';
 
 @Component({
   selector: 'app-blog-details',
@@ -9,14 +12,32 @@ import { MarkdownComponent } from "ngx-markdown";
   templateUrl: './blog-details.html',
   styleUrl: './blog-details.css',
 })
-export class BlogDetails {
-  url = input<string | undefined>();
+export class BlogDetails implements OnInit {
 
-  blogpPostService = inject(BlogPostService);
-  //fetch the details using url
-  blogDetailRef = this.blogpPostService.getBlogPostByUrlHandle(this.url);
-  isLoading = this.blogDetailRef.isLoading;
-  blogDetailResponse = this.blogDetailRef.value;
+  private route = inject(ActivatedRoute);
+  private blogPostService = inject(BlogPostService);
 
-   
+  blogPost?: BlogPost;
+
+  isLoading = true;
+
+  ngOnInit(): void {
+
+    const url = this.route.snapshot.paramMap.get('url');
+
+    if (!url) return;
+
+    this.blogPostService.getBlogPostByUrlHandleHttp(url).subscribe({
+      next: (response) => {
+        this.blogPost = response.Data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.isLoading = false;
+      }
+    });
+
+  }
+
 }

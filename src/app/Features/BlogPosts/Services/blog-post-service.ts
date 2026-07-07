@@ -49,4 +49,9 @@ export class BlogPostService {
       withCredentials: true
     });
   }
+  getBlogPostByUrlHandleHttp(urlHandle: string): Observable<ApiResponse<BlogPost>> {
+  return this.http.get<ApiResponse<BlogPost>>(
+    `${this.apiBaseUrl}/api/blogpost/${urlHandle}`
+  );
+}
 }

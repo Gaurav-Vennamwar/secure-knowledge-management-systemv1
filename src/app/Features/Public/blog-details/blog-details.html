@@ -1,6 +1,6 @@
 <div class="blog-details-page">
 
-  @if (isLoading()) {
+  @if (isLoading) {
 
     <div class="loading-container">
 
@@ -12,8 +12,7 @@
 
   } @else {
 
-    @if (blogDetailResponse(); as response) {
-      @if (response.Data; as blogPost) {
+  @if (blogPost; as blog) {
 
         <article class="article-container">
 
@@ -23,8 +22,8 @@
 
             <img
               class="hero-image"
-              [src]="blogPost.FeaturedImageUrl"
-              [alt]="blogPost.Tittle"
+              [src]="blog.FeaturedImageUrl"
+              [alt]="blog.Tittle"
             />
 
             <div class="hero-overlay">
@@ -42,7 +41,7 @@
           <div class="article-content">
 
             <h1 class="article-title">
-              {{ blogPost.Tittle }}
+              {{ blog.Tittle }}
             </h1>
 
             <div class="article-meta">
@@ -50,13 +49,13 @@
               <div class="author-card">
 
                 <div class="author-avatar">
-                  {{ blogPost.Author.charAt(0) }}
+                  {{ blog.Author.charAt(0) }}
                 </div>
 
                 <div>
 
                   <div class="author-name">
-                    {{ blogPost.Author }}
+                    {{ blog.Author }}
                   </div>
 
                   <div class="author-role">
@@ -69,17 +68,17 @@
 
               <div class="publish-date">
 
-                📅 {{ blogPost.PublishedDate | date:'dd MMM yyyy' }}
+                📅 {{ blog.PublishedDate | date:'dd MMM yyyy' }}
 
               </div>
 
             </div>
 
-            @if (blogPost.Categories) {
+            @if (blog.Categories) {
 
               <div class="category-wrapper">
 
-                @for (category of blogPost.Categories; track category.Id) {
+                @for (category of blog.Categories; track category.Id) {
 
                   <span class="category-chip">
 
@@ -98,7 +97,7 @@
             <div class="markdown-container">
 
               <markdown
-                [data]="blogPost.Content">
+                [data]="blog.Content">
               </markdown>
 
             </div>
@@ -110,6 +109,6 @@
       }
     }
 
-  }
+  
 
 </div>
