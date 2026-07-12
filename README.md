@@ -492,10 +492,8 @@ Building toward: Full-Stack → Cloud → AI/ML Engineering
 
 [![GitHub](https://img.shields.io/badge/GitHub-Gaurav--Vennamwar-181717?style=flat-square&logo=github)](https://github.com/Gaurav-Vennamwar)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-gaurav--vennamwar-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/gaurav-vennamwar-0b79b0212)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live_Website-8A2BE2?style=flat-square&logo=vercel&logoColor=white)](https://gaurav-portfolio-woad.vercel.app/)
 [![Email](https://img.shields.io/badge/Email-vennamwarg@gmail.com-D14836?style=flat-square&logo=gmail)](mailto:vennamwarg@gmail.com)
-Portfolio
-https://gaurav-portfolio-woad.vercel.app/
-
 ---
 
 <div align="center">
