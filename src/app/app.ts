@@ -12,17 +12,16 @@ import { AuthService } from './Features/Auth/services/auth-service';
 })
 export class App {
   protected readonly title = signal('SecureKnowledgeManagement-v1');
-
   authService = inject(AuthService);
 
-  loadUserRef = this.authService.loadUser();
-  //when we get the value back it will be signal
-  user = this.loadUserRef.value;
-
-  effectRef = effect(() => {
-    const userValue = this.user();
-    if(userValue){
-      this.authService.user.set(userValue)
-    }
-  })
+  constructor() {
+    // load user on app start
+    this.authService.loadUser().subscribe({
+      next: (user) => {
+        if (user) {
+          this.authService.user.set(user);
+        }
+      }
+    });
+  }
 }

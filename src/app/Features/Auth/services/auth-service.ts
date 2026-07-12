@@ -5,7 +5,7 @@ import {
   HttpResourceRequest,
 } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { LoginResponse, User } from '../models/auth.model';
 import { Router } from '@angular/router';
@@ -20,15 +20,23 @@ export class AuthService {
   router = inject(Router);
 
   //this is the method which we will call our endpoint me
-  loadUser(): HttpResourceRef<User | undefined> {
-    return httpResource<User>(() => {
-      const request: HttpResourceRequest = {
-        url: `${environment.apiBaseUrl}/api/auth/me`,
-        withCredentials: true,
-      };
-      return request;
-    });
-  }
+  // loadUser(): HttpResourceRef<User | undefined> {
+  //   return httpResource<User>(() => {
+  //     const request: HttpResourceRequest = {
+  //       url: `${environment.apiBaseUrl}/api/auth/me`,
+  //       withCredentials: true,
+  //     };
+  //     return request;
+  //   });
+  // }
+  loadUser(): Observable<User | null> {
+  return this.http.get<User>(
+    `${environment.apiBaseUrl}/api/auth/me`,
+    { withCredentials: true }
+  ).pipe(
+    catchError(() => of (null)) // ← 401 returns null, no crash
+  );
+}
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http

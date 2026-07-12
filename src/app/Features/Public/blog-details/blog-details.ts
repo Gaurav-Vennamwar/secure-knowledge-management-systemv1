@@ -23,9 +23,14 @@ export class BlogDetails implements OnInit {
 
   ngOnInit(): void {
 
-    const url = this.route.snapshot.paramMap.get('url');
+  this.route.paramMap.subscribe(params => {
 
-    if (!url) return;
+    const url = params.get('url');
+
+    if (!url) {
+      this.isLoading = false;
+      return;
+    }
 
     this.blogPostService.getBlogPostByUrlHandleHttp(url).subscribe({
       next: (response) => {
@@ -38,6 +43,8 @@ export class BlogDetails implements OnInit {
       }
     });
 
-  }
+  });
+
+}
 
 }
