@@ -6,6 +6,35 @@
 
 **A production-grade full-stack blog & knowledge platform built with enterprise architecture patterns**
 
+
+Why This Project?
+
+✔ Enterprise Authentication
+
+✔ Clean Architecture
+
+✔ Repository Pattern
+
+✔ Production Deployment
+
+✔ Modern Angular
+
+✔ Secure JWT Authentication
+
+✔ Refresh Token Rotation
+
+✔ Azure SQL Database
+
+✔ Cloud Hosting
+
+✔ Responsive UI
+
+✔ Markdown Editor
+
+✔ Pagination
+
+✔ Role-Based Authorization
+
 [![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=flat-square&logo=angular)](https://angular.dev)
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-512BD4?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com)
 [![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?style=flat-square&logo=microsoftsqlserver)](https://microsoft.com/sql-server)
@@ -13,7 +42,49 @@
 [![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=flat-square&logo=jsonwebtokens)](https://jwt.io)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-[Live Demo](#) · [API Docs](#) · [Report Bug](https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/issues) · [LinkedIn](https://www.linkedin.com/in/gaurav-vennamwar-0b79b0212)
+## Project Status
+
+✅ Production Ready
+
+✅ Live Deployment
+
+✅ Enterprise Authentication
+
+✅ Refresh Token Rotation
+
+✅ Role-Based Authorization
+
+✅ Responsive Design
+
+🚧 Continuous Improvements
+
+Currently Working On
+
+• Forgot Password
+
+• Reading Progress
+
+• Better Dashboard
+
+• Search Improvements
+
+• Learning Paths
+
+• Premium UI Polish
+
+## 🌐 Live Applications
+
+🚀 **SKMS Live Application**
+https://secure-knowledge-management-systemv-ten.vercel.app/
+
+💼 **Developer Portfolio**
+https://gaurav-portfolio-woad.vercel.app/
+
+🐞 **Report Issues**
+https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/issues
+
+💼 **LinkedIn**
+https://www.linkedin.com/in/gaurav-vennamwar-0b79b0212
 
 </div>
 
@@ -104,6 +175,21 @@ The project follows a **5-phase roadmap** moving from a monolithic fullstack app
 | Rich Category UI | `ng-select` multi-select for category assignment on blog posts |
 | Pagination Controls | Previous/Next with `Page X of Y` · signal-driven auto-refetch |
 
+
+                Users
+                  │
+                  ▼
+           Vercel (Angular)
+                  │
+                  ▼
+       Render (ASP.NET Core API)
+                  │
+                  ▼
+        Azure SQL Database
+                  │
+                  ▼
+           Cloudinary Images
+
 ---
 
 ## Project Roadmap
@@ -157,6 +243,17 @@ Phase 5 ⏳  AI Integration
 - Refresh Token Rotation
 - BCrypt password hashing (via Identity)
 - CORS with credential support
+
+- ## ☁️ Deployment
+
+| Layer | Platform |
+|--------|----------|
+| Frontend | Vercel |
+| Backend API | Render |
+| Database | Azure SQL Database |
+| Image Storage | Cloudinary |
+
+This production deployment demonstrates hosting a modern full-stack application using separate cloud services for each layer.
 
 ---
 
@@ -402,6 +499,8 @@ Building toward: Full-Stack → Cloud → AI/ML Engineering
 [![GitHub](https://img.shields.io/badge/GitHub-Gaurav--Vennamwar-181717?style=flat-square&logo=github)](https://github.com/Gaurav-Vennamwar)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-gaurav--vennamwar-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/gaurav-vennamwar-0b79b0212)
 [![Email](https://img.shields.io/badge/Email-vennamwarg@gmail.com-D14836?style=flat-square&logo=gmail)](mailto:vennamwarg@gmail.com)
+Portfolio
+https://gaurav-portfolio-woad.vercel.app/
 
 ---
 
@@ -410,5 +509,14 @@ Building toward: Full-Stack → Cloud → AI/ML Engineering
 **If this project helped you or impressed you, drop a ⭐ — it genuinely helps.**
 
 *Built with intent. Shipped with care.*
+*Designed, Developed and Deployed by.*
+
+Gaurav Vennamwar
+
+Full Stack .NET Developer
+
+Always learning.
+Always building.
+Always shipping.
 
 </div>
