@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/main/SecureKnowledgeManagement.ui/src/assets/logo.png" width="80" alt="SKMS Logo" />
+<img src="https://raw.githubusercontent.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/main/src/assets/logo.png" alt="SKMS Logo" width="80">
 
 # Secure Knowledge Management System
 
