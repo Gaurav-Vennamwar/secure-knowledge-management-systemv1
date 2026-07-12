@@ -1,45 +1,52 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/main/src/assets/logo.png" alt="SKMS Logo" width="80">
+<img src="https://raw.githubusercontent.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/main/src/assets/logo.png" alt="SKMS Logo" width="120">
 
-# Secure Knowledge Management System
+# 🚀 Secure Knowledge Management System (SKMS)
 
-**A production-grade full-stack blog & knowledge platform built with enterprise architecture patterns**
+### Production-Grade Knowledge Management Platform built with Angular, ASP.NET Core, SQL Server & Enterprise Security Practices
 
-[![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=flat-square&logo=angular)](https://angular.dev)
-[![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-512BD4?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com)
-[![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?style=flat-square&logo=microsoftsqlserver)](https://microsoft.com/sql-server)
-[![EF Core](https://img.shields.io/badge/EF_Core-8.0-512BD4?style=flat-square&logo=dotnet)](https://learn.microsoft.com/ef/core)
-[![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=flat-square&logo=jsonwebtokens)](https://jwt.io)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+*A modern full-stack application showcasing secure authentication, clean architecture, scalable backend design, and production cloud deployment.*
 
-Why This Project?
+<br>
 
-✔ Enterprise Authentication
+[![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
+[![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com)
+[![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
+[![Entity Framework Core](https://img.shields.io/badge/Entity_Framework_Core-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://learn.microsoft.com/ef/core)
+[![JWT Authentication](https://img.shields.io/badge/JWT-Authentication-000000?style=for-the-badge&logo=jsonwebtokens)](https://jwt.io)
 
-✔ Clean Architecture
+<br>
 
-✔ Repository Pattern
+![Status](https://img.shields.io/badge/Status-Production_Ready-success?style=flat-square)
+![Deployment](https://img.shields.io/badge/Deployment-Live-success?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-Monolithic-blue?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-✔ Production Deployment
+---
 
-✔ Modern Angular
+## 🌐 Live Applications
 
-✔ Secure JWT Authentication
+[![Live Application](https://img.shields.io/badge/SKMS-Live_Application-00C853?style=for-the-badge&logo=vercel&logoColor=white)](https://secure-knowledge-management-systemv-ten.vercel.app/)
 
-✔ Refresh Token Rotation
+[![Developer Portfolio](https://img.shields.io/badge/Portfolio-Live_Website-8A2BE2?style=for-the-badge&logo=vercel&logoColor=white)](https://gaurav-portfolio-woad.vercel.app/)
 
-✔ Azure SQL Database
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1)
 
-✔ Cloud Hosting
+---
 
-✔ Responsive UI
+## ⭐ Why This Project?
 
-✔ Markdown Editor
-
-✔ Pagination
-
-✔ Role-Based Authorization
+| Feature | Description |
+|---------|-------------|
+| 🔐 Enterprise Authentication | JWT Authentication with Refresh Token Rotation |
+| 🏗 Clean Architecture | Repository Pattern & Separation of Concerns |
+| ☁️ Production Deployment | Azure SQL Database, Render & Vercel |
+| 🛡 Secure by Design | HttpOnly Cookies, RBAC & ASP.NET Identity |
+| 📄 Rich Content Management | Markdown Support & Prism Syntax Highlighting |
+| ⚡ Modern Angular | Angular Signals, httpResource & Reactive Forms |
+| 📊 Scalable Backend | ASP.NET Core Web API & Entity Framework Core |
+| 📖 Better Reading Experience | Pagination, Categories & Responsive UI |
 
 ## Project Status
 
@@ -71,19 +78,7 @@ Currently Working On
 
 • Premium UI Polish
 
-## 🌐 Live Applications
 
-🚀 **SKMS Live Application**
-https://secure-knowledge-management-systemv-ten.vercel.app/
-
-💼 **Developer Portfolio**
-https://gaurav-portfolio-woad.vercel.app/
-
-🐞 **Report Issues**
-https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1/issues
-
-💼 **LinkedIn**
-https://www.linkedin.com/in/gaurav-vennamwar-0b79b0212
 
 </div>
 
