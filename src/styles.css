@@ -1,171 +1,40 @@
-/* ==========================================
-   PREMIUM MEDIA LIBRARY MODAL
-========================================== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-.media-modal-backdrop {
-
-  position: fixed;
-
-  inset: 0;
-
-  background: rgba(15,23,42,.65);
-
-  backdrop-filter: blur(14px);
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  z-index: 99999;
-
-  animation: modalFade .25s ease;
-
+:root {
+  color-scheme: dark;
+  --ink: #f5f7ff;
+  --muted: #9da8bd;
+  --surface: rgba(18, 23, 38, .72);
+  --surface-solid: #121827;
+  --line: rgba(194, 207, 255, .13);
+  --accent: #8ca5ff;
+  --accent-strong: #6e7dff;
+  --aqua: #73e7d3;
 }
 
+* { box-sizing: border-box; }
 
-/* MODAL */
+html { background: #080b14; }
 
-.media-modal {
-
-  width: min(1500px, 95vw);
-
-  height: min(850px, 90vh);
-
-  background: white;
-
-  border-radius: 32px;
-
-  overflow: hidden;
-
-  display: flex;
-
-  flex-direction: column;
-
-  box-shadow:
-    0 40px 120px rgba(0,0,0,.25);
-
-  animation: modalSlide .35s ease;
-
-}
-
-
-/* HEADER */
-
-.media-modal-header {
-
-  flex-shrink: 0;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  padding: 24px 30px;
-
-  border-bottom:
-    1px solid rgba(124,58,237,.1);
-
-}
-
-
-/* BODY */
-
-.media-modal-body {
-
-  flex: 1;
-
-  overflow-y: auto;
-
+body {
+  min-width: 320px;
+  margin: 0;
   overflow-x: hidden;
-
-  padding: 24px;
-
+  color: var(--ink);
+  background: #080b14;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+button, input, textarea, select { font: inherit; }
 
-/* SCROLLBAR */
+a { color: inherit; }
 
-.media-modal-body::-webkit-scrollbar {
+::selection { color: #07101c; background: var(--aqua); }
 
-  width: 8px;
+.media-modal { color: #192033; }
 
-}
-
-.media-modal-body::-webkit-scrollbar-thumb {
-
-  border-radius: 999px;
-
-  background:
-    linear-gradient(
-      #2563eb,
-      #7c3aed
-    );
-
-}
-
-
-/* CLOSE BUTTON */
-
-.close-modal-btn {
-
-  width: 48px;
-
-  height: 48px;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background: rgba(239,68,68,.08);
-
-  color: #dc2626;
-
-  cursor: pointer;
-
-  transition: .25s ease;
-
-}
-
-.close-modal-btn:hover {
-
-  transform: rotate(90deg);
-
-}
-
-
-/* ANIMATION */
-
-@keyframes modalFade {
-
-  from { opacity: 0; }
-
-  to { opacity: 1; }
-
-}
-
-@keyframes modalSlide {
-
-  from {
-
-    opacity: 0;
-
-    transform:
-      translateY(40px)
-      scale(.95);
-
-  }
-
-  to {
-
-    opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
-
-  }
-
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }

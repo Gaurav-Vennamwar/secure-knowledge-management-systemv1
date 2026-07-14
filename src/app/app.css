@@ -1,0 +1,44 @@
+.app-background {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100vh - 112px);
+  overflow: clip;
+  background: #080b14;
+}
+
+.app-background::before,
+.app-background::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  width: 42rem;
+  height: 42rem;
+  border-radius: 999px;
+  filter: blur(94px);
+  opacity: .26;
+  pointer-events: none;
+  animation: ambient-drift 16s ease-in-out infinite alternate;
+}
+
+.app-background::before {
+  top: -16rem;
+  left: -15rem;
+  background: #3159e8;
+}
+
+.app-background::after {
+  right: -18rem;
+  bottom: -20rem;
+  background: #8b3fd1;
+  animation-delay: -7s;
+}
+
+.image-selector-container { position: relative; z-index: 10000; }
+
+@keyframes ambient-drift {
+  to { transform: translate3d(7rem, 4rem, 0) scale(1.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-background::before, .app-background::after { animation: none; }
+}
