@@ -66,7 +66,8 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    UrlHandle = category.UrlHandle
+                    UrlHandle = category.UrlHandle,
+                    ArticleCount = category.BlogPosts.Count(post => post.IsVisible)
                 });
             }
             return Ok(ApiResponse<List<CategoryDTO>>.SuccessResponse(response, "Categories fetched successfully"));

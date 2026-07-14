@@ -37,7 +37,9 @@ namespace SecureKnowledgeManagementSystemv1.Repositories.Implementation
         //gets all categegory
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return await dbContext.Categories.ToListAsync();
+            return await dbContext.Categories
+                .Include(category => category.BlogPosts)
+                .ToListAsync();
         }
 
         public async Task<Category?> GetById(Guid id)

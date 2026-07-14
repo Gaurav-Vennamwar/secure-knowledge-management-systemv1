@@ -26,6 +26,13 @@ export class BlogPostService {
     );
   }
 
+  getBlogPostsByCategory(categoryUrlHandle: Signal<string>, pageNumber: Signal<number>, pageSize: number = 10): HttpResourceRef<ApiResponse<PaginatedBlogPostResponse> | undefined> {
+    return httpResource<ApiResponse<PaginatedBlogPostResponse>>(() => {
+      const category = categoryUrlHandle();
+      return category ? `${this.apiBaseUrl}/api/blogpost/category/${encodeURIComponent(category)}?pageNumber=${pageNumber()}&pageSize=${pageSize}` : undefined;
+    });
+  }
+
   //service method to get a single blog post by id
   getBlogPostById(id: InputSignal<string | undefined>): HttpResourceRef<ApiResponse<BlogPost> | undefined> {
     return httpResource<ApiResponse<BlogPost>>(() => `${this.apiBaseUrl}/api/blogpost/${id()}`);

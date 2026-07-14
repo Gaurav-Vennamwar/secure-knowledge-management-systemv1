@@ -1,0 +1,10 @@
+<main class="topic-page">
+  <a class="back-link" [routerLink]="['/dashboard']">← All learning paths</a>
+  <section class="topic-heading"><p class="eyebrow">DEVELOPER LEARNING PATH</p><h1>{{ title }}</h1><p>A focused collection of lessons to take you from fundamentals to confident, interview-ready understanding.</p></section>
+  @if (isLoading()) { <div class="topic-loading"><div class="loading-orbit"></div><span>Loading {{ title }} articles…</span></div> } @else {
+    @if (posts(); as response) { @if (response.Data; as data) {
+      @if (data.Items.length) { <section class="post-grid">@for (post of data.Items; track post.Id; let index = $index) { <article class="post-card"><a [routerLink]="['/blog', post.UrlHandle]" class="post-image"><img [src]="post.FeaturedImageUrl" [alt]="post.Tittle" /><span>0{{ index + 1 }}</span></a><div><small>SKMS / {{ title }}</small><h2>{{ post.Tittle }}</h2><p>{{ post.ShortDescription }}</p><a [routerLink]="['/blog', post.UrlHandle]">Read lesson →</a></div></article> }</section> } @else { <div class="empty-topic"><h2>This track is ready for its first lesson.</h2><p>More {{ title }} content is coming soon.</p></div> }
+      <div class="pagination-wrapper"><button class="pagination-btn" [disabled]="pageNumber() === 1" (click)="previousPage()">← Previous</button><div class="pagination-status">Page <strong>{{ data.PageNumber }}</strong> of {{ data.TotalPages || 1 }}</div><button class="pagination-btn" [disabled]="pageNumber() === data.TotalPages || data.TotalPages === 0" (click)="nextPage(data.TotalPages)">Next →</button></div>
+    } }
+  }
+</main>

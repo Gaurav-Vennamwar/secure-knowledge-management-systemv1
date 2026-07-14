@@ -10,6 +10,8 @@ import { BlogDetails } from './Features/Public/blog-details/blog-details';
 import { Login } from './Features/Auth/login/login';
 import { adminGuard } from './Features/Auth/guards/admin-guard';
 import { Register } from './Features/Auth/register/register/register';
+import { TopicDashboard } from './Features/Public/topic-dashboard/topic-dashboard';
+import { TopicPage } from './Features/Public/topic-page/topic-page';
 
 export const routes: Routes = [
   {
@@ -27,6 +29,14 @@ export const routes: Routes = [
   {
     path : 'register',
     component : Register
+  },
+  {
+    path: 'dashboard',
+    component: TopicDashboard,
+  },
+  {
+    path: 'topics/:topic',
+    component: TopicPage,
   },
 
   {

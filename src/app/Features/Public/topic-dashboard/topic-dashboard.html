@@ -1,0 +1,21 @@
+<main class="topic-dashboard">
+  <section class="dashboard-hero">
+    <p class="eyebrow">DEVELOPER LEARNING PATHS</p>
+    <h1>Choose a topic.<br /><em>Build momentum.</em></h1>
+    <p>Everything is grouped by the skill you want to master, so your next useful lesson is always one click away.</p>
+  </section>
+  @if (isLoading()) {
+    <div class="dashboard-loading"><div class="loading-orbit"></div><span>Loading learning paths…</span></div>
+  } @else {
+    @if (categories(); as response) { @if (response.Data; as items) {
+      <section class="topic-grid" aria-label="Learning paths">
+        @for (category of items; track category.Id; let index = $index) {
+          <a class="topic-card" [routerLink]="['/topics', category.UrlHandle]">
+            <span class="topic-number">0{{ index + 1 }}</span><span class="topic-icon">{{ category.Name.charAt(0) }}</span>
+            <h2>{{ category.Name }}</h2><p>{{ category.ArticleCount }} {{ category.ArticleCount === 1 ? 'article' : 'articles' }} in this learning path</p><span class="topic-open">Open track <b>→</b></span>
+          </a>
+        }
+      </section>
+    } }
+  }
+</main>

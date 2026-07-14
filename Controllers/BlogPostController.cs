@@ -87,7 +87,9 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBlogPost([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var blogPosts = await blogPostRepository.GetAllAync();
+            pageNumber = Math.Max(1, pageNumber);
+            pageSize = Math.Clamp(pageSize, 1, 50);
+            var blogPosts = await blogPostRepository.GetAllAync(pageNumber, pageSize);
             var totalCount = await blogPostRepository.GetCountAsync();
 
             //convert domain model to dto
@@ -123,6 +125,46 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             };
 
             return Ok(ApiResponse<object>.SuccessResponse(paginatedResult, "BlogPosts fetched successfully"));
+        }
+
+        // GET : {apiBaseUrl}/api/blogpost/category/c-sharp?pageNumber=1&pageSize=10
+        [HttpGet("category/{urlHandle}")]
+        public async Task<IActionResult> GetBlogPostsByCategory([FromRoute] string urlHandle, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            pageNumber = Math.Max(1, pageNumber);
+            pageSize = Math.Clamp(pageSize, 1, 50);
+
+            var blogPosts = await blogPostRepository.GetByCategoryUrlHandleAsync(urlHandle, pageNumber, pageSize);
+            var totalCount = await blogPostRepository.GetCountByCategoryUrlHandleAsync(urlHandle);
+            var response = blogPosts.Select(blogPost => new BlogPostDTO
+            {
+                Id = blogPost.Id,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                Content = blogPost.Content,
+                ShortDescription = blogPost.ShortDescription,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                Tittle = blogPost.Tittle,
+                UrlHandle = blogPost.UrlHandle,
+                Categories = blogPost.Categories.Select(category => new CategoryDTO
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    UrlHandle = category.UrlHandle
+                }).ToList()
+            }).ToList();
+
+            var paginatedResult = new
+            {
+                Items = response,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+            };
+
+            return Ok(ApiResponse<object>.SuccessResponse(paginatedResult, "Category blog posts fetched successfully"));
         }
         // GET : {apiBaseUrl}/api/blogpost/latest?count=4
         [HttpGet("latest")]

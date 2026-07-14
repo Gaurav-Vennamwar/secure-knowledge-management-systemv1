@@ -2,35 +2,35 @@
   <section class="hero-section">
     <div class="hero-copy">
       <div class="hero-badge"><span></span> Secure knowledge workspace</div>
-      <p class="eyebrow">SKMS / KNOWLEDGE, COMPOUNDED</p>
-      <h1 class="hero-title">Make every insight<br /><em>impossible to lose.</em></h1>
+      <p class="eyebrow">SKMS / .NET CAREER COMPANION</p>
+      <h1 class="hero-title">Build the skills.<br /><em>Land the role.</em></h1>
       <p class="hero-subtitle">
-        A secure, focused home for the ideas, engineering notes and decisions that move your work forward.
+        A practical path from C# fundamentals to system design, DSA and the .NET interviews that define your next opportunity.
       </p>
       <div class="hero-actions">
-        <a class="hero-primary" href="#articles">Explore the library <span>↗</span></a>
-        <a class="hero-secondary" [routerLink]="['/register']">Create your workspace</a>
+        <a class="hero-primary" href="#articles">Start learning <span>↗</span></a>
+        <a class="hero-secondary" [routerLink]="['/dashboard']">Browse learning paths</a>
       </div>
     </div>
 
     <aside class="signal-panel" aria-label="Platform highlights">
       <div class="signal-top"><span class="signal-dot"></span> SYSTEM ONLINE <span>01</span></div>
       <div class="signal-grid">
-        <div><small>Built for</small><strong>Teams that<br />think deeply.</strong></div>
+        <div><small>Your roadmap to</small><strong>.NET developer<br />readiness.</strong></div>
         <div class="signal-orb"></div>
       </div>
       <div class="signal-lines"><i></i><i></i><i></i><i></i></div>
-      <div class="signal-footer"><span>Private by design</span><span>Angular · .NET</span></div>
+      <div class="signal-footer"><span>Learn with intent</span><span>C# · .NET · SQL</span></div>
     </aside>
   </section>
 
   <section class="library-section" id="articles">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">LATEST FROM THE LIBRARY</p>
-        <h2>Ideas worth returning to.</h2>
+        <p class="eyebrow">LATEST ACROSS EVERY TRACK</p>
+        <h2>What to learn next.</h2>
       </div>
-      <p>Curated notes on technology, AI, security and the systems behind good work.</p>
+      <p>Fresh C#, ASP.NET Core, DSA and system-design lessons for serious .NET job preparation.</p>
     </div>
 
     @if (isLoading()) {
@@ -60,13 +60,11 @@
             <div class="empty-state">No articles have been published yet.</div>
           }
 
-          @if (data.TotalPages > 1) {
-            <div class="pagination-wrapper">
+          <div class="pagination-wrapper">
               <button class="pagination-btn" [disabled]="pageNumber() === 1" (click)="previousPage()">← Previous</button>
               <div class="pagination-status"><span>Page</span><strong>{{ data.PageNumber }}</strong><span>of {{ data.TotalPages }}</span></div>
               <button class="pagination-btn" [disabled]="pageNumber() === data.TotalPages" (click)="nextPage()">Next →</button>
             </div>
-          }
         }
       }
     }
@@ -74,7 +72,7 @@
 
   <footer class="footer">
     <div class="footer-brand"><img src="assets/logo.png" alt="SKMS" /><span>SKMS</span></div>
-    <p>Secure Knowledge Management System. Built with Angular and ASP.NET Core.</p>
-    <div class="footer-links"><a href="https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1" target="_blank" rel="noreferrer">GitHub ↗</a><a href="mailto:vennamwarg@gmail.com">Contact</a></div>
+    <p>Your focused .NET learning companion. Built with Angular and ASP.NET Core.</p>
+    <div class="footer-links"><a href="https://github.com/Gaurav-Vennamwar/secure-knowledge-management-systemv1" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/gaurav-vennamwar-0b79b0212" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="mailto:vennamwarg@gmail.com">Contact</a></div>
   </footer>
 </main>

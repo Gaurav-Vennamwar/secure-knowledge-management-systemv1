@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <!-- Logo -->
-    <a class="navbar-brand brand-container" href="#">
+    <a class="navbar-brand brand-container" [routerLink]="['/']">
       <img src="assets/logo.png" class="logo-img" alt="SKMS Logo" />
 
       <div class="brand-text-wrapper">
@@ -37,10 +37,14 @@
           <a
             class="nav-link nav-hover active"
             aria-current="page"
-            href="#"
+            [routerLink]="['/']"
           >
             Home
           </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link nav-hover" [routerLink]="['/dashboard']">Learning paths</a>
         </li>
 
         @if (authService.user()?.Roles?.includes('Writter')) {

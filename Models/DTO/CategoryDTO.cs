@@ -5,5 +5,6 @@ namespace SecureKnowledgeManagementSystemv1.API.Models.DTO
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public string? UrlHandle { get; set; }
+        public int ArticleCount { get; set; }
     }
 }

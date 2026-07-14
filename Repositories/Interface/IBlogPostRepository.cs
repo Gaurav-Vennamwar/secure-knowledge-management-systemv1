@@ -12,6 +12,8 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Interface
         Task <BlogPost?> UpdateAsync(BlogPost blogPost);
         Task<BlogPost?> DeleteAsync(Guid id);
         Task<IEnumerable<BlogPost>> GetLatestAsync(int count);
+        Task<IEnumerable<BlogPost>> GetByCategoryUrlHandleAsync(string categoryUrlHandle, int pageNumber, int pageSize);
+        Task<int> GetCountByCategoryUrlHandleAsync(string categoryUrlHandle);
 
     }
 

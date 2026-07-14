@@ -38,6 +38,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
         public async Task<IEnumerable<BlogPost>> GetAllAync(int pageNumber = 1, int pageSize = 10)
         {
             return await dbContext.BlogPosts.Include(x => x.Categories)
+                 .OrderByDescending(x => x.PublishedDate)
                  .Skip((pageNumber - 1) * pageSize) //if page 1 and size is 10 then = 1-1=0 show page from 1-10 skip 0
                  .Take(pageSize)
                  .ToListAsync();
@@ -90,6 +91,24 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
                 .OrderByDescending(x => x.PublishedDate)
                 .Take(count)
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<BlogPost>> GetByCategoryUrlHandleAsync(string categoryUrlHandle, int pageNumber, int pageSize)
+        {
+            return await dbContext.BlogPosts
+                .Include(post => post.Categories)
+                .Where(post => post.IsVisible && post.Categories.Any(category => category.UrlHandle == categoryUrlHandle))
+                .OrderByDescending(post => post.PublishedDate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
+        public Task<int> GetCountByCategoryUrlHandleAsync(string categoryUrlHandle)
+        {
+            return dbContext.BlogPosts
+                .Where(post => post.IsVisible && post.Categories.Any(category => category.UrlHandle == categoryUrlHandle))
+                .CountAsync();
         }
     }
 }
