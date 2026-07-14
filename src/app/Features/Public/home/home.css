@@ -814,4 +814,17 @@
 
   font-weight: 600;
 }
+.hero-section {
+    min-height: 100vh;
 
+    background:
+        linear-gradient(
+            rgba(5, 8, 20, 0.82),
+            rgba(5, 8, 20, 0.88)
+        ),
+        url('/assets/bg.png');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
