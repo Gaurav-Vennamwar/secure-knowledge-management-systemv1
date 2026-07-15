@@ -127,7 +127,9 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             return Ok(ApiResponse<object>.SuccessResponse(paginatedResult, "BlogPosts fetched successfully"));
         }
 
+
         // GET : {apiBaseUrl}/api/blogpost/category/c-sharp?pageNumber=1&pageSize=10
+
         [HttpGet("category/{urlHandle}")]
         public async Task<IActionResult> GetBlogPostsByCategory([FromRoute] string urlHandle, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
@@ -138,6 +140,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             var totalCount = await blogPostRepository.GetCountByCategoryUrlHandleAsync(urlHandle);
             var response = blogPosts.Select(blogPost => new BlogPostDTO
             {
+
                 Id = blogPost.Id,
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
@@ -164,6 +167,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
             };
 
+               
             return Ok(ApiResponse<object>.SuccessResponse(paginatedResult, "Category blog posts fetched successfully"));
         }
         // GET : {apiBaseUrl}/api/blogpost/latest?count=4
