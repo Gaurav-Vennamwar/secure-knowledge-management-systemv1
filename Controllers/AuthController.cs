@@ -48,6 +48,10 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     // Step 2: Create Refresh Token and save to DB
                     var refreshToken = await tokenRepository.GenerateRefreshTokenAsync(identityUser.Id);
 
+                    // Remove cookies created before the cookie path was standardised to '/'.
+                    // Without this, browsers can send a stale /api/auth refresh cookie first.
+                    ClearLegacyAuthCookies();
+
 
                     // Step 3: Set JWT in HttpOnly cookie
                     Response.Cookies.Append("access_token", jwtToken, new CookieOptions
@@ -188,6 +192,8 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 Expires = DateTime.UtcNow.AddDays(-1)
             });
 
+            ClearLegacyAuthCookies();
+
             return Ok();
         }
 
@@ -257,6 +263,21 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
             return Ok(new { message = "Tokens refreshed successfully" });
         }
+
+        private void ClearLegacyAuthCookies()
+        {
+            var legacyCookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Path = "/api/auth"
+            };
+
+            Response.Cookies.Delete("access_tokens", legacyCookieOptions);
+            Response.Cookies.Delete("access_token", legacyCookieOptions);
+            Response.Cookies.Delete("refresh_token", legacyCookieOptions);
+        }
     }
-}
+    }
     
