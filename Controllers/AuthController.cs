@@ -50,11 +50,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
 
                     // Step 3: Set JWT in HttpOnly cookie
-                    Response.Cookies.Append("access_tokens", jwtToken, new CookieOptions
+                    Response.Cookies.Append("access_token", jwtToken, new CookieOptions
                     {
                         HttpOnly = true,//only http cokkie
                         Secure = true,
                         SameSite = SameSiteMode.None,
+                        Path = "/",
                         Expires = DateTime.UtcNow.AddMinutes(15)
                     });
 
@@ -64,6 +65,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                         HttpOnly = true,
                         Secure = true,
                         SameSite = SameSiteMode.None,
+                        Path = "/",
                         Expires = DateTime.UtcNow.AddDays(7)
                     });
 
@@ -168,11 +170,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             }
             //this will over ride your previous cookie
             // expire both cookies
-            Response.Cookies.Append("access_tokens", "", new CookieOptions
+            Response.Cookies.Append("access_token", "", new CookieOptions
             {
                 HttpOnly = true,//only http cokkie
                 Secure = true,
                 SameSite = SameSiteMode.None,
+                Path = "/",
                 Expires = DateTime.UtcNow.AddDays(-1)
             });
 
@@ -181,6 +184,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
+                Path = "/",
                 Expires = DateTime.UtcNow.AddDays(-1)
             });
 
@@ -232,11 +236,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             var newRefreshToken = await tokenRepository.GenerateRefreshTokenAsync(user.Id);
 
             // Step 9: Set NEW JWT cookie
-            Response.Cookies.Append("access_tokens", newJwtToken, new CookieOptions
+            Response.Cookies.Append("access_token", newJwtToken, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
+                Path = "/",
                 Expires = DateTime.UtcNow.AddMinutes(15)
             });
 
@@ -246,6 +251,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
+                Path = "/",
                 Expires = DateTime.UtcNow.AddDays(7)
             });
 

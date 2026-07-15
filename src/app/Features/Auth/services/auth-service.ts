@@ -5,7 +5,7 @@ import {
   HttpResourceRequest,
 } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, finalize, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { LoginResponse, User } from '../models/auth.model';
 import { Router } from '@angular/router';
@@ -76,14 +76,14 @@ export class AuthService {
           withCredentials: true,
         },
       )
-      .subscribe({
-        next: () => {
-          //clear out the user signal
+      .pipe(
+        finalize(() => {
           this.user.set(null);
-          //redirect to the home page bro
+          localStorage.removeItem('user');
           this.router.navigate(['']);
-        },
-      });
+        }),
+      )
+      .subscribe();
   }
   register(email: string, password: string): Observable<void> {
     return this.http.post<void>(`${environment.apiBaseUrl}/api/auth/register`, {
