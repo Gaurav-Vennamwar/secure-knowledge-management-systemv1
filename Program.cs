@@ -43,14 +43,26 @@ builder.Services.AddSwaggerGen();
 // Database connection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("SKMSConnection"));
+  options.UseSqlServer(
+    builder.Configuration.GetConnectionString("SKMSConnection"),
+    sqlOptions => sqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 5,
+        maxRetryDelay: TimeSpan.FromSeconds(10),
+        errorNumbersToAdd: null
+    )
+);
 });
 //auth db context connection string
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("SKMSConnection"));
+  options.UseSqlServer(
+    builder.Configuration.GetConnectionString("SKMSConnection"),
+    sqlOptions => sqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 5,
+        maxRetryDelay: TimeSpan.FromSeconds(10),
+        errorNumbersToAdd: null
+    )
+);
 });
 
 
