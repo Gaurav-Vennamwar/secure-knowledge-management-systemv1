@@ -11,12 +11,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((error) => {
-      const canRefresh = error instanceof HttpErrorResponse &&
+      const canRefresh =
+        error instanceof HttpErrorResponse &&
         error.status === 401 &&
         !req.url.includes('/api/auth/refresh') &&
         !req.url.includes('/api/auth/login') &&
-        !req.url.includes('/api/auth/me') &&
-        !req.url.includes('/api/blogpost');
+        !req.url.includes('/api/auth/register') &&
+        !req.url.includes('/api/auth/logout');
 
       if (!canRefresh) {
         return throwError(() => error);
@@ -24,7 +25,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
       if (!refreshRequest$) {
         refreshRequest$ = authService.refreshToken().pipe(
-          finalize(() => refreshRequest$ = null),
+          finalize(() => (refreshRequest$ = null)),
           shareReplay(1),
         );
       }
