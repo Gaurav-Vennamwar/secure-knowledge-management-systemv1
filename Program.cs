@@ -138,6 +138,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         options.RejectionStatusCode = 429; // Too Many Requests
     });
+
+    builder.Services.AddResponseCompression(options =>
+    {
+    options.EnableForHttps = true;
+    });
+
 var app = builder.Build();
 
 app.UseRateLimiter();
@@ -149,7 +155,8 @@ app.UseRateLimiter();
             app.UseSwaggerUI();
 //}
 
-//app.UseHttpsRedirection();
+app.UseResponseCompression();
+
 app.UseCors(options =>
 {
     options.AllowAnyHeader();
@@ -164,6 +171,7 @@ app.UseCors(options =>
     options.AllowAnyMethod();
     options.AllowCredentials();
 });
+
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
         app.UseAuthentication();
