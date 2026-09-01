@@ -38,3 +38,84 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* Mobile product layer: keep every workflow usable without horizontal page scrolling. */
+@media (max-width: 767px) {
+  body { font-size: 15px; }
+
+  .container { width: min(100% - 28px, 680px); padding-right: 0; padding-left: 0; }
+
+  /* Shared editor / create / edit forms */
+  .blog-editor-wrapper, .add-category-wrapper { margin-top: 24px !important; margin-bottom: 42px !important; }
+  .blog-editor-card, .add-category-card { width: 100%; padding: 22px !important; border-radius: 18px !important; }
+  .editor-header { align-items: flex-start !important; flex-direction: column; gap: 12px; margin-bottom: 24px !important; }
+  .editor-title, .form-title { font-size: clamp(1.75rem, 9vw, 2.25rem) !important; line-height: 1.08; }
+  .editor-subtitle, .form-subtitle { font-size: 13px !important; line-height: 1.6; }
+  .editor-group { margin-bottom: 18px !important; }
+  .editor-input, .modern-input, .image-input { min-height: 48px !important; height: auto !important; padding: 11px 13px !important; font-size: 16px !important; }
+  .title-input { font-size: 17px !important; }
+  .editor-row, .form-action-area, .editor-actions, .image-section-header, .image-label-row, .section-header, .visibility-toggle { align-items: stretch !important; flex-direction: column !important; gap: 14px !important; }
+  .editor-row > .editor-group { width: 100%; }
+  .visibility-toggle { padding: 17px !important; }
+  .modern-switch { align-self: flex-start; }
+  .editor-actions { margin-top: 26px !important; padding-top: 20px !important; }
+  .editor-actions > button, .form-action-area > button, .btn-publish, .btn-delete-post, .btn-gradient-primary { width: 100%; min-height: 48px; justify-content: center; }
+  .save-status { justify-content: center; margin: 0 !important; text-align: center; }
+  .image-badge, .live-badge { align-self: flex-start; }
+  .featured-image-header, .image-section-header, .image-label-row { display: flex !important; }
+  .select-image-btn { width: 100%; min-height: 44px; justify-content: center; }
+  .image-preview-card { min-height: 190px !important; border-radius: 15px !important; }
+  .featured-preview-image { min-height: 190px; object-fit: cover; }
+
+  /* Markdown authoring: editor and preview stay readable, then stack. */
+  .editor-layout { --bs-gutter-x: 0; --bs-gutter-y: 14px; }
+  .editor-card, .preview-card { border-radius: 15px !important; }
+  .editor-textarea { min-height: 330px !important; padding: 16px !important; font-size: 15px !important; resize: vertical !important; }
+  .markdown-preview { min-height: 330px !important; max-height: 430px !important; padding: 18px !important; overflow: auto; }
+  .preview-topbar { height: auto !important; min-height: 48px; padding: 12px 14px !important; }
+  .preview-heading { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .preview-live { font-size: 9px !important; }
+  .markdown-body pre { max-width: 100%; overflow-x: auto; }
+  .markdown-body table { display: block; overflow-x: auto; white-space: nowrap; }
+  .premium-ng-select .ng-select-container { min-height: 54px !important; border-radius: 14px !important; padding: 8px 10px !important; }
+  .premium-ng-select .ng-value { max-width: 100%; padding: 7px 10px !important; }
+
+  /* Admin tables retain all data and become touch-scrollable rather than clipped. */
+  .blog-list-wrapper, .category-wrapper { margin-top: 24px !important; margin-bottom: 42px !important; }
+  .blog-list-header, .category-header, .blog-table-card, .table-wrapper { padding: 19px !important; border-radius: 16px !important; }
+  .blog-list-header, .category-header, .table-header { align-items: flex-start !important; flex-direction: column !important; gap: 14px !important; }
+  .dashboard-title, .category-title { font-size: clamp(1.6rem, 8vw, 2.1rem) !important; }
+  .btn-add-post, .btn-modern-primary { width: 100%; min-height: 45px; justify-content: center; }
+  .table-responsive { width: calc(100% + 2px); overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  .modern-blog-table, .modern-table { min-width: 720px; }
+  .modern-blog-table td, .modern-table td { padding: 12px 10px !important; }
+  .description-cell { max-width: 210px; }
+  .pagination-wrapper { flex-wrap: wrap; gap: 9px !important; margin-top: 24px !important; }
+  .pagination-btn { min-height: 42px; }
+
+  /* Full screen, finger-friendly media library. */
+  .media-modal-backdrop { align-items: flex-end !important; }
+  .media-modal { width: 100% !important; height: min(92dvh, 760px) !important; border-radius: 20px 20px 0 0 !important; }
+  .media-modal-body { padding: 12px !important; }
+  .image-manager-card { padding: 15px !important; border-radius: 15px !important; }
+  .manager-header { gap: 12px; margin-bottom: 16px !important; }
+  .manager-title { font-size: 25px !important; }
+  .manager-subtitle { font-size: 12px !important; }
+  .close-modal-btn { width: 42px !important; height: 42px !important; flex: none; }
+  .preview-panel, .upload-panel { height: auto !important; min-height: 0; border-radius: 15px !important; }
+  .image-gallery { height: auto !important; max-height: 46dvh !important; padding: 10px !important; gap: 10px !important; }
+  .image-card { width: calc(50% - 5px) !important; height: 126px !important; }
+  .image-overlay { opacity: 1 !important; padding: 8px !important; }
+  .select-asset-btn { min-height: 34px; }
+  .upload-panel { padding: 17px !important; }
+  .premium-input, .premium-file-input { min-height: 48px; font-size: 16px; }
+  .upload-btn { min-height: 48px; }
+}
+
+@media (max-width: 390px) {
+  .container { width: min(100% - 22px, 680px); }
+  .blog-editor-card, .add-category-card { padding: 17px !important; }
+  .preview-heading { max-width: 92px; }
+  .preview-live { display: none; }
+  .image-card { height: 112px !important; }
+}
