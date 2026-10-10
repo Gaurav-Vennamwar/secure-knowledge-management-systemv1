@@ -1,6 +1,12 @@
 @if (showImageSelector()) {
-  <div class="media-modal-backdrop">
-    <div class="media-modal">
+  <div
+    class="media-modal-backdrop"
+    style="position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center; padding: 14px;"
+  >
+    <div
+      class="media-modal"
+      style="width: min(94vw, 720px); height: min(88dvh, 760px); border-radius: 20px;"
+    >
       <div class="media-modal-body">
         <div class="image-manager-wrapper">
           <div class="image-manager-card">

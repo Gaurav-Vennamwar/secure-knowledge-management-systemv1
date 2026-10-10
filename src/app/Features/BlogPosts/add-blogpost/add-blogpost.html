@@ -13,6 +13,9 @@
 
     <!-- Form -->
     <form [formGroup]="addBlogPostForm" class="editor-form" (ngSubmit)="onSubmit()">
+      @if (submitError(); as error) {
+        <div class="editor-form-alert" role="alert">{{ error }}</div>
+      }
       <!-- Title -->
       <div class="editor-group">
         <label class="editor-label"> Blog Title </label>
@@ -197,7 +200,6 @@
   </div>
 
 </div>
-</div> <!-- featured-image-section -->
       <!-- Row -->
       <div class="editor-row">
         <!-- Date -->
@@ -267,9 +269,9 @@
       </div>
       <!-- Actions -->
       <div class="editor-actions">
-        <button class="btn-publish" type="submit">
+        <button class="btn-publish" type="submit" [disabled]="isPublishing()">
           <span>🚀</span>
-          <span>Publish Post</span>
+          <span>{{ isPublishing() ? 'Publishing…' : 'Publish Post' }}</span>
         </button>
       </div>
     </form>

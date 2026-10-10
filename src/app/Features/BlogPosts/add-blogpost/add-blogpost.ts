@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlogPostService } from '../Services/blog-post-service';
 import { AddBlogPostRequest } from '../Models/blogpost.model';
@@ -27,6 +27,9 @@ export class AddBlogpost {
   router = inject(Router);
 
   imageSlectorService = inject(ImageSelectorService);
+
+  isPublishing = signal(false);
+  submitError = signal<string | null>(null);
 
    //whenever the signal changes effecct gets called and it will repatch the new value
 //whenever the image gets selectedimages signal changes then the effect fetches the url 
@@ -98,20 +101,13 @@ selectedImageEffectRef = effect(() => {
   });
 
   onSubmit() {
-    console.log('SUBMIT CLICKED');
+    this.submitError.set(null);
 
     if (!this.addBlogPostForm.valid) {
-     console.log(this.addBlogPostForm.controls);
-  console.log("Title:", this.addBlogPostForm.controls.Tittle.errors);
-  console.log("Short:", this.addBlogPostForm.controls.ShortDescription.errors);
-  console.log("Content:", this.addBlogPostForm.controls.Content.errors);
-  console.log("Image:", this.addBlogPostForm.controls.FeaturedImageUrl.errors);
-  console.log("Url:", this.addBlogPostForm.controls.UrlHandle.errors);
-  console.log("Date:", this.addBlogPostForm.controls.PublishedDate.errors);
-  console.log("Author:", this.addBlogPostForm.controls.Author.errors);
-  console.log("Visible:", this.addBlogPostForm.controls.IsVisible.errors);
-  console.log("Categories:", this.addBlogPostForm.controls.Categories.errors);
-
+      this.addBlogPostForm.markAllAsTouched();
+      this.submitError.set(
+        'Please complete the required fields. Title needs at least 7 characters, the description and content need at least 10, and a cover image, URL handle, date, and author are required.'
+      );
       return;
     }
 
@@ -141,23 +137,23 @@ selectedImageEffectRef = effect(() => {
       Categories: formRawValue.Categories ?? [],
     };
 
-    console.log(JSON.stringify(requestDto));
-    console.log("CALLING API...");
-    console.log(requestDto);
+    this.isPublishing.set(true);
     this.blogPostService.createBlogPost(requestDto).subscribe({
       next: (response) => {
-        console.log('SUCCESS');
-
-        console.log(response);
-
         this.router.navigate(['/admin/blogposts']);
       },
 
       error: (err) => {
-  console.log("STATUS:", err.status);
-  console.log("ERROR BODY:", err.error);
-  console.log(err);
-},    
+        this.isPublishing.set(false);
+        if (err.status === 401 || err.status === 403) {
+          this.submitError.set('Your writer session has expired or does not have permission to publish. Please sign in again with your writer account.');
+          return;
+        }
+
+        this.submitError.set(
+          err.error?.Message || err.error?.message || 'We could not publish this post right now. Please check the details and try again.'
+        );
+      },
     });
   }
 }

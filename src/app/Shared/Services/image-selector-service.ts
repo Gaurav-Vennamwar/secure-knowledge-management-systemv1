@@ -26,13 +26,15 @@ export class ImageSelectorService {
     formData.append('tittle', tittle);
 
   
-    return this.http.post<BlogImage>(`${environment.apiBaseUrl}/api/images`, formData)
+    return this.http.post<BlogImage>(`${environment.apiBaseUrl}/api/images`, formData, {
+      withCredentials: true,
+    });
   }
   
   getAllImage(id : WritableSignal<string | undefined>) : HttpResourceRef<BlogImage[] | undefined>{
     return httpResource<BlogImage[]>(() =>{
       id();
-      return `${environment.apiBaseUrl}/api/images `;
+       return `${environment.apiBaseUrl}/api/images`;
     })
   }
 
