@@ -1,12 +1,6 @@
 @if (showImageSelector()) {
-  <div
-    class="media-modal-backdrop"
-    style="position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center; padding: 14px;"
-  >
-    <div
-      class="media-modal"
-      style="width: min(94vw, 720px); height: min(88dvh, 760px); border-radius: 20px;"
-    >
+  <div class="media-modal-backdrop">
+    <div class="media-modal" role="dialog" aria-modal="true" aria-labelledby="media-library-title">
       <div class="media-modal-body">
         <div class="image-manager-wrapper">
           <div class="image-manager-card">
@@ -15,13 +9,13 @@
             <div class="manager-header">
               <div>
                 <div class="manager-badge">📸 Media Studio</div>
-                <h2 class="manager-title">Image Manager</h2>
+                <h2 id="media-library-title" class="manager-title">Image Manager</h2>
                 <p class="manager-subtitle">
                   Upload, preview and organize visual assets for your knowledge platform
                 </p>
               </div>
-              <button type="button" class="close-modal-btn" (click)="closeImageSelector()">
-                ✕
+              <button type="button" class="close-modal-btn" (click)="closeImageSelector()" aria-label="Close media library">
+                <span aria-hidden="true">✕</span>
               </button>
             </div>
 
@@ -44,19 +38,22 @@
 
                     <div class="image-gallery">
                       @for(image of images(); track image.Id) {
-                        <div class="image-card">
-                          <img
-                            [src]="image.Url"
-                            [alt]="image.Tittle"
-                            class="gallery-image"
-                          />
-                          <div class="image-overlay" (click)="onSelectImage(image)">
-                            <span class="image-title">{{image.Tittle}}</span>
-                            <button type="button" class="select-asset-btn">
-                              Select
+                        <article class="image-card">
+                          <button type="button" class="image-select-trigger" (click)="onSelectImage(image)">
+                            <img
+                              [src]="image.Url"
+                              [alt]="image.Tittle"
+                              class="gallery-image"
+                            />
+                          </button>
+                          <div class="image-details">
+                            <p class="image-title" [title]="image.Tittle">{{ image.Tittle }}</p>
+                            <p class="image-url" [title]="image.Url">{{ image.Url }}</p>
+                            <button type="button" class="select-asset-btn" (click)="onSelectImage(image)">
+                              Use image
                             </button>
                           </div>
-                        </div>
+                        </article>
                       }
                     </div>
 

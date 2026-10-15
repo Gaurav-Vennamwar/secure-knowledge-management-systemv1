@@ -496,6 +496,161 @@
   display: block;
 }
 
+/* Final media-library layout: a centred, readable picker with visible asset details. */
+:host .media-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 8, 18, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+:host .media-modal {
+  width: min(1120px, 94vw) !important;
+  height: min(780px, 88dvh) !important;
+  border-radius: 24px !important;
+  overflow: hidden;
+  background: #f8fafc;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+}
+
+:host .media-modal-body {
+  height: 100%;
+  overflow: auto;
+  padding: 0;
+}
+
+:host .image-manager-card {
+  min-height: 100%;
+  padding: 28px;
+}
+
+:host .manager-header {
+  position: relative;
+  padding-right: 56px;
+}
+
+:host .close-modal-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 50%;
+  background: #fff;
+  color: #334155;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+:host .close-modal-btn:hover {
+  transform: rotate(90deg);
+  background: #111827;
+  color: #fff;
+}
+
+:host .preview-panel,
+:host .upload-panel {
+  height: 560px;
+}
+
+:host .image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  height: calc(100% - 56px);
+  max-height: none;
+  gap: 16px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+:host .image-card {
+  display: flex;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  cursor: default;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+:host .image-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+}
+
+:host .image-select-trigger {
+  display: block;
+  width: 100%;
+  height: 144px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: #e2e8f0;
+  cursor: pointer;
+}
+
+:host .gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 220ms ease;
+}
+
+:host .image-select-trigger:hover .gallery-image { transform: scale(1.04); }
+
+:host .image-overlay { display: none; }
+
+:host .image-details {
+  display: grid;
+  gap: 7px;
+  padding: 12px;
+}
+
+:host .image-title,
+:host .image-url {
+  margin: 0;
+  overflow: hidden;
+  color: #172033;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host .image-title { font-size: 13px; font-weight: 800; }
+
+:host .image-url { color: #64748b; font-size: 11px; }
+
+:host .select-asset-btn {
+  width: 100%;
+  min-height: 34px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+@media (max-width: 767px) {
+  :host .media-modal-backdrop { padding: 12px; }
+  :host .media-modal { width: min(100%, 680px) !important; height: min(90dvh, 760px) !important; }
+  :host .image-manager-card { padding: 20px; }
+  :host .preview-panel, :host .upload-panel { height: auto; }
+  :host .image-gallery { height: auto; max-height: 44dvh; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :host .image-select-trigger { height: 116px; }
+}
+
 .image-overlay {
   position: absolute;
   bottom: 0;
