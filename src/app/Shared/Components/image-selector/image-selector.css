@@ -263,6 +263,8 @@
 
   background: #f8fafc;
 
+  color: #0f172a;
+
   transition: 0.25s ease;
 }
 
@@ -270,6 +272,11 @@
   outline: none;
 
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+.premium-input::placeholder {
+  color: #64748b;
+  opacity: 1;
 }
 
 .premium-file-input {
@@ -565,7 +572,7 @@
 
 :host .image-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   height: calc(100% - 56px);
   max-height: none;
   gap: 16px;
@@ -596,7 +603,7 @@
 :host .image-select-trigger {
   display: block;
   width: 100%;
-  height: 144px;
+  height: 112px;
   padding: 0;
   overflow: hidden;
   border: 0;
@@ -618,12 +625,11 @@
 
 :host .image-details {
   display: grid;
-  gap: 7px;
-  padding: 12px;
+  gap: 8px;
+  padding: 10px;
 }
 
-:host .image-title,
-:host .image-url {
+:host .image-title {
   margin: 0;
   overflow: hidden;
   color: #172033;
@@ -631,9 +637,7 @@
   white-space: nowrap;
 }
 
-:host .image-title { font-size: 13px; font-weight: 800; }
-
-:host .image-url { color: #64748b; font-size: 11px; }
+:host .image-title { font-size: 12px; font-weight: 800; }
 
 :host .select-asset-btn {
   width: 100%;

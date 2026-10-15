@@ -1607,6 +1607,10 @@ overflow:hidden;
 box-shadow:
 0 25px 60px rgba(0,0,0,.15);
 
+background: #090d18 !important;
+
+border: 1px solid rgba(140,165,255,.22) !important;
+
 }
 
 
@@ -1616,6 +1620,16 @@ padding:15px 20px !important;
 
 font-weight:700;
 
+background: #090d18 !important;
+
+color: #f5f7ff !important;
+
+}
+
+::ng-deep .ng-dropdown-panel .ng-option.ng-option-marked,
+::ng-deep .ng-dropdown-panel .ng-option:hover {
+  background: #1b2742 !important;
+  color: #ffffff !important;
 }
 /* =====================================
    NG SELECT PLACEHOLDER FINAL FIX
