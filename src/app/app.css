@@ -1,16 +1,2 @@
-.app-background {
-  position: relative;
-  min-height: calc(100vh - 112px);
-  background: #f7f4ee;
-}
-
-.app-background::before,
-.app-background::after {
-  display: none;
-}
-
-.image-selector-container { position: relative; z-index: 10000; }
-
-@media (prefers-reduced-motion: reduce) {
-  .app-background::before, .app-background::after { animation: none; }
-}
+.app-background { position: relative; min-height: calc(100vh - 112px); overflow: hidden; background: #f4f5ec; }
+.app-background::before { position: fixed; z-index: 0; inset: 0; pointer-events: none; content: ''; opacity: .6; background-image: linear-gradient(rgba(18,23,18,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(18,23,18,.055) 1px, transparent 1px); background-size: 32px 32px; }.app-background::after { position: fixed; z-index: 0; top: 128px; right: clamp(12px, 5vw, 72px); width: 12px; height: min(40vh, 360px); pointer-events: none; content: ''; background: repeating-linear-gradient(to bottom, var(--lime) 0 9px, transparent 9px 18px); }.app-background > * { position: relative; z-index: 1; }.image-selector-container { position: relative; z-index: 10000; }
