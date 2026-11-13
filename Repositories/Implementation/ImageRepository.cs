@@ -56,9 +56,9 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
             {
                 File = new FileDescription(file.FileName, stream),
                 Folder = "skms-images",
-                // A unique public id prevents Cloudinary from rejecting uploads when
-                // two assets share a human-friendly file name such as "cover".
-                PublicId = $"{Path.GetFileNameWithoutExtension(blogImage.FileName)}-{Guid.NewGuid():N}"
+                // Cloudinary public IDs cannot safely contain characters such as '#'.
+                // Keep only a compact, URL-safe name before adding uniqueness.
+                PublicId = $"{CreateSafePublicId(blogImage.FileName)}-{Guid.NewGuid():N}"
             };
 
             var uploadResult = await cloudinary.UploadAsync(uploadParams);
@@ -74,6 +74,17 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
             await dbContext.SaveChangesAsync();
 
             return blogImage;
+        }
+
+        private static string CreateSafePublicId(string? fileName)
+        {
+            var safeName = new string((fileName ?? "image")
+                .ToLowerInvariant()
+                .Select(character => char.IsLetterOrDigit(character) ? character : '-')
+                .ToArray())
+                .Trim('-');
+
+            return string.IsNullOrWhiteSpace(safeName) ? "image" : safeName;
         }
     }
 }
