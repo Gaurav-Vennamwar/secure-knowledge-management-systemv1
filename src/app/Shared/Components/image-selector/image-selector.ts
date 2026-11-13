@@ -91,7 +91,14 @@ export class ImageSelector {
         },
         error :(error) =>{
           this.isUploading.set(false);
-          this.uploadError.set(error?.error?.errors?.file?.[0] || error?.error?.file?.[0] || 'Upload failed. Use a JPG, JPEG, PNG, or WEBP image under 10 MB and try again.');
+          this.uploadError.set(
+            error?.error?.errors?.file?.[0] ||
+            error?.error?.file?.[0] ||
+            error?.error?.detail ||
+            error?.error?.Message ||
+            error?.error?.message ||
+            'Upload failed. Check the API service logs, then try again.'
+          );
         }
       });
     }

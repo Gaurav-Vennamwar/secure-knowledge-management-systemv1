@@ -11,15 +11,24 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
     {
         private readonly ApplicationDbContext dbContext;
         private readonly Cloudinary cloudinary;
+        private readonly bool isConfigured;
 
         public ImageRepository(ApplicationDbContext dbContext, IConfiguration configuration)
         {
             this.dbContext = dbContext;
 
+            var cloudName = configuration["Cloudinary:CloudName"];
+            var apiKey = configuration["Cloudinary:ApiKey"];
+            var apiSecret = configuration["Cloudinary:ApiSecret"];
+
+            isConfigured = !string.IsNullOrWhiteSpace(cloudName) &&
+                !string.IsNullOrWhiteSpace(apiKey) &&
+                !string.IsNullOrWhiteSpace(apiSecret);
+
             var account = new Account(
-                configuration["Cloudinary:CloudName"],
-                configuration["Cloudinary:ApiKey"],
-                configuration["Cloudinary:ApiSecret"]
+                cloudName,
+                apiKey,
+                apiSecret
             );
 
             cloudinary = new Cloudinary(account);
@@ -35,6 +44,12 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public async Task<BlogImage> Upload(IFormFile file, BlogImage blogImage)
         {
+            if (!isConfigured)
+            {
+                throw new InvalidOperationException(
+                    "Image storage is not configured. Add Cloudinary__CloudName, Cloudinary__ApiKey, and Cloudinary__ApiSecret to the API service environment variables.");
+            }
+
             using var stream = file.OpenReadStream();
 
             var uploadParams = new ImageUploadParams

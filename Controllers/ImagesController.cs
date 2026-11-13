@@ -58,7 +58,17 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     Tittle = string.IsNullOrWhiteSpace(tittle) ? safeFileName : tittle.Trim(),
                     DateCreated = DateTime.UtcNow,
                 };
-               blogImage = await imageRepository.Upload(file, blogImage);
+                try
+                {
+                    blogImage = await imageRepository.Upload(file, blogImage);
+                }
+                catch (InvalidOperationException exception)
+                {
+                    return Problem(
+                        title: "Image upload could not be completed",
+                        detail: exception.Message,
+                        statusCode: StatusCodes.Status502BadGateway);
+                }
                 //convert domain model to dto
                 var respomse = new BlogImageDTO
                 {
