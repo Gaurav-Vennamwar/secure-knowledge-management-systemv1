@@ -10,9 +10,7 @@
               <div>
                 <div class="manager-badge">Media library</div>
                 <h2 id="media-library-title" class="manager-title">Image Manager</h2>
-                <p class="manager-subtitle">
-                  Upload, preview and organize visual assets for your knowledge platform
-                </p>
+                <p class="manager-subtitle">Choose an existing cover or upload one and use it immediately</p>
               </div>
               <button type="button" class="close-modal-btn" (click)="closeImageSelector()" aria-label="Close media library">
                 <span aria-hidden="true">✕</span>
@@ -30,10 +28,8 @@
                   <div class="preview-panel">
 
                     <div class="preview-topbar">
-                      <span class="dot red"></span>
-                      <span class="dot yellow"></span>
-                      <span class="dot green"></span>
                       <span class="preview-label">Media Library</span>
+                      <span class="asset-count">{{ images()?.length ?? 0 }} assets</span>
                     </div>
 
                     <div class="image-gallery">
@@ -72,8 +68,16 @@
 
                     <div class="mb-3">
                       <label class="upload-label">Select Image</label>
-                      <input type="file" class="premium-file-input" (change)="onFileSelected($event)"/>
+                      <label class="file-picker">
+                        <input type="file" class="premium-file-input" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" (change)="onFileSelected($event)"/>
+                        <span>Choose image</span>
+                        <small>{{ selectedFileName() }}</small>
+                      </label>
                     </div>
+
+                    @if (previewUrl(); as previewUrl) {
+                      <img class="upload-preview" [src]="previewUrl" alt="Selected upload preview" />
+                    }
 
                     <div class="mb-3">
                       <label class="upload-label">File Name</label>

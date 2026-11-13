@@ -35,19 +35,24 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public async Task<BlogImage> Upload(IFormFile file, BlogImage blogImage)
         {
-            // Step 1 — Upload to Cloudinary
             using var stream = file.OpenReadStream();
 
             var uploadParams = new ImageUploadParams
             {
-                File = new FileDescription(blogImage.FileName, stream),
+                File = new FileDescription(file.FileName, stream),
                 Folder = "skms-images",
-                PublicId = $"{blogImage.FileName}{blogImage.FileExtension}"
+                // A unique public id prevents Cloudinary from rejecting uploads when
+                // two assets share a human-friendly file name such as "cover".
+                PublicId = $"{Path.GetFileNameWithoutExtension(blogImage.FileName)}-{Guid.NewGuid():N}"
             };
 
             var uploadResult = await cloudinary.UploadAsync(uploadParams);
 
-            // Step 2 — Save to database with Cloudinary URL
+            if (uploadResult.Error is not null || uploadResult.SecureUrl is null)
+            {
+                throw new InvalidOperationException(uploadResult.Error?.Message ?? "The image host did not return a URL.");
+            }
+
             blogImage.Url = uploadResult.SecureUrl.ToString();
 
             await dbContext.BlogImages.AddAsync(blogImage);

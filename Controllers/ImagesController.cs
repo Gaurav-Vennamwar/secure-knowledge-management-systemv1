@@ -40,20 +40,23 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
 
         //POST : {apibaseurl}/api/images
         [HttpPost]
-        public async Task<IActionResult> UpdateImage([FromForm] IFormFile file ,
-            [FromForm] string fileName, [FromForm] string tittle)//getting the file imform from form data
+        public async Task<IActionResult> UpdateImage([FromForm] IFormFile? file ,
+            [FromForm] string? fileName, [FromForm] string? tittle)
         {
             ValidateFileUpload(file);
 
             if (ModelState.IsValid)
             {
-                //then we will upload file
+                var safeFileName = string.IsNullOrWhiteSpace(fileName)
+                    ? Path.GetFileNameWithoutExtension(file!.FileName)
+                    : Path.GetFileNameWithoutExtension(Path.GetFileName(fileName.Trim()));
+
                 var blogImage = new BlogImage
                 {
-                    FileExtension = Path.GetExtension(file.FileName).ToLower(),
-                    FileName = fileName,
-                    Tittle = tittle,
-                    DateCreated = DateTime.Now,
+                    FileExtension = Path.GetExtension(file!.FileName).ToLowerInvariant(),
+                    FileName = safeFileName,
+                    Tittle = string.IsNullOrWhiteSpace(tittle) ? safeFileName : tittle.Trim(),
+                    DateCreated = DateTime.UtcNow,
                 };
                blogImage = await imageRepository.Upload(file, blogImage);
                 //convert domain model to dto
@@ -72,18 +75,24 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             }
             return BadRequest(ModelState);
         }
-        private void ValidateFileUpload(IFormFile file)
+        private void ValidateFileUpload(IFormFile? file)
         {
-            var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png" };
+            if (file is null || file.Length == 0)
+            {
+                ModelState.AddModelError("file", "Choose an image before uploading.");
+                return;
+            }
+
+            var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png", ".webp" };
 
             //to see if the file is from the allowed extensions
-            if(!allowedExtensions.Contains(Path.GetExtension(file.FileName).ToLower()) )
+            if(!allowedExtensions.Contains(Path.GetExtension(file.FileName).ToLowerInvariant()) )
             {
                 //does not contain then add model error
                 ModelState.AddModelError("file", "Unsupported File Format");
              }
             //to check the size of the file
-            if (file.Length > 10485760)
+            if (file.Length > 10 * 1024 * 1024)
             {
                 ModelState.AddModelError("file", "File Size Cannot be more than 10mb");
             }

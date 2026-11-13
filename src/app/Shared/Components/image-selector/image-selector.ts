@@ -22,6 +22,8 @@ export class ImageSelector {
   images = this.imageRef.value;
   isUploading = signal(false);
   uploadError = signal<string | null>(null);
+  selectedFileName = signal('No file selected');
+  previewUrl = signal<string | null>(null);
 
   
 
@@ -49,9 +51,14 @@ export class ImageSelector {
       return;
     }
     const file = input.files[0];
+    const fileName = file.name.replace(/\.[^/.]+$/, '');
     this.imageSelectormUploadForm.patchValue({
-      file : file
+      file : file,
+      name: this.imageSelectormUploadForm.controls.name.value || fileName,
+      tittle: this.imageSelectormUploadForm.controls.tittle.value || fileName,
     });
+    this.selectedFileName.set(file.name);
+    this.previewUrl.set(URL.createObjectURL(file));
   }
 
   onSelectImage(image : BlogImage){
@@ -78,10 +85,13 @@ export class ImageSelector {
           this.id.set(reponse.Id);//unique string is coming back then the httpresource will always refresh
           this.imageSelectormUploadForm.reset();
           this.isUploading.set(false);
+          this.previewUrl.set(null);
+          this.selectedFileName.set('No file selected');
+          this.imageSelectorService.selectImage(reponse.Url);
         },
         error :(error) =>{
           this.isUploading.set(false);
-          this.uploadError.set(error?.error?.file?.[0] || 'Upload failed. Use a JPG, JPEG, or PNG under 10 MB and try again.');
+          this.uploadError.set(error?.error?.errors?.file?.[0] || error?.error?.file?.[0] || 'Upload failed. Use a JPG, JPEG, PNG, or WEBP image under 10 MB and try again.');
         }
       });
     }

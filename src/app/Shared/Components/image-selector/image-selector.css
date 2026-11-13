@@ -512,8 +512,8 @@
   align-items: center !important;
   justify-content: center;
   padding: 24px;
-  background: rgba(5, 8, 18, 0.72);
-  backdrop-filter: blur(10px);
+  background: rgba(24, 28, 32, 0.62);
+  backdrop-filter: blur(5px);
 }
 
 :host .media-modal {
@@ -521,8 +521,8 @@
   height: min(780px, 88dvh) !important;
   border-radius: 24px !important;
   overflow: hidden;
-  background: #f8fafc;
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+  background: #f5f1e9;
+  box-shadow: 0 20px 50px rgba(31, 27, 22, 0.22);
 }
 
 :host .media-modal-body {
@@ -534,6 +534,7 @@
 :host .image-manager-card {
   min-height: 100%;
   padding: 28px;
+  background: #f5f1e9;
 }
 
 :host .manager-header {
@@ -549,10 +550,10 @@
   width: 42px;
   height: 42px;
   place-items: center;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 50%;
-  background: #fff;
-  color: #334155;
+  border: 1px solid rgba(31,27,22,.16);
+  border-radius: 8px;
+  background: #fdfbf7;
+  color: #1f1b16;
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
@@ -560,8 +561,8 @@
 }
 
 :host .close-modal-btn:hover {
-  transform: rotate(90deg);
-  background: #111827;
+  transform: none;
+  background: #1f2b38;
   color: #fff;
 }
 
@@ -569,6 +570,16 @@
 :host .upload-panel {
   height: 560px;
 }
+
+:host .preview-panel {
+  background: #1f2b38;
+  background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+:host .preview-topbar { background: rgba(8,13,18,.52); }
+:host .preview-label { color: #f7f4ee; }
+:host .asset-count { margin-left: auto; color: #b8c2cc; font-family: 'Courier New', monospace; font-size: 11px; }
 
 :host .image-gallery {
   display: grid;
@@ -587,17 +598,17 @@
   min-width: 0;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background: #fdfbf7;
+  box-shadow: none;
   cursor: default;
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
 :host .image-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+  transform: none;
+  border-color: rgba(255,255,255,.52);
 }
 
 :host .image-select-trigger {
@@ -644,7 +655,17 @@
   min-height: 34px;
   border-radius: 8px;
   font-size: 12px;
+  color: #fff;
+  background: #254a70;
 }
+
+:host .upload-panel { background: #fdfbf7; }
+:host .premium-input { color: #1f1b16; background: #fffdf9; }
+:host .upload-error { margin: 0 0 12px; color: #b42318; font-size: 13px; line-height: 1.45; }
+:host .file-picker { display: grid; gap: 8px; padding: 12px; border: 1px dashed rgba(31,27,22,.25); border-radius: 8px; color: #1f1b16; background: #fffdf9; cursor: pointer; }
+:host .file-picker input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+:host .file-picker > span { color: #254a70; font-size: 14px; font-weight: 600; }.file-picker small { overflow: hidden; color: #6d665d; text-overflow: ellipsis; white-space: nowrap; }
+:host .upload-preview { width: 100%; height: 110px; margin: 0 0 16px; border-radius: 8px; object-fit: cover; }
 
 @media (max-width: 767px) {
   :host .media-modal-backdrop { padding: 12px; }
