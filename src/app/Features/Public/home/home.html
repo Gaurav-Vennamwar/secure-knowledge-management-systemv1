@@ -1,33 +1,32 @@
 <main class="home-page">
   <section class="hero-section">
     <div class="hero-copy">
-      <div class="hero-badge"><span></span> Secure knowledge workspace</div>
-      <p class="eyebrow">SKMS / .NET CAREER COMPANION</p>
-      <h1 class="hero-title">Build the skills.<br /><em>Land the role.</em></h1>
+      <p class="eyebrow">SKMS learning library</p>
+      <h1 class="hero-title">A serious reference desk for <em>.NET developers</em></h1>
       <p class="hero-subtitle">
-        A practical path from C# fundamentals to system design, DSA and the .NET interviews that define your next opportunity.
+        Read clear, structured lessons from C# fundamentals through ASP.NET Core, DSA, system design, and interview preparation.
       </p>
       <div class="hero-actions">
-        <a class="hero-primary" href="#articles">Start learning <span>↗</span></a>
+        <a class="hero-primary" href="#articles">Read the latest lessons</a>
         <a class="hero-secondary" [routerLink]="['/dashboard']">Browse learning paths</a>
       </div>
     </div>
 
     <aside class="signal-panel" aria-label="Platform highlights">
-      <div class="signal-top"><span class="signal-dot"></span> SYSTEM ONLINE <span>01</span></div>
+      <div class="signal-top">Study index <span>01</span></div>
       <div class="signal-grid">
-        <div><small>Your roadmap to</small><strong>.NET developer<br />readiness.</strong></div>
-        <div class="signal-orb"></div>
+        <div><small>A focused route to</small><strong>.NET developer<br />readiness</strong></div>
+        <div class="signal-orb">C#</div>
       </div>
       <div class="signal-lines"><i></i><i></i><i></i><i></i></div>
-      <div class="signal-footer"><span>Learn with intent</span><span>C# · .NET · SQL</span></div>
+      <div class="signal-footer"><span>Read with intent</span><span>C# · .NET · SQL</span></div>
     </aside>
   </section>
 
   <section class="library-section" id="articles">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">LATEST ACROSS EVERY TRACK</p>
+        <p class="eyebrow">Latest lessons</p>
         <h2>What to learn next.</h2>
       </div>
       <p>Fresh C#, ASP.NET Core, DSA and system-design lessons for serious .NET job preparation.</p>
@@ -48,10 +47,10 @@
                     <span class="article-index">0{{ index + 1 }}</span>
                   </a>
                   <div class="blog-content">
-                    <span class="article-chip">Knowledge article</span>
+                    <span class="article-chip">Lesson</span>
                     <h3 class="blog-title">{{ blogPost.Tittle }}</h3>
                     <p class="blog-description">{{ blogPost.ShortDescription }}</p>
-                    <a [routerLink]="['/blog', blogPost.UrlHandle]" class="read-link">Read article <span>→</span></a>
+                    <a [routerLink]="['/blog', blogPost.UrlHandle]" class="read-link">Read article</a>
                   </div>
                 </article>
               }

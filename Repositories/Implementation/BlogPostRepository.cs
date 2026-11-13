@@ -37,7 +37,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
         //method to get all blog posts
         public async Task<IEnumerable<BlogPost>> GetAllAync(int pageNumber = 1, int pageSize = 10)
         {
-            return await dbContext.BlogPosts.Include(x => x.Categories)
+            return await dbContext.BlogPosts.AsNoTracking().Include(x => x.Categories)
                  .OrderByDescending(x => x.PublishedDate)
                  .Skip((pageNumber - 1) * pageSize) //if page 1 and size is 10 then = 1-1=0 show page from 1-10 skip 0
                  .Take(pageSize)
@@ -50,14 +50,14 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public async Task<BlogPost?> GetByIdAsync(Guid id)
         {
-            return await dbContext.BlogPosts
+            return await dbContext.BlogPosts.AsNoTracking()
                 .Include(x => x.Categories)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandle)
         {
-            return await dbContext.BlogPosts
+            return await dbContext.BlogPosts.AsNoTracking()
                 .Include(x => x.Categories)
                 .FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
         }
@@ -85,7 +85,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public async Task<IEnumerable<BlogPost>> GetLatestAsync(int count)
         {
-            return await dbContext.BlogPosts
+            return await dbContext.BlogPosts.AsNoTracking()
                 .Include(x => x.Categories)
                 .Where(x => x.IsVisible)
                 .OrderByDescending(x => x.PublishedDate)
@@ -95,7 +95,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public async Task<IEnumerable<BlogPost>> GetByCategoryUrlHandleAsync(string categoryUrlHandle, int pageNumber, int pageSize)
         {
-            return await dbContext.BlogPosts
+            return await dbContext.BlogPosts.AsNoTracking()
                 .Include(post => post.Categories)
                 .Where(post => post.IsVisible && post.Categories.Any(category => category.UrlHandle == categoryUrlHandle))
                 .OrderByDescending(post => post.PublishedDate)
@@ -106,7 +106,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public Task<int> GetCountByCategoryUrlHandleAsync(string categoryUrlHandle)
         {
-            return dbContext.BlogPosts
+            return dbContext.BlogPosts.AsNoTracking()
                 .Where(post => post.IsVisible && post.Categories.Any(category => category.UrlHandle == categoryUrlHandle))
                 .CountAsync();
         }

@@ -5,21 +5,19 @@
 
 <div class="login-header">
 
-  <div class="login-badge">
-    🔐 Secure Knowledge Manager
-  </div>
+  <div class="login-badge">SKMS account</div>
 
   <h1 class="login-title">
     Welcome Back
   </h1>
 
-  <p class="login-subtitle">
-    Continue your journey of knowledge and innovation
-  </p>
+  <p class="login-subtitle">Sign in to write, edit, and manage your learning library</p>
 
 </div>
 
 <form class="login-form" [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
+
+  @if (submitError(); as error) { <p class="error-message" role="alert">{{ error }}</p> }
 
   <div class="input-group-modern">
 
@@ -62,9 +60,10 @@
   <button
     type="submit"
     class="login-btn"
+    [disabled]="isSubmitting()"
   >
 
-     Sign In
+     {{ isSubmitting() ? 'Signing in…' : 'Sign in' }}
 
   </button>
 

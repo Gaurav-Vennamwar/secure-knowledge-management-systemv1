@@ -27,7 +27,10 @@ namespace SecureKnowledgeManagementSystemv1.API.Repositories.Implementation
 
         public async Task<IEnumerable<BlogImage>> GetAll()
         {
-            return await dbContext.BlogImages.ToListAsync();
+            return await dbContext.BlogImages
+                .AsNoTracking()
+                .OrderByDescending(image => image.DateCreated)
+                .ToListAsync();
         }
 
         public async Task<BlogImage> Upload(IFormFile file, BlogImage blogImage)

@@ -26,6 +26,13 @@
           <div class="markdown-container"><markdown [data]="blog.Content"></markdown></div>
         </div>
       </article>
+    } @else {
+      <section class="article-not-found">
+        <p class="article-kicker">Article unavailable</p>
+        <h1>We could not find this post</h1>
+        <p>{{ errorMessage }}</p>
+        <a routerLink="/">Return to the library</a>
+      </section>
     }
   }
 </div>

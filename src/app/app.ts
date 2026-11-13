@@ -15,7 +15,13 @@ export class App {
   authService = inject(AuthService);
 
   constructor() {
-    // load user on app start
+    const savedUser = localStorage.getItem('user');
+    if (!savedUser) {
+      return;
+    }
+
+    // Validate a previously authenticated session without making anonymous visitors
+    // wait for an unnecessary /me -> refresh request chain.
     this.authService.loadUser().subscribe({
       next: (user) => {
         if (user) {

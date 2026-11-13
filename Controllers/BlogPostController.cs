@@ -32,6 +32,17 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         [Authorize(Roles = "Writter")]
         public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDTO request)
         {
+            var urlHandle = request.UrlHandle?.Trim().ToLowerInvariant();
+            if (string.IsNullOrWhiteSpace(urlHandle))
+            {
+                return BadRequest(ApiResponse<BlogPostDTO>.FailureResponse("A URL handle is required", 400));
+            }
+
+            if (await blogPostRepository.GetByUrlHandleAsync(urlHandle) is not null)
+            {
+                return Conflict(ApiResponse<BlogPostDTO>.FailureResponse("That URL handle is already in use. Choose a different one.", 409));
+            }
+
             //convert dto to domain model
             var blogPost = new BlogPost
             {
@@ -42,7 +53,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 FeaturedImageUrl = request.FeaturedImageUrl,
                 IsVisible = request.IsVisible,
                 Tittle = request.Tittle,
-                UrlHandle = request.UrlHandle,
+                UrlHandle = urlHandle,
                 Categories = new List<Category>()
             };
 
@@ -101,7 +112,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                     Id = blogPost.Id,
                     Author = blogPost.Author,
                     PublishedDate = blogPost.PublishedDate,
-                    Content = blogPost.Content,
+                    Content = null,
                     ShortDescription = blogPost.ShortDescription,
                     FeaturedImageUrl = blogPost.FeaturedImageUrl,
                     IsVisible = blogPost.IsVisible,
@@ -144,7 +155,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 Id = blogPost.Id,
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
-                Content = blogPost.Content,
+                Content = null,
                 ShortDescription = blogPost.ShortDescription,
                 FeaturedImageUrl = blogPost.FeaturedImageUrl,
                 IsVisible = blogPost.IsVisible,
@@ -181,7 +192,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 Id = blogPost.Id,
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
-                Content = blogPost.Content,
+                Content = null,
                 ShortDescription = blogPost.ShortDescription,
                 FeaturedImageUrl = blogPost.FeaturedImageUrl,
                 IsVisible = blogPost.IsVisible,
@@ -276,6 +287,18 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, UpdateBlogPostRequestDto request)
         {
+            var urlHandle = request.UrlHandle?.Trim().ToLowerInvariant();
+            if (string.IsNullOrWhiteSpace(urlHandle))
+            {
+                return BadRequest(ApiResponse<BlogPostDTO>.FailureResponse("A URL handle is required", 400));
+            }
+
+            var matchingPost = await blogPostRepository.GetByUrlHandleAsync(urlHandle);
+            if (matchingPost is not null && matchingPost.Id != id)
+            {
+                return Conflict(ApiResponse<BlogPostDTO>.FailureResponse("That URL handle is already in use. Choose a different one.", 409));
+            }
+
             //convert dto to domain model
             var blogPost = new BlogPost
             {
@@ -287,7 +310,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 FeaturedImageUrl = request.FeaturedImageUrl,
                 IsVisible = request.IsVisible,
                 Tittle = request.Tittle,
-                UrlHandle = request.UrlHandle,
+                UrlHandle = urlHandle,
                 Categories = new List<Category>()
             };
             //for each

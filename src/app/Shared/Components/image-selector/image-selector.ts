@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ImageSelectorService } from '../../Services/image-selector-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { form } from '@angular/forms/signals';
 import { BlogImage } from '../../Model/image.model';
 
 @Component({
@@ -21,6 +20,8 @@ export class ImageSelector {
   imageRef = this.imageSelectorService.getAllImage(this.id);
   isLoading = this.imageRef.isLoading;
   images = this.imageRef.value;
+  isUploading = signal(false);
+  uploadError = signal<string | null>(null);
 
   
 
@@ -57,9 +58,17 @@ export class ImageSelector {
     this.imageSelectorService.selectImage(image.Url);
   }
   onSubmit() {
+    this.uploadError.set(null);
+    if (this.imageSelectormUploadForm.invalid) {
+      this.imageSelectormUploadForm.markAllAsTouched();
+      this.uploadError.set('Choose an image, then add a file name and title.');
+      return;
+    }
+
     if (this.imageSelectormUploadForm.valid) {
       //submit this form
       const formRawValue = this.imageSelectormUploadForm.getRawValue();
+      this.isUploading.set(true);
       this.imageSelectorService.uploadImage(
         formRawValue.file!, // ! to tell file is not null or not undefined
         formRawValue.name,
@@ -68,9 +77,11 @@ export class ImageSelector {
         next : (reponse) => {
           this.id.set(reponse.Id);//unique string is coming back then the httpresource will always refresh
           this.imageSelectormUploadForm.reset();
+          this.isUploading.set(false);
         },
-        error :() =>{
-          console.error("Something Went Wrong")
+        error :(error) =>{
+          this.isUploading.set(false);
+          this.uploadError.set(error?.error?.file?.[0] || 'Upload failed. Use a JPG, JPEG, or PNG under 10 MB and try again.');
         }
       });
     }

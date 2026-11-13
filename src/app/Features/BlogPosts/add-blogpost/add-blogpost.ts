@@ -112,10 +112,6 @@ selectedImageEffectRef = effect(() => {
     }
 
     const formRawValue = this.addBlogPostForm.getRawValue();
-    console.log("FORM IS VALID");
-
-    console.log('Selected Categories:', formRawValue.Categories);
-
     const requestDto: AddBlogPostRequest = {
       Tittle: formRawValue.Tittle,
 

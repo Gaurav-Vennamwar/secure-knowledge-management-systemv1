@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -8,7 +8,7 @@ import { BlogPost } from '../../BlogPosts/Models/blogpost.model';
 
 @Component({
   selector: 'app-blog-details',
-  imports: [DatePipe, MarkdownComponent],
+  imports: [DatePipe, MarkdownComponent, RouterLink],
   templateUrl: './blog-details.html',
   styleUrl: './blog-details.css',
 })
@@ -19,6 +19,7 @@ export class BlogDetails implements OnInit {
 
   blogPost?: BlogPost;
   isLoading = true;
+  errorMessage = '';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -30,13 +31,14 @@ export class BlogDetails implements OnInit {
 
       this.blogPostService.getBlogPostByUrlHandleHttp(url).subscribe({
         next: (response) => {
-          console.log('RESPONSE:', response);
           this.blogPost = response.Data;
           this.isLoading = false;
           this.cdr.detectChanges(); // ← force UI update
         },
         error: (err) => {
-          console.error('ERROR:', err);
+          this.errorMessage = err.status === 404
+            ? 'This article is not available. Its link may be outdated or the post was never published.'
+            : 'We could not load this article right now. Please try again in a moment.';
           this.isLoading = false;
           this.cdr.detectChanges();
         }

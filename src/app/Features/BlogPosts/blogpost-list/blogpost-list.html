@@ -2,7 +2,7 @@
   <!-- Header -->
   <div class="blog-list-header app-card">
     <div>
-      <div class="dashboard-badge">✨ Content Management</div>
+      <div class="dashboard-badge">Content management</div>
 
       <h1 class="dashboard-title">Blog Post Management</h1>
 
@@ -10,7 +10,6 @@
     </div>
 
     <a class="btn-add-post" [routerLink]="['/admin/blogposts/add']">
-      <span>➕</span>
       <span>Add Blog Post</span>
     </a>
   </div>
@@ -32,8 +31,6 @@
     @else {
       @if (error()) {
         <div class="modern-error-card">
-          <div class="error-icon">⚠️</div>
-
           <h4>Failed to load blog posts</h4>
 
           <p>Something went wrong while loading the publishing dashboard.</p>
@@ -94,7 +91,7 @@
 
                         <!-- Author -->
                         <td>
-                          <div class="author-pill">✍ {{ blogPost.Author }}</div>
+                          <div class="author-pill">{{ blogPost.Author }}</div>
                         </td>
 
                         <!-- Visibility -->
@@ -111,8 +108,6 @@
                             @for (category of blogPost.Categories; track category.Id) {
                               <div class="category-pill">
                                 <div class="pill-glow"></div>
-
-                                <span class="pill-icon"> ✦ </span>
 
                                 <span class="pill-name">
                                   {{ category.Name }}

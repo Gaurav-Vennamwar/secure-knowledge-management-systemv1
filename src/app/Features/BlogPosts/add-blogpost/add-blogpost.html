@@ -2,7 +2,7 @@
   <div class="blog-editor-card app-card">
     <!-- Header -->
     <div class="editor-header">
-      <div class="editor-badge">🚀 Publishing Studio</div>
+      <div class="editor-badge">Publishing workspace</div>
 
       <h1 class="editor-title">Create Blog Post</h1>
 
@@ -68,7 +68,7 @@
 
           <label class="editor-label"> Blog Content </label>
 
-          <div class="live-badge">● Live Preview</div>
+          <div class="live-badge">Live preview</div>
         </div>
 
         <div class="row editor-layout">
@@ -106,7 +106,7 @@
 
                 <div class="preview-heading">README.md</div>
 
-                <div class="preview-live">● LIVE</div>
+                <div class="preview-live">Preview</div>
               </div>
 
               <!-- PREVIEW BODY -->
@@ -131,7 +131,7 @@
             <p class="image-subtitle">Add a stunning visual banner for your blog post</p>
           </div>
 
-          <div class="image-badge">✨ Live Preview</div>
+          <div class="image-badge">Cover preview</div>
         </div>
         
 
@@ -171,7 +171,6 @@
     >
 
       <span class="btn-icon">
-        🖼️
       </span>
 
       <span>
@@ -187,7 +186,6 @@
   <div class="image-input-wrapper">
 
     <div class="image-input-icon">
-      🌄
     </div>
 
     <input
@@ -247,7 +245,7 @@
           </div>
 
           <div class="section-badge">
-            📚 {{ (categoriesResponse()?.Data ?? []).length }}
+            {{ (categoriesResponse()?.Data ?? []).length }}
             Categories
           </div>
         </div>
@@ -271,7 +269,6 @@
       <!-- Actions -->
       <div class="editor-actions">
         <button class="btn-publish" type="submit" [disabled]="isPublishing()">
-          <span>🚀</span>
           <span>{{ isPublishing() ? 'Publishing…' : 'Publish Post' }}</span>
         </button>
       </div>
