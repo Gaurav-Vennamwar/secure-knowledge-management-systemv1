@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, effect, inject, input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { BlogPostService } from '../Services/blog-post-service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CategoryService } from '../../Category/Services/category-service';
@@ -29,34 +29,13 @@ export class EditBlogpost {
   categoriesResponse = this.categoriesRef.value;
 
   editBlogPostForm = new FormGroup({
-    Tittle: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(7), Validators.maxLength(100)],
-    }),
-    ShortDescription: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(200)],
-    }),
-    Content: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(10)],
-    }),
-    FeaturedImageUrl: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.maxLength(200)],
-    }),
-    UrlHandle: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.maxLength(200)],
-    }),
-    PublishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    Author: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.maxLength(100)],
-    }),
+    Tittle: new FormControl<string>('', { nonNullable: true }),
+    ShortDescription: new FormControl<string>('', { nonNullable: true }),
+    Content: new FormControl<string>('', { nonNullable: true }),
+    FeaturedImageUrl: new FormControl<string>('', { nonNullable: true }),
+    UrlHandle: new FormControl<string>('', { nonNullable: true }),
+    PublishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], { nonNullable: true }),
+    Author: new FormControl<string>('', { nonNullable: true }),
     IsVisible: new FormControl<boolean>(true, {
       nonNullable: true,
     }),
@@ -95,7 +74,7 @@ export class EditBlogpost {
 
   onSubmit() {
     const id = this.id();
-    if (id && this.editBlogPostForm.valid) {
+    if (id) {
       const formValue = this.editBlogPostForm.getRawValue();
 
       const updateBlogPostRequestDto: UpdateBlogPostRequest = {

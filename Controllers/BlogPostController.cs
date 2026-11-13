@@ -32,11 +32,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         [Authorize(Roles = "Writter")]
         public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDTO request)
         {
-            var urlHandle = request.UrlHandle?.Trim().ToLowerInvariant();
-            if (string.IsNullOrWhiteSpace(urlHandle))
-            {
-                return BadRequest(ApiResponse<BlogPostDTO>.FailureResponse("A URL handle is required", 400));
-            }
+            var urlHandle = CreateUrlHandle(request.UrlHandle, request.Tittle);
 
             if (await blogPostRepository.GetByUrlHandleAsync(urlHandle) is not null)
             {
@@ -46,13 +42,13 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             //convert dto to domain model
             var blogPost = new BlogPost
             {
-                Author = request.Author,
-                PublishedDate = request.PublishedDate,
-                Content = request.Content,
-                ShortDescription = request.ShortDescription,
-                FeaturedImageUrl = request.FeaturedImageUrl,
+                Author = request.Author ?? string.Empty,
+                PublishedDate = request.PublishedDate == default ? DateTime.UtcNow : request.PublishedDate,
+                Content = request.Content ?? string.Empty,
+                ShortDescription = request.ShortDescription ?? string.Empty,
+                FeaturedImageUrl = request.FeaturedImageUrl ?? string.Empty,
                 IsVisible = request.IsVisible,
-                Tittle = request.Tittle,
+                Tittle = request.Tittle ?? string.Empty,
                 UrlHandle = urlHandle,
                 Categories = new List<Category>()
             };
@@ -287,11 +283,7 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, UpdateBlogPostRequestDto request)
         {
-            var urlHandle = request.UrlHandle?.Trim().ToLowerInvariant();
-            if (string.IsNullOrWhiteSpace(urlHandle))
-            {
-                return BadRequest(ApiResponse<BlogPostDTO>.FailureResponse("A URL handle is required", 400));
-            }
+            var urlHandle = CreateUrlHandle(request.UrlHandle, request.Tittle);
 
             var matchingPost = await blogPostRepository.GetByUrlHandleAsync(urlHandle);
             if (matchingPost is not null && matchingPost.Id != id)
@@ -303,13 +295,13 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
             var blogPost = new BlogPost
             {
                 Id=id,
-                Author = request.Author,
-                PublishedDate = request.PublishedDate,
-                Content = request.Content,
-                ShortDescription = request.ShortDescription,
-                FeaturedImageUrl = request.FeaturedImageUrl,
+                Author = request.Author ?? string.Empty,
+                PublishedDate = request.PublishedDate == default ? DateTime.UtcNow : request.PublishedDate,
+                Content = request.Content ?? string.Empty,
+                ShortDescription = request.ShortDescription ?? string.Empty,
+                FeaturedImageUrl = request.FeaturedImageUrl ?? string.Empty,
                 IsVisible = request.IsVisible,
-                Tittle = request.Tittle,
+                Tittle = request.Tittle ?? string.Empty,
                 UrlHandle = urlHandle,
                 Categories = new List<Category>()
             };
@@ -380,6 +372,25 @@ namespace SecureKnowledgeManagementSystemv1.API.Controllers
                 UrlHandle = deletedBlogPost.UrlHandle,
             };
             return Ok(ApiResponse<BlogPostDTO>.SuccessResponse(response, "BlogPost deleted successfully"));
+        }
+
+        private static string CreateUrlHandle(string? requestedHandle, string? title)
+        {
+            var wasProvided = !string.IsNullOrWhiteSpace(requestedHandle);
+            var source = wasProvided ? requestedHandle! : title ?? string.Empty;
+            var normalized = new string(source
+                .Trim()
+                .ToLowerInvariant()
+                .Select(character => char.IsLetterOrDigit(character) ? character : '-')
+                .ToArray())
+                .Trim('-');
+
+            if (string.IsNullOrWhiteSpace(normalized))
+            {
+                normalized = "post";
+            }
+
+            return wasProvided ? normalized : $"{normalized}-{Guid.NewGuid():N}";
         }
     }
     }

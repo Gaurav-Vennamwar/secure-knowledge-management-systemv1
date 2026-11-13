@@ -1,5 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BlogPostService } from '../Services/blog-post-service';
 import { AddBlogPostRequest } from '../Models/blogpost.model';
 import { Router } from '@angular/router';
@@ -48,47 +48,19 @@ selectedImageEffectRef = effect(() => {
   categoriesResponse = this.categoriesResourceRef.value;
 
   addBlogPostForm = new FormGroup({
-    Tittle: new FormControl<string>('', {
-      nonNullable: true,
+    Tittle: new FormControl<string>('', { nonNullable: true }),
 
-      validators: [Validators.required, Validators.minLength(7), Validators.maxLength(100)],
-    }),
+    ShortDescription: new FormControl<string>('', { nonNullable: true }),
 
-    ShortDescription: new FormControl<string>('', {
-      nonNullable: true,
+    Content: new FormControl<string>('', { nonNullable: true }),
 
-      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(200)],
-    }),
+    FeaturedImageUrl: new FormControl<string>('', { nonNullable: true }),
 
-    Content: new FormControl<string>('', {
-      nonNullable: true,
+    UrlHandle: new FormControl<string>('', { nonNullable: true }),
 
-      validators: [Validators.required, Validators.minLength(10)],
-    }),
+    PublishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], { nonNullable: true }),
 
-    FeaturedImageUrl: new FormControl<string>('', {
-      nonNullable: true,
-
-      validators: [Validators.required, Validators.maxLength(200)],
-    }),
-
-    UrlHandle: new FormControl<string>('', {
-      nonNullable: true,
-
-      validators: [Validators.required, Validators.maxLength(200)],
-    }),
-
-    PublishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], {
-      nonNullable: true,
-
-      validators: [Validators.required],
-    }),
-
-    Author: new FormControl<string>('', {
-      nonNullable: true,
-
-      validators: [Validators.required, Validators.maxLength(100)],
-    }),
+    Author: new FormControl<string>('', { nonNullable: true }),
 
     IsVisible: new FormControl<boolean>(true, {
       nonNullable: true,
@@ -102,14 +74,6 @@ selectedImageEffectRef = effect(() => {
 
   onSubmit() {
     this.submitError.set(null);
-
-    if (!this.addBlogPostForm.valid) {
-      this.addBlogPostForm.markAllAsTouched();
-      this.submitError.set(
-        'Please complete the required fields. Title needs at least 7 characters, the description and content need at least 10, and a cover image, URL handle, date, and author are required.'
-      );
-      return;
-    }
 
     const formRawValue = this.addBlogPostForm.getRawValue();
     const requestDto: AddBlogPostRequest = {
